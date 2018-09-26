@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SmartMoney</string>
+    <!-- tab -->
+    <string name="tab_cost">记账</string>
+    <string name="tab_finanical">理财</string>
+    <string name="tab_note">备忘录</string>
+    <string name="tab_about">我的</string>
+    <string name="tab_calculator">计算器</string>
+</resources>
