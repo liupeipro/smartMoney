@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.peil.smartmoney.R;
 import com.peil.smartmoney.base.BaseFragment;
-import com.peil.smartmoney.cost.CostFragment;
 
 
 public class NoteFragment extends BaseFragment {

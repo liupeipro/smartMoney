@@ -1,4 +1,4 @@
-package com.peil.smartmoney.about;
+package com.peil.smartmoney.cost;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,26 +8,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.peil.smartmoney.R;
-import com.peil.smartmoney.base.BaseFragment;
+import com.peil.smartmoney.base.BaseBackFragment;
 
 
-public class AboutFragment extends BaseFragment {
+public class CostOutFragment extends BaseBackFragment {
 
-    public static AboutFragment newInstance() {
-
+    public static CostOutFragment newInstance() {
         Bundle args = new Bundle();
-
-        AboutFragment fragment = new AboutFragment();
+        CostOutFragment fragment = new CostOutFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_about, container, false);
+        View view = inflater.inflate(R.layout.frag_cost_out, container, false);
+        initView(view);
         return view;
+    }
+
+    private void initView(View view) {
     }
 
     @Override

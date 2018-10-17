@@ -9,5 +9,31 @@
     <dimen name="fab_margin">24dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="bottombar_height">48dp</dimen>
+    <dimen name="bottombar_width">200dp</dimen>
     <dimen name="bottombar_wechat_height">52dp</dimen>
+    <dimen name="view_inputamount_height">250dp</dimen>
+    <dimen name="view_inputamount_item_height">350dp</dimen>
+
+    <!-- padding -->
+    <dimen name="height_1">1dp</dimen>
+    <dimen name="height_48">38dp</dimen>
+    <dimen name="height_24">24dp</dimen>
+
+    <!-- font -->
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_18">18sp</dimen>
+    <dimen name="font_size_20">20sp</dimen>
+    <dimen name="font_size_22">22sp</dimen>
+    <dimen name="font_size_28">28sp</dimen>
+
+
+    <!-- padding -->
+    <dimen name="padding_6">6dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="padding_14">14dp</dimen>
 </resources>

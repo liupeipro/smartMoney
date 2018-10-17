@@ -3,7 +3,6 @@ package com.peil.smartmoney.base;
 import android.content.Context;
 
 import com.peil.smartmoney.calculator.CalculatorFragment;
-import com.peil.smartmoney.cost.CostFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 

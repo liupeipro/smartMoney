@@ -1,6 +1,5 @@
 package com.peil.smartmoney;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 
@@ -24,7 +23,6 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class MainActivity extends SupportActivity implements BaseFragment.OnBackToFirstListener {
 
 
-    //    private SupportFragment[] mFragments = new SupportFragment[3];
     private List<SupportFragment> mFragments = new ArrayList<SupportFragment>();
 
     private BottomBar mBottomBar;
@@ -62,33 +60,6 @@ public class MainActivity extends SupportActivity implements BaseFragment.OnBack
                 .addItem(new BottomBarTab(this, R.mipmap.ic_account_circle_white_24dp, getString(R.string.tab_about)));
 
 
-        // 模拟未读消息
-//        mBottomBar.getItem(0).setUnreadCount(9);
-//        mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(int position, int prePosition) {
-//                showHideFragment(mFragments.get(position), mFragments.get(prePosition));
-//
-//                BottomBarTab tab = mBottomBar.getItem(0);
-//                if (position == 0) {
-//                    tab.setUnreadCount(0);
-//                } else {
-//                    tab.setUnreadCount(tab.getUnreadCount() + 1);
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(int position) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(int position) {
-//                // 在FirstPagerFragment,FirstHomeFragment中接收, 因为是嵌套的Fragment
-//                // 主要为了交互: 重选tab 如果列表不在顶部则移动到顶部,如果已经在顶部,则刷新
-////                EventBusActivityScope.getDefault(_mActivity).post(new TabSelectedEvent(position));
-//            }
-//        });
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override

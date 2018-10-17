@@ -26,7 +26,7 @@ public class BottomBar extends LinearLayout {
     private final Interpolator mInterpolator = new AccelerateDecelerateInterpolator();
     private boolean mVisible = true;
 
-    private List<BottomBarTab> mTabs = new ArrayList<>();
+    private List<IBarTab> mTabs = new ArrayList<IBarTab>();
 
     private LinearLayout mTabLayout;
 
@@ -63,8 +63,8 @@ public class BottomBar extends LinearLayout {
         mTabParams.weight = 1;
     }
 
-    public BottomBar addItem(final BottomBarTab tab) {
-        tab.setOnClickListener(new OnClickListener() {
+    public BottomBar addItem(final IBarTab tab) {
+        tab.setTabOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener == null) return;
@@ -74,16 +74,16 @@ public class BottomBar extends LinearLayout {
                     mListener.onTabReselected(pos);
                 } else {
                     mListener.onTabSelected(pos, mCurrentPosition);
-                    tab.setSelected(true);
+                    tab.setTabSelected(true);
                     mListener.onTabUnselected(mCurrentPosition);
-                    mTabs.get(mCurrentPosition).setSelected(false);
+                    mTabs.get(mCurrentPosition).setTabSelected(false);
                     mCurrentPosition = pos;
                 }
             }
         });
         tab.setTabPosition(mTabLayout.getChildCount());
-        tab.setLayoutParams(mTabParams);
-        mTabLayout.addView(tab);
+        tab.setTabLayoutParams(mTabParams);
+        mTabLayout.addView(tab.getTabView());
         mTabs.add(tab);
         return this;
     }
@@ -108,7 +108,7 @@ public class BottomBar extends LinearLayout {
     /**
      * 获取 Tab
      */
-    public BottomBarTab getItem(int index) {
+    public IBarTab getItem(int index) {
         if (mTabs.size() < index) return null;
         return mTabs.get(index);
     }

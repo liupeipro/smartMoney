@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--点击背景-->
+    <item android:state_pressed="true">
+        <shape>
+            <!--色值-->
+            <solid android:color="@color/qmui_config_color_gray_7" />
+            <!--圆角-->
+            <corners android:radius="0dp" />
+        </shape>
+    </item>
+    <item android:state_focused="true">
+        <shape>
+            <!--色值-->
+            <solid android:color="@color/qmui_config_color_gray_7" />
+            <!--圆角-->
+            <corners android:radius="0dp" />
+        </shape>
+    </item>
+
+    <item android:state_enabled="false">
+        <shape>
+            <!--色值-->
+            <solid android:color="@color/qmui_config_color_white" />
+            <!--圆角-->
+            <corners android:radius="0dp" />
+        </shape>
+    </item>
+
+    <!--默认背景-->
+    <item>
+        <shape>
+            <solid android:color="@color/qmui_config_color_white" />
+            <corners android:radius="0dp" />
+            <padding android:bottom="8dp" android:left="22dp" android:right="22dp" android:top="8dp"/>
+        </shape>
+    </item>
+</selector>

@@ -9,18 +9,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cost"
+        android:text="Cost_out"
         tools:layout_editor_absoluteX="57dp"
         tools:layout_editor_absoluteY="30dp" />
 
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="103dp" />
 </RelativeLayout>
