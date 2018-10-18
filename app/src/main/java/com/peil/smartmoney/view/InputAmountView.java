@@ -18,8 +18,6 @@ public class InputAmountView extends RelativeLayout {
 
 
     public interface OnAmountClickListener {
-        int getAmount();
-
         void onAmountDone(float amount);
     }
 

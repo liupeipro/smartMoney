@@ -6,13 +6,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.peil.smartmoney.R;
-import com.peil.smartmoney.model.CostAddItemType;
-import com.peil.smartmoney.model.CostItem;
+import com.peil.smartmoney.model.CostItemType;
 
 /**
  * 添加记账-类型
  */
-public class CoastAddTypeAdapter extends AbsMultiTypeAdapter<CostAddItemType> {
+public class CoastAddTypeAdapter extends AbsSelectedAdaspter<CostItemType> {
 
     public static class CostAddTypeVHolder extends BaseViewHolder {
         public TextView tv_name;
@@ -20,6 +19,12 @@ public class CoastAddTypeAdapter extends AbsMultiTypeAdapter<CostAddItemType> {
         public CostAddTypeVHolder(View itemView) {
             super(itemView);
             tv_name = mItemView.findViewById(R.id.tv_name);
+        }
+
+        public void update(CostItemType itemType, boolean hasSelected) {
+            tv_name.setText(itemType.getCostTypeName());
+
+            mItemView.setBackgroundColor(mContext.getColor(hasSelected ? R.color.qmui_config_color_white : R.color.qmui_config_color_red));
         }
 
     }
@@ -41,7 +46,7 @@ public class CoastAddTypeAdapter extends AbsMultiTypeAdapter<CostAddItemType> {
     @Override
     protected void onBindViewHolder(BaseViewHolder viewHolder, int position) {
         CostAddTypeVHolder holder = (CostAddTypeVHolder) viewHolder;
-        CostAddItemType item = getItem(position);
+        CostItemType item = getItem(position);
         holder.tv_name.setText(item.getCostTypeName());
     }
 

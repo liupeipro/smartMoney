@@ -14,7 +14,8 @@
         android:id="@+id/img_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/ic_launcher_round"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv_name"

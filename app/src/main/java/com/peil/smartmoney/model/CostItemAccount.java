@@ -1,15 +1,15 @@
 package com.peil.smartmoney.model;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 
 /**
  * 账户
  */
 @Entity
-public class CostAddItemAccount {
+public class CostItemAccount {
 
     @Id(autoincrement = true)
     private Long _id;
@@ -19,21 +19,21 @@ public class CostAddItemAccount {
     @NotNull
     public String costAccountame;
 
-    public CostAddItemAccount(String icon, String name) {
+    public CostItemAccount(String icon, String name) {
         this.costAccountIcon = icon;
         this.costAccountame = name;
     }
 
-    @Generated(hash = 793796370)
-    public CostAddItemAccount(Long _id, String costAccountIcon,
+    @Generated(hash = 925208979)
+    public CostItemAccount(Long _id, String costAccountIcon,
             @NotNull String costAccountame) {
         this._id = _id;
         this.costAccountIcon = costAccountIcon;
         this.costAccountame = costAccountame;
     }
 
-    @Generated(hash = 237310920)
-    public CostAddItemAccount() {
+    @Generated(hash = 719143901)
+    public CostItemAccount() {
     }
 
     public Long get_id() {
