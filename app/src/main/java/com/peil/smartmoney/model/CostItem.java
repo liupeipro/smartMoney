@@ -1,19 +1,18 @@
 package com.peil.smartmoney.model;
 
-
+import com.peil.smartmoney.util.TimeUtil;
+import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-
 import com.peil.smartmoney.greendao.gen.DaoSession;
+import com.peil.smartmoney.greendao.gen.CostItemAmountTypeDao;
 import com.peil.smartmoney.greendao.gen.CostItemAccountDao;
 import com.peil.smartmoney.greendao.gen.CostItemTypeDao;
 import com.peil.smartmoney.greendao.gen.CostItemDao;
-import com.peil.smartmoney.util.TimeUtil;
-import com.peil.smartmoney.greendao.gen.CostItemAmountTypeDao;
 
 /**
  * Bean 对象注释的解释
@@ -47,320 +46,352 @@ import com.peil.smartmoney.greendao.gen.CostItemAmountTypeDao;
  * H、@Convert定义当前标识的实体和数据表中字段之间装换规则.converter表示转换器.columnType表示对应的数据表列名在表中的数据类型,
  */
 @Entity
-public class CostItem {
+public class CostItem implements Serializable {
+  private static final long serialVersionUID = 6907590454728853579L;
 
-    @Id(autoincrement = true)
-    private Long _id;
+  /**
+   * 金额
+   */
+  @NotNull
+  String costAmount = "";
 
-    //    外键
-    private Long costTypeId;
-    private Long costAccountId;
-    private Long costAmountTypeId;
-    /**
-     * 金额类别：吃喝、交通。。。
-     */
-    @ToOne(joinProperty = "costTypeId")
-    CostItemType costType = null;
+  /**
+   * 记录日期
+   */
+  @NotNull
+  Long costDate = null;
 
-    /**
-     * 账户
-     */
-    @ToOne(joinProperty = "costAccountId")
-    CostItemAccount costAccount = null;
+  /**
+   * 创建时间
+   */
+  @NotNull
+  Long createTime = null;
 
-    /**
-     * 金额
-     */
-    @NotNull
-    String costAmount = "";
+  /**
+   * 最后修改时间
+   */
+  @NotNull
+  Long lastModifyTime = null;
 
-    /**
-     * 记录日期
-     */
-    @NotNull
-    Long costDate = null;
-
-    /**
-     * 金额类型：收入 支出
-     */
-    @NotNull
-    @ToOne(joinProperty = "costAmountTypeId")
-    CostItemAmountType costAmountType = null;
-
-    /**
-     * 创建时间
-     */
-    @NotNull
-    Long createTime = null;
-
-    /**
-     * 最后修改时间
-     */
-    @NotNull
-    Long lastModifyTime = null;
-
-    /**
-     * Used to resolve relations
-     */
-    @Generated(hash = 2040040024)
-    private transient DaoSession daoSession;
-
-    /**
-     * Used for active entity operations.
-     */
-    @Generated(hash = 335225705)
-    private transient CostItemDao myDao;
+  /**
+   * 备注
+   */
+  String remark = "";
 
 
-    @Generated(hash = 531894926)
-    public CostItem(Long _id, Long costTypeId, Long costAccountId, Long costAmountTypeId,
-                    @NotNull String costAmount, @NotNull Long costDate, @NotNull Long createTime,
-                    @NotNull Long lastModifyTime) {
-        this._id = _id;
-        this.costTypeId = costTypeId;
-        this.costAccountId = costAccountId;
-        this.costAmountTypeId = costAmountTypeId;
-        this.costAmount = costAmount;
-        this.costDate = costDate;
-        this.createTime = createTime;
-        this.lastModifyTime = lastModifyTime;
+  @Id(autoincrement = true)
+  private Long _id;
+
+  // 外键
+  private Long costTypeId;
+  private Long costAccountId;
+  private Long costAmountTypeId;
+
+  /**
+   * 金额类别：吃喝、交通。。。
+   * 在insert时，将otherUserInfoId同一对一关联的OtherUserInfoBean的主键id绑定
+   */
+  @ToOne(joinProperty = "costTypeId")
+  CostItemType costType;
+
+  /**
+   * 账户
+   */
+  @ToOne(joinProperty = "costAccountId")
+  CostItemAccount costAccount;
+
+  /**
+   * 金额类型：收入 支出
+   */
+  @NotNull
+  @ToOne(joinProperty = "costAmountTypeId")
+  CostItemAmountType costAmountType;
+
+  /** Used to resolve relations */
+  @Generated(hash = 2040040024)
+  private transient DaoSession daoSession;
+
+  /** Used for active entity operations. */
+  @Generated(hash = 335225705)
+  private transient CostItemDao myDao;
+
+  @Generated(hash = 2023228916)
+  public CostItem(@NotNull String costAmount, @NotNull Long costDate,
+          @NotNull Long createTime, @NotNull Long lastModifyTime, String remark, Long _id,
+          Long costTypeId, Long costAccountId, Long costAmountTypeId) {
+      this.costAmount = costAmount;
+      this.costDate = costDate;
+      this.createTime = createTime;
+      this.lastModifyTime = lastModifyTime;
+      this.remark = remark;
+      this._id = _id;
+      this.costTypeId = costTypeId;
+      this.costAccountId = costAccountId;
+      this.costAmountTypeId = costAmountTypeId;
+  }
+
+  @Generated(hash = 716453317)
+  public CostItem() {
+  }
+
+  @Generated(hash = 1431160105)
+  private transient Long costType__resolvedKey;
+
+  @Generated(hash = 2136258578)
+  private transient Long costAccount__resolvedKey;
+
+  @Generated(hash = 1257445021)
+  private transient Long costAmountType__resolvedKey;
+
+  /**
+   * 更新外键的数据实体
+   */
+  public void updateLinkEntity() {
+    //getCostType();
+    //getCostAccount();
+    //getCostAmountType();
+  }
+
+  public String getTempCostDate() {
+    String result = "";
+
+    if (costDate != null) {
+      result = TimeUtil.millis2Str(costDate, "yyyy-MM-dd");
     }
 
-    @Generated(hash = 716453317)
-    public CostItem() {
+    return result;
+  }
+
+  /**
+   * @param date
+   */
+  public void setTempCostDate(String date) {
+    costDate = (TimeUtil.str2Millis(date, "yyyy-MM-dd"));
+  }
+
+  public String getTempCreateTime() {
+    String result = "";
+
+    if (costDate != null) {
+      result = TimeUtil.millis2Str(createTime, "yyyy-MM-dd hh:mm:ss");
     }
 
-    @Generated(hash = 1431160105)
-    private transient Long costType__resolvedKey;
+    return result;
+  }
 
-    @Generated(hash = 2136258578)
-    private transient Long costAccount__resolvedKey;
+  public String getTempLastModifyTime() {
+    String result = "";
 
-    @Generated(hash = 1257445021)
-    private transient Long costAmountType__resolvedKey;
-
-
-    /**
-     * @param date
-     */
-    public void setTempCostDate(String date) {
-        setCostDate(TimeUtil.str2Millis(date, "yyyy-MM-dd"));
+    if (costDate != null) {
+      result = TimeUtil.millis2Str(lastModifyTime, "yyyy-MM-dd hh:mm:ss");
     }
 
-    public String getTempCostDate() {
-        String result = "";
-        result = TimeUtil.millis2Str(getCostDate(), "yyyy-MM-dd");
-        return result;
-    }
+    return result;
+  }
 
-    public Long get_id() {
-        return this._id;
-    }
+  public String getCostAmount() {
+      return this.costAmount;
+  }
 
-    public void set_id(Long _id) {
-        this._id = _id;
-    }
+  public void setCostAmount(String costAmount) {
+      this.costAmount = costAmount;
+  }
 
-    public Long getCostTypeId() {
-        return this.costTypeId;
-    }
+  public Long getCostDate() {
+      return this.costDate;
+  }
 
-    public void setCostTypeId(Long costTypeId) {
-        this.costTypeId = costTypeId;
-    }
+  public void setCostDate(Long costDate) {
+      this.costDate = costDate;
+  }
 
-    public Long getCostAccountId() {
-        return this.costAccountId;
-    }
+  public Long getCreateTime() {
+      return this.createTime;
+  }
 
-    public void setCostAccountId(Long costAccountId) {
-        this.costAccountId = costAccountId;
-    }
+  public void setCreateTime(Long createTime) {
+      this.createTime = createTime;
+  }
 
-    public Long getCostAmountTypeId() {
-        return this.costAmountTypeId;
-    }
+  public Long getLastModifyTime() {
+      return this.lastModifyTime;
+  }
 
-    public void setCostAmountTypeId(Long costAmountTypeId) {
-        this.costAmountTypeId = costAmountTypeId;
-    }
+  public void setLastModifyTime(Long lastModifyTime) {
+      this.lastModifyTime = lastModifyTime;
+  }
 
-    public String getCostAmount() {
-        return this.costAmount;
-    }
+  public String getRemark() {
+      return this.remark;
+  }
 
-    public void setCostAmount(String costAmount) {
-        this.costAmount = costAmount;
-    }
+  public void setRemark(String remark) {
+      this.remark = remark;
+  }
 
-    public Long getCostDate() {
-        return this.costDate;
-    }
+  public Long get_id() {
+      return this._id;
+  }
 
-    public void setCostDate(Long costDate) {
-        this.costDate = costDate;
-    }
+  public void set_id(Long _id) {
+      this._id = _id;
+  }
 
-    public Long getCreateTime() {
-        return this.createTime;
-    }
+  public Long getCostTypeId() {
+      return this.costTypeId;
+  }
 
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
+  public void setCostTypeId(Long costTypeId) {
+      this.costTypeId = costTypeId;
+  }
 
-    public Long getLastModifyTime() {
-        return this.lastModifyTime;
-    }
+  public Long getCostAccountId() {
+      return this.costAccountId;
+  }
 
-    public void setLastModifyTime(Long lastModifyTime) {
-        this.lastModifyTime = lastModifyTime;
-    }
+  public void setCostAccountId(Long costAccountId) {
+      this.costAccountId = costAccountId;
+  }
 
-    /**
-     * To-one relationship, resolved on first access.
-     */
-    @Generated(hash = 2028115332)
-    public CostItemType getCostType() {
-        Long __key = this.costTypeId;
-        if (costType__resolvedKey == null || !costType__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            CostItemTypeDao targetDao = daoSession.getCostItemTypeDao();
-            CostItemType costTypeNew = targetDao.load(__key);
-            synchronized (this) {
-                costType = costTypeNew;
-                costType__resolvedKey = __key;
-            }
-        }
-        return costType;
-    }
+  public Long getCostAmountTypeId() {
+      return this.costAmountTypeId;
+  }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
-    @Generated(hash = 701205377)
-    public void setCostType(CostItemType costType) {
-        synchronized (this) {
-            this.costType = costType;
-            costTypeId = costType == null ? null : costType.get_id();
-            costType__resolvedKey = costTypeId;
-        }
-    }
+  public void setCostAmountTypeId(Long costAmountTypeId) {
+      this.costAmountTypeId = costAmountTypeId;
+  }
 
-    /**
-     * To-one relationship, resolved on first access.
-     */
-    @Generated(hash = 665416236)
-    public CostItemAccount getCostAccount() {
-        Long __key = this.costAccountId;
-        if (costAccount__resolvedKey == null || !costAccount__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            CostItemAccountDao targetDao = daoSession.getCostItemAccountDao();
-            CostItemAccount costAccountNew = targetDao.load(__key);
-            synchronized (this) {
-                costAccount = costAccountNew;
-                costAccount__resolvedKey = __key;
-            }
-        }
-        return costAccount;
-    }
+  /** To-one relationship, resolved on first access. */
+  @Generated(hash = 2028115332)
+  public CostItemType getCostType() {
+      Long __key = this.costTypeId;
+      if (costType__resolvedKey == null || !costType__resolvedKey.equals(__key)) {
+          final DaoSession daoSession = this.daoSession;
+          if (daoSession == null) {
+              throw new DaoException("Entity is detached from DAO context");
+          }
+          CostItemTypeDao targetDao = daoSession.getCostItemTypeDao();
+          CostItemType costTypeNew = targetDao.load(__key);
+          synchronized (this) {
+              costType = costTypeNew;
+              costType__resolvedKey = __key;
+          }
+      }
+      return costType;
+  }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
-    @Generated(hash = 648860675)
-    public void setCostAccount(CostItemAccount costAccount) {
-        synchronized (this) {
-            this.costAccount = costAccount;
-            costAccountId = costAccount == null ? null : costAccount.get_id();
-            costAccount__resolvedKey = costAccountId;
-        }
-    }
+  /** called by internal mechanisms, do not call yourself. */
+  @Generated(hash = 701205377)
+  public void setCostType(CostItemType costType) {
+      synchronized (this) {
+          this.costType = costType;
+          costTypeId = costType == null ? null : costType.get_id();
+          costType__resolvedKey = costTypeId;
+      }
+  }
 
-    /**
-     * To-one relationship, resolved on first access.
-     */
-    @Generated(hash = 1336909163)
-    public CostItemAmountType getCostAmountType() {
-        Long __key = this.costAmountTypeId;
-        if (costAmountType__resolvedKey == null
-                || !costAmountType__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            CostItemAmountTypeDao targetDao = daoSession.getCostItemAmountTypeDao();
-            CostItemAmountType costAmountTypeNew = targetDao.load(__key);
-            synchronized (this) {
-                costAmountType = costAmountTypeNew;
-                costAmountType__resolvedKey = __key;
-            }
-        }
-        return costAmountType;
-    }
+  /** To-one relationship, resolved on first access. */
+  @Generated(hash = 665416236)
+  public CostItemAccount getCostAccount() {
+      Long __key = this.costAccountId;
+      if (costAccount__resolvedKey == null || !costAccount__resolvedKey.equals(__key)) {
+          final DaoSession daoSession = this.daoSession;
+          if (daoSession == null) {
+              throw new DaoException("Entity is detached from DAO context");
+          }
+          CostItemAccountDao targetDao = daoSession.getCostItemAccountDao();
+          CostItemAccount costAccountNew = targetDao.load(__key);
+          synchronized (this) {
+              costAccount = costAccountNew;
+              costAccount__resolvedKey = __key;
+          }
+      }
+      return costAccount;
+  }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
-    @Generated(hash = 448877316)
-    public void setCostAmountType(CostItemAmountType costAmountType) {
-        synchronized (this) {
-            this.costAmountType = costAmountType;
-            costAmountTypeId = costAmountType == null ? null : costAmountType.get_id();
-            costAmountType__resolvedKey = costAmountTypeId;
-        }
-    }
+  /** called by internal mechanisms, do not call yourself. */
+  @Generated(hash = 648860675)
+  public void setCostAccount(CostItemAccount costAccount) {
+      synchronized (this) {
+          this.costAccount = costAccount;
+          costAccountId = costAccount == null ? null : costAccount.get_id();
+          costAccount__resolvedKey = costAccountId;
+      }
+  }
 
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 128553479)
-    public void delete() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.delete(this);
-    }
+  /** To-one relationship, resolved on first access. */
+  @Generated(hash = 1336909163)
+  public CostItemAmountType getCostAmountType() {
+      Long __key = this.costAmountTypeId;
+      if (costAmountType__resolvedKey == null
+              || !costAmountType__resolvedKey.equals(__key)) {
+          final DaoSession daoSession = this.daoSession;
+          if (daoSession == null) {
+              throw new DaoException("Entity is detached from DAO context");
+          }
+          CostItemAmountTypeDao targetDao = daoSession.getCostItemAmountTypeDao();
+          CostItemAmountType costAmountTypeNew = targetDao.load(__key);
+          synchronized (this) {
+              costAmountType = costAmountTypeNew;
+              costAmountType__resolvedKey = __key;
+          }
+      }
+      return costAmountType;
+  }
 
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 1942392019)
-    public void refresh() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.refresh(this);
-    }
+  /** called by internal mechanisms, do not call yourself. */
+  @Generated(hash = 448877316)
+  public void setCostAmountType(CostItemAmountType costAmountType) {
+      synchronized (this) {
+          this.costAmountType = costAmountType;
+          costAmountTypeId = costAmountType == null ? null : costAmountType.get_id();
+          costAmountType__resolvedKey = costAmountTypeId;
+      }
+  }
 
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 713229351)
-    public void update() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.update(this);
-    }
+  /**
+   * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+   * Entity must attached to an entity context.
+   */
+  @Generated(hash = 128553479)
+  public void delete() {
+      if (myDao == null) {
+          throw new DaoException("Entity is detached from DAO context");
+      }
+      myDao.delete(this);
+  }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
-    @Generated(hash = 1401460910)
-    public void __setDaoSession(DaoSession daoSession) {
-        this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getCostItemDao() : null;
-    }
+  /**
+   * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+   * Entity must attached to an entity context.
+   */
+  @Generated(hash = 1942392019)
+  public void refresh() {
+      if (myDao == null) {
+          throw new DaoException("Entity is detached from DAO context");
+      }
+      myDao.refresh(this);
+  }
+
+  /**
+   * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+   * Entity must attached to an entity context.
+   */
+  @Generated(hash = 713229351)
+  public void update() {
+      if (myDao == null) {
+          throw new DaoException("Entity is detached from DAO context");
+      }
+      myDao.update(this);
+  }
+
+  /** called by internal mechanisms, do not call yourself. */
+  @Generated(hash = 1401460910)
+  public void __setDaoSession(DaoSession daoSession) {
+      this.daoSession = daoSession;
+      myDao = daoSession != null ? daoSession.getCostItemDao() : null;
+  }
 
 
+  // -------------------------------自动注入代码部分---开始
 }

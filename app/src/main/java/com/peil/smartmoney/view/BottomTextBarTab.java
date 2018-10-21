@@ -12,18 +12,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.peil.smartmoney.R;
-
 
 /**
  * Created by YoKeyword on 16/6/3.
  */
 public class BottomTextBarTab extends FrameLayout implements IBarTab {
+    private int      mTabPosition = -1;
     private TextView mTvTitle;
-    private Context mContext;
-    private int mTabPosition = -1;
-
+    private Context  mContext;
 
     public BottomTextBarTab(Context context, CharSequence title) {
         this(context, null, title);
@@ -38,49 +35,70 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         init(context, title);
     }
 
+    private int dip2px(Context context, float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                               dp,
+                                               context.getResources().getDisplayMetrics());
+    }
+
     private void init(Context context, CharSequence title) {
         mContext = context;
-        TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
-        Drawable drawable = typedArray.getDrawable(0);
+
+        TypedArray typedArray = context.obtainStyledAttributes(new int[] { R.attr.selectableItemBackgroundBorderless });
+        Drawable   drawable   = typedArray.getDrawable(0);
+
         setBackgroundDrawable(drawable);
         typedArray.recycle();
 
         LinearLayout lLContainer = new LinearLayout(context);
+
         lLContainer.setOrientation(LinearLayout.VERTICAL);
         lLContainer.setGravity(Gravity.CENTER);
-        LayoutParams paramsContainer = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        LayoutParams paramsContainer = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                        ViewGroup.LayoutParams.WRAP_CONTENT);
+
         paramsContainer.gravity = Gravity.CENTER;
         lLContainer.setLayoutParams(paramsContainer);
-
-
         mTvTitle = new TextView(context);
         mTvTitle.setText(title);
-        LinearLayout.LayoutParams paramsTv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        paramsTv.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics());
-        mTvTitle.setTextSize(10);
+
+        LinearLayout.LayoutParams paramsTv = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                                           ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        paramsTv.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                                             10,
+                                                             getResources().getDisplayMetrics());
+        paramsTv.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                                                10,
+                                                                getResources().getDisplayMetrics());
+        paramsTv.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                                              10,
+                                                              getResources().getDisplayMetrics());
+        paramsTv.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                                               10,
+                                                               getResources().getDisplayMetrics());
+        mTvTitle.setTextSize(16);
         mTvTitle.setTextColor(ContextCompat.getColor(context, R.color.tab_unselect));
         mTvTitle.setLayoutParams(paramsTv);
         lLContainer.addView(mTvTitle);
-
         addView(lLContainer);
-
     }
 
     @Override
     public void setSelected(boolean selected) {
         super.setSelected(selected);
+
         if (selected) {
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.app_color_blue));
         } else {
             mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.tab_unselect));
         }
     }
 
-    public void setTabPosition(int position) {
-        mTabPosition = position;
-        if (position == 0) {
-            setSelected(true);
-        }
+    @Override
+    public void setTabLayoutParams(LinearLayout.LayoutParams params) {
+        super.setLayoutParams(params);
     }
 
     @Override
@@ -88,19 +106,16 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         super.setOnClickListener(listener);
     }
 
-    @Override
-    public void setTabLayoutParams(LinearLayout.LayoutParams params) {
-
-        super.setLayoutParams(params);
-    }
-
-    @Override
-    public View getTabView() {
-        return this;
-    }
-
     public int getTabPosition() {
         return mTabPosition;
+    }
+
+    public void setTabPosition(int position) {
+        mTabPosition = position;
+
+        if (position == 0) {
+            setSelected(true);
+        }
     }
 
     @Override
@@ -108,7 +123,11 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         setSelected(selected);
     }
 
-    private int dip2px(Context context, float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+    @Override
+    public View getTabView() {
+        return this;
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

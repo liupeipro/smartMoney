@@ -30,4 +30,41 @@
     <color name="tab_panel_bg">#ffffff</color>
     <color name="tab_panel_divider">@color/bar_divider</color>
 
+
+    <color name="transparent">#00000000</color>
+    <color name="view_container_bg">#F5F5F5</color>
+    <color name="text_plus">#00A600</color>
+    <color name="text_sub">#FF5151</color>
+    <color name="black_333333">#333333</color>
+    <color name="black_666666">#666666</color>
+    <color name="black_999999">#999999</color>
+
+
+    <!-- 配置 chart -->
+    <color name="chart_1">#9D9D9D</color>
+    <color name="chart_2">#FF5151</color>
+    <color name="chart_3">#FF95CA</color>
+    <color name="chart_4">#9F35FF</color>
+    <color name="chart_5">#2828FF</color>
+    <color name="chart_6">#0072E3</color>
+    <color name="chart_7">#00CACA</color>
+    <color name="chart_8">#02DF82</color>
+    <color name="chart_9">#00DB00</color>
+    <color name="chart_10">#DDDDFF</color>
+    <color name="chart_11">#C4E1FF</color>
+    <color name="chart_12">#D9FFFF</color>
+    <color name="chart_13">#D7FFEE</color>
+    <color name="chart_14">#CEFFCE</color>
+    <color name="chart_15">#64A600</color>
+    <color name="chart_16">#737300</color>
+    <color name="chart_17">#977C00</color>
+    <color name="chart_18">#BB5E00</color>
+    <color name="chart_19">#F75000</color>
+    <color name="chart_20">#AD5A5A</color>
+    <color name="chart_21">#A5A552</color>
+    <color name="chart_22">#5CADAD</color>
+    <color name="chart_23">#B3D9D9</color>
+    <color name="chart_24">#C07AB8</color>
+
+
 </resources>

@@ -1,20 +1,12 @@
 package com.peil.smartmoney.base;
 
 import android.content.Context;
-
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class BaseBackFragment extends SupportFragment {
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     /**
@@ -25,7 +17,15 @@ public class BaseBackFragment extends SupportFragment {
     @Override
     public boolean onBackPressedSupport() {
         _mActivity.finish();
+
         return true;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

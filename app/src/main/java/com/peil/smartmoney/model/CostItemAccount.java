@@ -1,39 +1,38 @@
 package com.peil.smartmoney.model;
 
+import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Unique;
 
 /**
  * 账户
  */
 @Entity
-public class CostItemAccount {
-
+public class CostItemAccount implements Serializable {
+    private static final long serialVersionUID = -7576337145879831388L;
     @Id(autoincrement = true)
-    private Long _id;
-
-    public String costAccountIcon;
-
+    private Long              _id;
+    public String             costAccountIcon;
     @NotNull
-    public String costAccountame;
+    @Unique
+    public String             costAccountame;
+
+    @Generated(hash = 719143901)
+    public CostItemAccount() {}
 
     public CostItemAccount(String icon, String name) {
         this.costAccountIcon = icon;
-        this.costAccountame = name;
+        this.costAccountame  = name;
     }
 
     @Generated(hash = 925208979)
-    public CostItemAccount(Long _id, String costAccountIcon,
-            @NotNull String costAccountame) {
-        this._id = _id;
+    public CostItemAccount(Long _id, String costAccountIcon, @NotNull String costAccountame) {
+        this._id             = _id;
         this.costAccountIcon = costAccountIcon;
-        this.costAccountame = costAccountame;
-    }
-
-    @Generated(hash = 719143901)
-    public CostItemAccount() {
+        this.costAccountame  = costAccountame;
     }
 
     public Long get_id() {
@@ -59,5 +58,5 @@ public class CostItemAccount {
     public void setCostAccountame(String costAccountame) {
         this.costAccountame = costAccountame;
     }
-
 }
+

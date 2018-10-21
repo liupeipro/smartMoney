@@ -5,43 +5,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by hoperun01 on 2017/3/11.
  */
-
 public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
-
-    protected Context mContext;
-    protected LayoutInflater mInflater;
     protected ArrayList<T> mData = new ArrayList<T>();
-    //管理选中的状态，选中后的ID会add到里面，移除了就删除掉
+
+    // 管理选中的状态，选中后的ID会add到里面，移除了就删除掉
     private ArrayList<Integer> mSelectedArray = new ArrayList<Integer>();
+    protected Context          mContext;
+    protected LayoutInflater   mInflater;
 
     public AbsSelectedAdaspter(Context c) {
-        mContext = c;
+        mContext  = c;
         mInflater = LayoutInflater.from(mContext);
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        BaseViewHolder holder = null;
-        if (convertView == null) {
-            convertView = mInflater.inflate(getLayoutResId(position), null);
-
-            holder = onCreateViewHolder(convertView, parent,
-                    getItemViewType(position));
-
-            convertView.setTag(holder);
-        } else {
-            holder = (BaseViewHolder) convertView.getTag();
+    public void add(T t) {
+        if (t != null) {
+            mData.add(t);
         }
+    }
 
-        onBindViewHolder(holder, position);
-        return convertView;
+    public void add(int index, T t) {
+        if (t != null) {
+            mData.add(index, t);
+        }
     }
 
     /**
@@ -51,22 +43,27 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
      */
     public void addAll(List<T> d) {
         mData.clear();
+
         if (d != null) {
             mData.addAll(d);
         }
+
         notifyDataSetChanged();
     }
 
-    public void add(T t) {
-        if (t != null) {
-            mData.add(t);
-        }
-    }
+    /**
+     * 设置选中的ID并更新
+     *
+     * @param selectedArray
+     */
+    public void addAllSelectedArray(ArrayList<Integer> selectedArray) {
+        mSelectedArray.clear();
 
-    public void add(int index,T t) {
-        if (t != null) {
-            mData.add(index,t);
+        if (selectedArray != null) {
+            mSelectedArray.addAll(selectedArray);
         }
+
+        notifyDataSetChanged();
     }
 
     /**
@@ -75,6 +72,55 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
     public void clear() {
         mData.clear();
         notifyDataSetChanged();
+    }
+
+    /**
+     * 清除存储选中id的list
+     */
+    public void clearSelectedArray() {
+        mSelectedArray.clear();
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 克隆选中的list
+     *
+     * @param cloneList 克隆后保存的对象
+     */
+    public void cloneSelectedArray(ArrayList<Integer> cloneList) {
+        if (cloneList != null) {
+            cloneList.clear();
+
+            for (Integer i : mSelectedArray) {
+                cloneList.add(i);
+            }
+        }
+    }
+
+    /* 绑定ViewHolder 对象里的数据 */
+    protected abstract void onBindViewHolder(BaseViewHolder viewHolder, int position);
+
+    /* 创建 ViewHolder */
+    protected abstract BaseViewHolder onCreateViewHolder(View view, ViewGroup parent, int viewType);
+
+    /**
+     * 移除选中标志
+     *
+     * @param positon
+     */
+    public void removeSelectedState(int positon) {
+
+        // 如果有该值，则删除
+        if (hasSelected(positon)) {
+
+            // remove的是value。需要转换成Object类型来做删除
+            mSelectedArray.remove(Integer.valueOf(positon));
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return mData.size();
     }
 
     @Override
@@ -87,35 +133,8 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
         return position;
     }
 
-    @Override
-    public int getCount() {
-        return mData.size();
-    }
-
-    /**
-     * 设置选中标志
-     *
-     * @param position
-     */
-    public void setSelectedState(int position) {
-        // 如果没有该值，则添加
-        if (!hasSelected(position)) {
-            mSelectedArray.add(position);
-        }
-    }
-
-    /**
-     * 移除选中标志
-     *
-     * @param positon
-     */
-    public void removeSelectedState(int positon) {
-        // 如果有该值，则删除
-        if (hasSelected(positon)) {
-            //remove的是value。需要转换成Object类型来做删除
-            mSelectedArray.remove(Integer.valueOf(positon));
-        }
-    }
+    /* LAYOUT ID */
+    protected abstract int getLayoutResId(int position);
 
     /**
      * 该value在 list中是否存在
@@ -127,51 +146,61 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
         return mSelectedArray.contains(position);
     }
 
-    /**
-     * 清除存储选中id的list
-     */
-    public void clearSelectedArray() {
-        mSelectedArray.clear();
-        notifyDataSetChanged();
+    public List<Integer> getSelectedArray() {
+        return mSelectedArray;
     }
 
-    /**
-     * 设置选中的ID并更新
-     *
-     * @param selectedArray
-     */
-    public void addAllSelectedArray(ArrayList<Integer> selectedArray) {
-        mSelectedArray.clear();
-        if (selectedArray != null) {
-            mSelectedArray.addAll(selectedArray);
+    public Integer getSelectedIndex(int position) {
+        Integer result = -1;
+
+        if (hasSelected(position)) {
+            result = mSelectedArray.get(position);
         }
-        notifyDataSetChanged();
+
+        return result;
+    }
+
+    public T getSelectedItem(int position) {
+        T       result    = null;
+        Integer tempIndex = getSelectedIndex(position);
+
+        if (tempIndex != -1) {
+            result = getItem(tempIndex);
+        }
+
+        return result;
     }
 
     /**
-     * 克隆选中的list
+     * 设置选中标志
      *
-     * @param cloneList 克隆后保存的对象
+     * @param position
      */
-    public void cloneSelectedArray(ArrayList<Integer> cloneList) {
-        if (cloneList != null) {
-            cloneList.clear();
-            for (Integer i : mSelectedArray) {
-                cloneList.add(i);
-            }
+    public void setSelectedState(int position) {
+
+        // 如果没有该值，则添加
+        if (!hasSelected(position)) {
+            mSelectedArray.add(position);
         }
     }
 
-    /* LAYOUT ID */
-    protected abstract int getLayoutResId(int position);
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        BaseViewHolder holder = null;
 
-    /* 创建 ViewHolder */
-    protected abstract BaseViewHolder onCreateViewHolder(View view,
-                                                           ViewGroup parent, int viewType);
+        if (convertView == null) {
+            convertView = mInflater.inflate(getLayoutResId(position), null);
+            holder      = onCreateViewHolder(convertView, parent, getItemViewType(position));
+            convertView.setTag(holder);
+        } else {
+            holder = (BaseViewHolder) convertView.getTag();
+        }
 
-    /* 绑定ViewHolder 对象里的数据 */
-    protected abstract void onBindViewHolder(BaseViewHolder viewHolder,
-                                             int position);
+        onBindViewHolder(holder, position);
 
-
+        return convertView;
+    }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/view_container_bg"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/bar_top"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tab_about"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-</android.support.constraint.ConstraintLayout>
+        app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back" />
+
+</LinearLayout>

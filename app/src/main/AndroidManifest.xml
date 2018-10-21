@@ -19,7 +19,11 @@
         </activity>
         <activity
             android:name=".cost.CostAddActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".cost.CostCheckActivity"></activity>
+        <activity
+            android:name=".calculator.CalculatorFilterActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
     </application>
 
 </manifest>
