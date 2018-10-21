@@ -8,19 +8,18 @@ public class RefreshLayout extends QMUIPullRefreshLayout {
     public RefreshLayout(Context context) {
         super(context);
     }
-
+    
     public RefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
+    
     public RefreshLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
+    
     public void doRefresh() {
         onRefresh();
     }
 }
-
 
 //~ Formatted by Jindent --- http://www.jindent.com

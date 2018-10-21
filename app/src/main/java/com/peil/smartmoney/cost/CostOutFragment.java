@@ -10,33 +10,31 @@ import com.peil.smartmoney.R;
 import com.peil.smartmoney.base.BaseBackFragment;
 
 public class CostOutFragment extends BaseBackFragment {
-    private void initView(View view) {}
-
+    private void initView(View view) {
+    }
+    
     public static CostOutFragment newInstance() {
-        Bundle          args     = new Bundle();
+        Bundle args = new Bundle();
         CostOutFragment fragment = new CostOutFragment();
-
+        
         fragment.setArguments(args);
-
+        
         return fragment;
     }
-
-    @Nullable
-    @Override
+    
+    @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_cost_out, container, false);
-
+        
         initView(view);
-
+        
         return view;
     }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+    
+    @Override public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
     }
 }
-
 
 //~ Formatted by Jindent --- http://www.jindent.com
