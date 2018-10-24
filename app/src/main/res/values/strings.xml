@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">SmartMoney</string>
+  <string name="app_name">记账理财</string>
   <!-- tab -->
   <string name="tab_cost">记账</string>
   <string name="tab_finanical">理财</string>

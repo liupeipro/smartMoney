@@ -20,7 +20,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 public class CostCheckActivity extends BaseActivity {
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_del:
@@ -39,12 +39,12 @@ public class CostCheckActivity extends BaseActivity {
             }
         }
     };
-    CostItem mItem;
+    private CostItem mItem;
     private QMUITopBarLayout bar_top;
-    TextView tv_amount;
-    QMUIRoundButton btn_del;
-    QMUIGroupListView mGroupListView;
-    QMUICommonListItemView itemAccount, itemCreateTime, itemLastModifyTime, itemRemark;
+    private TextView tv_amount;
+    private QMUIRoundButton btn_del;
+    private QMUIGroupListView mGroupListView;
+    private QMUICommonListItemView itemAccount, itemCreateTime, itemLastModifyTime, itemRemark;
     
     private void doDeleteRecord() {
         MoneyApplication.getDaoInstant().getCostItemDao().delete(mItem);
@@ -82,10 +82,6 @@ public class CostCheckActivity extends BaseActivity {
         btn_del.setOnClickListener(mOnClickListener);
         mGroupListView = findViewById(R.id.groupListView);
         
-        //      金额类型
-        //      itemAmountTypeView = mGroupListView.createItemView(null, "", "",
-        //              QMUICommonListItemView.HORIZONTAL,
-        //              QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         //      账户
         itemAccount =
             mGroupListView.createItemView(null, "账户", "", QMUICommonListItemView.HORIZONTAL,

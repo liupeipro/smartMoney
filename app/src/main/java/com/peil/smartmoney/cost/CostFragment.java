@@ -21,6 +21,7 @@ import com.peil.smartmoney.greendao.gen.CostItemDao;
 import com.peil.smartmoney.model.CostItem;
 import com.peil.smartmoney.model.CostListItem;
 import com.peil.smartmoney.model.CostListItemSectioner;
+import com.peil.smartmoney.model.NoteItem;
 import com.peil.smartmoney.util.GsonUtils;
 import com.peil.smartmoney.util.MoneyConstants;
 import com.peil.smartmoney.util.ReceiverUtils;
@@ -32,7 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CostFragment extends BaseFragment {
-    BroadcastReceiver mUpdateReceiver = new BroadcastReceiver() {
+    
+    private BroadcastReceiver mUpdateReceiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(ReceiverUtils.RECEIVER_COST_LIST_UPDATE)) {
                 pull_to_refresh.doRefresh();
@@ -40,10 +42,10 @@ public class CostFragment extends BaseFragment {
         }
     };
     private QMUITopBarLayout bar_top;
-    RefreshLayout pull_to_refresh;
-    PinnedSectionListView listview;
-    CostListAdapter mListAdapter;
-    List<CostItem> mListData;
+    private RefreshLayout pull_to_refresh;
+    private PinnedSectionListView listview;
+    private CostListAdapter mListAdapter;
+    private List<CostItem> mListData;
     
     private void gotoCheck(CostItem item) {
         Intent intent = new Intent(_mActivity, CostCheckActivity.class);
@@ -97,6 +99,13 @@ public class CostFragment extends BaseFragment {
                                                   .queryBuilder()
                                                   .orderDesc(CostItemDao.Properties.CostDate)
                                                   .list();
+    
+        //// 获取数据库中所有备忘录列表
+        //List<NoteItem> tempData = MoneyApplication.getDaoInstant()
+        //                                          .getNoteItemDao()
+        //                                          .queryBuilder()
+        //                                          .orderDesc(NoteItem.Properties.createTime)
+        //                                          .list();
         
         mListAdapter.addAll(parseCostItem(tempData));
         pull_to_refresh.finishRefresh();

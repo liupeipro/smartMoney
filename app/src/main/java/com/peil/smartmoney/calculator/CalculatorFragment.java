@@ -57,13 +57,6 @@ public class CalculatorFragment extends BaseFragment {
     
     // public static final String CALCULATOR_COST_CHART_TYPE="calculator_cost_chart_type";
     List<CalculatorListItem> mListData = new ArrayList<>();
-    protected String[] mParties = new String[] {
-        "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
-        "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
-        "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
-        "Party Y", "Party Z"
-    };
-    public Integer[] mColors;
     private List<CostItemAmountType> mAmountTypes = new ArrayList<>();
     private BottomBar.OnTabSelectedListener mOnTabSelectedListener =
         new BottomBar.OnTabSelectedListener() {
@@ -100,10 +93,10 @@ public class CalculatorFragment extends BaseFragment {
         };
     private QMUITopBarLayout bar_top;
     private BottomBar mBottomBar;
-    TextView tv_time;
-    PieChart chart_pie;
-    ListView listview;
-    CalculatorListAdapter mListAdapter;
+    private TextView tv_time;
+    private PieChart chart_pie;
+    private ListView listview;
+    private CalculatorListAdapter mListAdapter;
     
     private void firstInitData() {
         updateData(mAmountTypes.get(0));
@@ -166,17 +159,6 @@ public class CalculatorFragment extends BaseFragment {
     @Override public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mListAdapter = new CalculatorListAdapter(_mActivity);
-        mColors = new Integer[] {
-            getContext().getColor(R.color.chart_1), getContext().getColor(R.color.chart_2),
-            getContext().getColor(R.color.chart_3), getContext().getColor(R.color.chart_4),
-            getContext().getColor(R.color.chart_5), getContext().getColor(R.color.chart_6),
-            getContext().getColor(R.color.chart_7), getContext().getColor(R.color.chart_8),
-            getContext().getColor(R.color.chart_9), getContext().getColor(R.color.chart_10),
-            getContext().getColor(R.color.chart_11), getContext().getColor(R.color.chart_12),
-            getContext().getColor(R.color.chart_13), getContext().getColor(R.color.chart_14),
-            getContext().getColor(R.color.chart_15), getContext().getColor(R.color.chart_16),
-            getContext().getColor(R.color.chart_17)
-        };
     }
     
     @Nullable @Override
@@ -249,7 +231,6 @@ public class CalculatorFragment extends BaseFragment {
             CalculatorListItem item = data.get(i);
             entries.add(new PieEntry((Float.valueOf(String.valueOf(item.getTotalAmount()))),
                                      item.getScaleIn()));
-            colors.add(mColors[i]);
         }
         
         listview.addHeaderView(getListHeader(entries, colors));
@@ -292,7 +273,7 @@ public class CalculatorFragment extends BaseFragment {
                                      .orderDesc(CostItemDao.Properties.CostDate)
                                      .list();
         }
-        
+        //
         return result;
     }
     

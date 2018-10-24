@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.peil.smartmoney.R;
 import com.peil.smartmoney.base.BaseFragment;
+import com.peil.smartmoney.base.MoneyApplication;
+import com.peil.smartmoney.model.FinanicalItem;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import java.util.List;
 
 public class FinanicalFragment extends BaseFragment {
     private QMUITopBarLayout bar_top;
@@ -23,6 +26,9 @@ public class FinanicalFragment extends BaseFragment {
                        //              startActivity(new Intent(_mActivity.getApplicationContext(), CostAddActivity.class));
                    }
                });
+        
+        List<FinanicalItem> items =
+            MoneyApplication.getDaoInstant().getFinanicalItemDao().loadAll();
     }
     
     public static FinanicalFragment newInstance() {

@@ -24,6 +24,10 @@
     <activity
         android:name=".calculator.CalculatorFilterActivity"
         android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+    <activity android:name=".about.AboutActivity">
+    </activity>
+    <activity android:name=".about.IntroduceActivity">
+    </activity>
   </application>
 
 </manifest>
