@@ -9,12 +9,12 @@ import android.support.v4.content.LocalBroadcastManager;
 public class BaseActivity extends Activity {
     protected LocalBroadcastManager mLocalBroadcast;
     
-    public void registerLocalReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+    public void registerLocalReceiver(BroadcastReceiver receiver , IntentFilter filter) {
         if (null == mLocalBroadcast) {
             mLocalBroadcast = LocalBroadcastManager.getInstance(getApplicationContext());
         }
         
-        mLocalBroadcast.registerReceiver(receiver, filter);
+        mLocalBroadcast.registerReceiver(receiver , filter);
     }
     
     @Override public void sendBroadcast(Intent intent) {
@@ -34,4 +34,4 @@ public class BaseActivity extends Activity {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

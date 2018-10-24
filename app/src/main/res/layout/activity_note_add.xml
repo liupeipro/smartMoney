@@ -5,30 +5,36 @@
     android:layout_height="match_parent"
     android:background="@color/view_container_bg"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/height_48"
     >
-
 
   <com.qmuiteam.qmui.widget.QMUITopBarLayout
       android:id="@+id/bar_top"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
       app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back"
+
       />
 
-  <com.peil.smartmoney.view.RefreshLayout
-      android:id="@+id/pull_to_refresh"
+  <com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
+      android:id="@+id/item_choose_date"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_48"
+      app:qmui_accessory_type="none"
+      />
+
+  <EditText
+      android:id="@+id/et_title"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_48"
+      />
+
+  <EditText
+      android:id="@+id/et_content"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      >
+      />
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        />
-  </com.peil.smartmoney.view.RefreshLayout>
 
 </LinearLayout>

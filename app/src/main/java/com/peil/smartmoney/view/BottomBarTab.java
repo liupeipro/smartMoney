@@ -28,26 +28,26 @@ public class BottomBarTab extends FrameLayout implements IBarTab {
     private Context mContext;
     private TextView mTvUnreadCount;
     
-    public BottomBarTab(Context context, @DrawableRes int icon, CharSequence title) {
-        this(context, null, icon, title);
+    public BottomBarTab(Context context , @DrawableRes int icon , CharSequence title) {
+        this(context , null , icon , title);
     }
     
-    public BottomBarTab(Context context, AttributeSet attrs, int icon, CharSequence title) {
-        this(context, attrs, 0, icon, title);
+    public BottomBarTab(Context context , AttributeSet attrs , int icon , CharSequence title) {
+        this(context , attrs , 0 , icon , title);
     }
     
-    public BottomBarTab(Context context, AttributeSet attrs, int defStyleAttr, int icon,
+    public BottomBarTab(Context context , AttributeSet attrs , int defStyleAttr , int icon ,
                         CharSequence title) {
-        super(context, attrs, defStyleAttr);
-        init(context, icon, title);
+        super(context , attrs , defStyleAttr);
+        init(context , icon , title);
     }
     
-    private int dip2px(Context context, float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                                               context.getResources().getDisplayMetrics());
+    private int dip2px(Context context , float dp) {
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , dp ,
+                                              context.getResources().getDisplayMetrics());
     }
     
-    private void init(Context context, int icon, CharSequence title) {
+    private void init(Context context , int icon , CharSequence title) {
         mContext = context;
         
         TypedArray typedArray =
@@ -62,52 +62,55 @@ public class BottomBarTab extends FrameLayout implements IBarTab {
         lLContainer.setOrientation(LinearLayout.VERTICAL);
         lLContainer.setGravity(Gravity.CENTER);
         
-        LayoutParams paramsContainer = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        LayoutParams paramsContainer = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT ,
                                                         ViewGroup.LayoutParams.WRAP_CONTENT);
-        
+    
+        int paddingContainer = dip2px(context , 8);
         paramsContainer.gravity = Gravity.CENTER;
+        //lLContainer.setPadding(paddingContainer,paddingContainer,paddingContainer,paddingContainer);
+        
         lLContainer.setLayoutParams(paramsContainer);
         mIcon = new ImageView(context);
         
-        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 27,
-                                                   getResources().getDisplayMetrics());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
+        int size = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 27 ,
+                                                  getResources().getDisplayMetrics());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size , size);
         
         mIcon.setImageResource(icon);
         mIcon.setLayoutParams(params);
-        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.tab_unselect));
+        mIcon.setColorFilter(ContextCompat.getColor(context , R.color.tab_unselect));
         lLContainer.addView(mIcon);
         mTvTitle = new TextView(context);
         mTvTitle.setText(title);
         
         LinearLayout.LayoutParams paramsTv =
-            new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+            new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT ,
                                           ViewGroup.LayoutParams.WRAP_CONTENT);
         
-        paramsTv.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
-                                                             getResources().getDisplayMetrics());
+        paramsTv.topMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 2 ,
+                                                            getResources().getDisplayMetrics());
         mTvTitle.setTextSize(10);
-        mTvTitle.setTextColor(ContextCompat.getColor(context, R.color.tab_unselect));
+        mTvTitle.setTextColor(ContextCompat.getColor(context , R.color.tab_unselect));
         mTvTitle.setLayoutParams(paramsTv);
         lLContainer.addView(mTvTitle);
         addView(lLContainer);
         
-        int min = dip2px(context, 20);
-        int padding = dip2px(context, 5);
+        int min = dip2px(context , 20);
+        int padding = dip2px(context , 5);
         
         mTvUnreadCount = new TextView(context);
         mTvUnreadCount.setBackgroundResource(R.drawable.bg_msg_bubble);
         mTvUnreadCount.setMinWidth(min);
         mTvUnreadCount.setTextColor(Color.WHITE);
-        mTvUnreadCount.setPadding(padding, 0, padding, 0);
+        mTvUnreadCount.setPadding(padding , 0 , padding , 0);
         mTvUnreadCount.setGravity(Gravity.CENTER);
         
         FrameLayout.LayoutParams tvUnReadParams =
-            new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, min);
+            new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT , min);
         
         tvUnReadParams.gravity = Gravity.CENTER;
-        tvUnReadParams.leftMargin = dip2px(context, 17);
-        tvUnReadParams.bottomMargin = dip2px(context, 14);
+        tvUnReadParams.leftMargin = dip2px(context , 17);
+        tvUnReadParams.bottomMargin = dip2px(context , 14);
         mTvUnreadCount.setLayoutParams(tvUnReadParams);
         mTvUnreadCount.setVisibility(GONE);
         addView(mTvUnreadCount);
@@ -117,11 +120,11 @@ public class BottomBarTab extends FrameLayout implements IBarTab {
         super.setSelected(selected);
         
         if (selected) {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            mIcon.setColorFilter(ContextCompat.getColor(mContext , R.color.colorPrimary));
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.colorPrimary));
         } else {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.tab_unselect));
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.tab_unselect));
+            mIcon.setColorFilter(ContextCompat.getColor(mContext , R.color.tab_unselect));
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.tab_unselect));
         }
     }
     
@@ -133,7 +136,7 @@ public class BottomBarTab extends FrameLayout implements IBarTab {
         super.setOnClickListener(listener);
     }
     
-    public int getTabPosition() {
+    @Override public int getTabPosition() {
         return mTabPosition;
     }
     
@@ -194,4 +197,4 @@ public class BottomBarTab extends FrameLayout implements IBarTab {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

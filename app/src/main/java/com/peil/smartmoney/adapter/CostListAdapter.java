@@ -19,26 +19,26 @@ public class CostListAdapter extends AbsMultiTypeAdapter<CostListItem>
         super(c);
     }
     
-    private void bindCostSectionView(ItemCostSectionVholder holder, CostListItemSectioner item) {
+    private void bindCostSectionView(ItemCostSectionVholder holder , CostListItemSectioner item) {
         holder.update(item);
     }
     
-    private void bindCostView(ItemCostVholder holder, CostItem item) {
+    private void bindCostView(ItemCostVholder holder , CostItem item) {
         holder.update(item);
     }
     
-    @Override protected void onBindViewHolder(BaseViewHolder viewHolder, int position) {
+    @Override protected void onBindViewHolder(BaseViewHolder viewHolder , int position) {
         CostListItem item = getItem(position);
         
         if (viewHolder instanceof ItemCostSectionVholder) {
-            bindCostSectionView((ItemCostSectionVholder) viewHolder, item.getCostSectionItem());
+            bindCostSectionView((ItemCostSectionVholder)viewHolder , item.getCostSectionItem());
         } else if (viewHolder instanceof ItemCostVholder) {
-            bindCostView((ItemCostVholder) viewHolder, item.getCostItem());
+            bindCostView((ItemCostVholder)viewHolder , item.getCostItem());
         }
     }
     
     @Override
-    protected BaseViewHolder onCreateViewHolder(View view, ViewGroup parent, int viewType) {
+    protected BaseViewHolder onCreateViewHolder(View view , ViewGroup parent , int viewType) {
         if (viewType == CostListItem.ITEM_COST_SECTION) {
             return new ItemCostSectionVholder(view);
         }
@@ -125,4 +125,4 @@ public class CostListAdapter extends AbsMultiTypeAdapter<CostListItem>
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

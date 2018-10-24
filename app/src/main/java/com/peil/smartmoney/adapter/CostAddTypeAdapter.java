@@ -10,20 +10,19 @@ import com.peil.smartmoney.model.CostItemType;
 /**
  * 添加记账-类型
  */
-public class CostAddTypeAdapter extends AbsSelectedAdaspter<CostItemType> {
+public class CostAddTypeAdapter extends AbsSignleSelectedAdapter<CostItemType> {
     public CostAddTypeAdapter(Context c) {
         super(c);
     }
     
-    @Override protected void onBindViewHolder(BaseViewHolder viewHolder, int position) {
-        CostAddTypeVHolder holder = (CostAddTypeVHolder) viewHolder;
+    @Override protected void onBindViewHolder(BaseViewHolder viewHolder , int position) {
+        CostAddTypeVHolder holder = (CostAddTypeVHolder)viewHolder;
         CostItemType item = getItem(position);
-        
-        holder.update(item, hasSelected(position));
+        holder.update(item , hasSelected(position));
     }
     
     @Override
-    protected BaseViewHolder onCreateViewHolder(View view, ViewGroup parent, int viewType) {
+    protected BaseViewHolder onCreateViewHolder(View view , ViewGroup parent , int viewType) {
         return new CostAddTypeVHolder(view);
     }
     
@@ -39,7 +38,7 @@ public class CostAddTypeAdapter extends AbsSelectedAdaspter<CostItemType> {
             tv_name = mItemView.findViewById(R.id.tv_name);
         }
         
-        public void update(CostItemType itemType, boolean hasSelected) {
+        public void update(CostItemType itemType , boolean hasSelected) {
             tv_name.setText(itemType.getCostTypeName());
             tv_name.setTextColor(
                 mContext.getColor(hasSelected ? R.color.app_color_blue : R.color.tab_unselect));
@@ -47,4 +46,4 @@ public class CostAddTypeAdapter extends AbsSelectedAdaspter<CostItemType> {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

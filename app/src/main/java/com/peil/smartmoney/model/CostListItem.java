@@ -10,17 +10,17 @@ public class CostListItem {
     public CostListItem() {
     }
     
-    public CostListItem(Integer type, CostItem costItem) {
+    public CostListItem(Integer type , CostItem costItem) {
         this.type = type;
         this.costItem = costItem;
     }
     
-    public CostListItem(Integer type, CostListItemSectioner costSectionItem) {
+    public CostListItem(Integer type , CostListItemSectioner costSectionItem) {
         this.type = type;
         this.costSectionItem = costSectionItem;
     }
     
-    public CostListItem(Integer type, CostItem costItem, CostListItemSectioner costSectionItem) {
+    public CostListItem(Integer type , CostItem costItem , CostListItemSectioner costSectionItem) {
         this.type = type;
         this.costItem = costItem;
         this.costSectionItem = costSectionItem;
@@ -56,4 +56,4 @@ public class CostListItem {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

@@ -22,26 +22,26 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
     private TextView mTvTitle;
     private Context mContext;
     
-    public BottomTextBarTab(Context context, CharSequence title) {
-        this(context, null, title);
+    public BottomTextBarTab(Context context , CharSequence title) {
+        this(context , null , title);
     }
     
-    public BottomTextBarTab(Context context, AttributeSet attrs, CharSequence title) {
-        this(context, attrs, 0, title);
+    public BottomTextBarTab(Context context , AttributeSet attrs , CharSequence title) {
+        this(context , attrs , 0 , title);
     }
     
-    public BottomTextBarTab(Context context, AttributeSet attrs, int defStyleAttr,
+    public BottomTextBarTab(Context context , AttributeSet attrs , int defStyleAttr ,
                             CharSequence title) {
-        super(context, attrs, defStyleAttr);
-        init(context, title);
+        super(context , attrs , defStyleAttr);
+        init(context , title);
     }
     
-    private int dip2px(Context context, float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                                               context.getResources().getDisplayMetrics());
+    private int dip2px(Context context , float dp) {
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , dp ,
+                                              context.getResources().getDisplayMetrics());
     }
     
-    private void init(Context context, CharSequence title) {
+    private void init(Context context , CharSequence title) {
         mContext = context;
         
         TypedArray typedArray =
@@ -56,7 +56,7 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         lLContainer.setOrientation(LinearLayout.VERTICAL);
         lLContainer.setGravity(Gravity.CENTER);
         
-        LayoutParams paramsContainer = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        LayoutParams paramsContainer = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT ,
                                                         ViewGroup.LayoutParams.WRAP_CONTENT);
         
         paramsContainer.gravity = Gravity.CENTER;
@@ -65,19 +65,19 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         mTvTitle.setText(title);
         
         LinearLayout.LayoutParams paramsTv =
-            new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+            new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT ,
                                           ViewGroup.LayoutParams.WRAP_CONTENT);
         
-        paramsTv.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10,
-                                                             getResources().getDisplayMetrics());
-        paramsTv.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10,
-                                                                getResources().getDisplayMetrics());
-        paramsTv.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10,
-                                                              getResources().getDisplayMetrics());
-        paramsTv.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10,
+        paramsTv.topMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
+                                                            getResources().getDisplayMetrics());
+        paramsTv.bottomMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
                                                                getResources().getDisplayMetrics());
+        paramsTv.leftMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
+                                                             getResources().getDisplayMetrics());
+        paramsTv.rightMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
+                                                              getResources().getDisplayMetrics());
         mTvTitle.setTextSize(16);
-        mTvTitle.setTextColor(ContextCompat.getColor(context, R.color.tab_unselect));
+        mTvTitle.setTextColor(ContextCompat.getColor(context , R.color.tab_unselect));
         mTvTitle.setLayoutParams(paramsTv);
         lLContainer.addView(mTvTitle);
         addView(lLContainer);
@@ -87,9 +87,9 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         super.setSelected(selected);
         
         if (selected) {
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.app_color_blue));
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.app_color_blue));
         } else {
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.tab_unselect));
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.tab_unselect));
         }
     }
     
@@ -101,7 +101,7 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         super.setOnClickListener(listener);
     }
     
-    public int getTabPosition() {
+    @Override public int getTabPosition() {
         return mTabPosition;
     }
     
@@ -122,4 +122,4 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

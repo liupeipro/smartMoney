@@ -14,17 +14,16 @@
       app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back"
       />
 
-  <ScrollView
+  <com.peil.smartmoney.view.RefreshLayout
+      android:id="@+id/pull_to_refresh"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       >
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
 
       <TextView
           android:id="@+id/tv_time"
@@ -45,23 +44,15 @@
           android:background="@color/view_container_bg"
           />
 
-      <FrameLayout
+      <ListView
+          android:id="@+id/listview"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          >
-
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"
-            android:footerDividersEnabled="false"
-            android:headerDividersEnabled="false"
-            />
-
-
-      </FrameLayout>
-
+          android:divider="@null"
+          android:footerDividersEnabled="false"
+          android:headerDividersEnabled="false"
+          />
     </LinearLayout>
-  </ScrollView>
+
+  </com.peil.smartmoney.view.RefreshLayout>
 </LinearLayout>

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.picker.DatePicker.OnWheelListener;
@@ -59,7 +58,7 @@ public class CostAddActivity extends BaseActivity {
     private CostAddTypeAdapter mGridAdapter;
     
     private OnTabSelectedListener mOnTabSelectedListener = new OnTabSelectedListener() {
-        public void onTabSelected(int position, int prePosition) {
+        @Override public void onTabSelected(int position , int prePosition) {
             updateAmountType(position);
         }
         
@@ -85,16 +84,36 @@ public class CostAddActivity extends BaseActivity {
         }
     };
     
-    private OnItemClickListener mGridItemClickListener = new OnItemClickListener() {
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    AdapterView.OnItemClickListener mGridItemClickener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent , View view , int position , long id) {
+            LogUtils.d("mGridItemClickener position = " + position);
             if (!mGridAdapter.hasSelected(position)) {
-                mGridAdapter.clearSelectedArray();
-                mGridAdapter.setSelectedState(position);
+                mGridAdapter.resetSelectedPosition();
+                mGridAdapter.setSelectedPosition(position);
                 mGridAdapter.notifyDataSetChanged();
                 updateAmountGrid();
             }
         }
     };
+    
+    private AdapterView.OnItemSelectedListener mGridItemSelectedListener =
+        new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent , View view , int position , long id) {
+                LogUtils.d("mGridItemSelectedListener position = " + position);
+                if (!mGridAdapter.hasSelected(position)) {
+                    mGridAdapter.resetSelectedPosition();
+                    mGridAdapter.setSelectedPosition(position);
+                    mGridAdapter.notifyDataSetChanged();
+                    updateAmountGrid();
+                }
+            }
+            
+            @Override public void onNothingSelected(AdapterView<?> parent) {
+            
+            }
+        };
     
     private OnAmountClickListener mOnAmountClickListener = new OnAmountClickListener() {
         public void onAmountZero() {
@@ -108,7 +127,7 @@ public class CostAddActivity extends BaseActivity {
     };
     
     private OnSheetItemClickListener mAccountItemClickListener = new OnSheetItemClickListener() {
-        public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
+        public void onClick(QMUIBottomSheet dialog , View itemView , int position , String tag) {
             dialog.dismiss();
             updateChooseAccount(position);
         }
@@ -127,211 +146,205 @@ public class CostAddActivity extends BaseActivity {
         } else if (item.getCostDate() == null) {
             ToastUtils.showShort("请选择日期");
         } else {
-            if (this.mCostItem.getCreateTime() == null) {
-                this.mCostItem.setCreateTime(System.currentTimeMillis());
+            if (mCostItem.getCreateTime() == null) {
+                mCostItem.setCreateTime(System.currentTimeMillis());
             }
             
-            this.mCostItem.setLastModifyTime(System.currentTimeMillis());
+            mCostItem.setLastModifyTime(System.currentTimeMillis());
             long temp =
-                MoneyApplication.getDaoInstant().getCostItemDao().insertOrReplace(this.mCostItem);
+                MoneyApplication.getDaoInstant().getCostItemDao().insertOrReplace(mCostItem);
             LogUtils.d(new Object[] { "提交数据库：现在记账数据 " + temp });
             if (temp != -1L) {
                 ToastUtils.showShort("记账成功");
-                this.sendBroadcast(new Intent("receiver_costlist_update"));
-                this.onBackPressed();
+                sendBroadcast(new Intent("receiver_costlist_update"));
+                onBackPressed();
             }
         }
     }
     
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_still , R.anim.slide_out_right);
     }
     
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_cost_add);
+        setContentView(R.layout.activity_cost_add);
         
-        this.mGridAdapter = new CostAddTypeAdapter(this);
-        this.mPickerDate = new DatePicker(this);
-        this.bar_top = (QMUITopBarLayout) this.findViewById(R.id.bar_top);
-        this.mBottomBar = (BottomBar) this.findViewById(R.id.bottomBar);
-        this.view_amount = (InputAmountView) this.findViewById(R.id.view_amount);
-        this.grid_type = (GridView) this.findViewById(R.id.grid_type);
-        this.btn_choose_date = (QMUIRoundButton) this.findViewById(R.id.btn_choose_date);
-        this.btn_choose_account = (QMUIRoundButton) this.findViewById(R.id.btn_choose_account);
-        this.btn_remark = (QMUIRoundButton) this.findViewById(R.id.btn_remark);
-        this.bar_top.addLeftBackImageButton().setOnClickListener(new OnClickListener() {
+        mGridAdapter = new CostAddTypeAdapter(this);
+        mPickerDate = new DatePicker(this);
+        bar_top = (QMUITopBarLayout)findViewById(R.id.bar_top);
+        mBottomBar = (BottomBar)findViewById(R.id.bottomBar);
+        view_amount = (InputAmountView)findViewById(R.id.view_amount);
+        grid_type = (GridView)findViewById(R.id.grid_type);
+        btn_choose_date = (QMUIRoundButton)findViewById(R.id.btn_choose_date);
+        btn_choose_account = (QMUIRoundButton)findViewById(R.id.btn_choose_account);
+        btn_remark = (QMUIRoundButton)findViewById(R.id.btn_remark);
+        bar_top.addLeftBackImageButton().setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        this.mBottomBar.setOnTabSelectedListener(this.mOnTabSelectedListener);
-        this.view_amount.setOnAmountClickListener(this.mOnAmountClickListener);
-        this.btn_choose_date.setText("选择日期");
-        this.btn_choose_date.setOnClickListener(this.mOnClickListener);
-        this.btn_choose_account.setText("选择账户");
-        this.btn_choose_account.setOnClickListener(this.mOnClickListener);
-        this.btn_remark.setText("备注");
-        this.btn_remark.setOnClickListener(this.mOnClickListener);
-        this.mAmountTypes = MoneyApplication.getDaoInstant().getCostItemAmountTypeDao().loadAll();
-        Iterator var2 = this.mAmountTypes.iterator();
+        mBottomBar.setOnTabSelectedListener(mOnTabSelectedListener);
+        view_amount.setOnAmountClickListener(mOnAmountClickListener);
+        btn_choose_date.setText("选择日期");
+        btn_choose_date.setOnClickListener(mOnClickListener);
+        btn_choose_account.setText("选择账户");
+        btn_choose_account.setOnClickListener(mOnClickListener);
+        btn_remark.setText("备注");
+        btn_remark.setOnClickListener(mOnClickListener);
         
-        CostItemAmountType item;
-        while (var2.hasNext()) {
-            item = (CostItemAmountType) var2.next();
+        mAmountTypes = MoneyApplication.getDaoInstant().getCostItemAmountTypeDao().loadAll();
+        
+        for (CostItemAmountType item : mAmountTypes) {
+            List<CostItemType> temp = MoneyApplication.getDaoInstant()
+                                                      .getCostItemTypeDao()
+                                                      .queryBuilder()
+                                                      .where(
+                                                          CostItemTypeDao.Properties.AmountTypeId.eq(
+                                                              item.get_id()))
+                                                      .list();
             if (item.getName().equals("收入")) {
-                this.mGridInData.clear();
-                this.mGridInData = MoneyApplication.getDaoInstant()
-                                                   .getCostItemTypeDao()
-                                                   .queryBuilder()
-                                                   .where(CostItemTypeDao.Properties.AmountTypeId.eq(item.get_id()))
-                                                   .list();
+                mGridInData.clear();
+                mGridInData = temp;
             } else if (item.getName().equals("支出")) {
-                this.mGridOutData.clear();
-                this.mGridOutData = MoneyApplication.getDaoInstant()
-                                                    .getCostItemTypeDao()
-                                                    .queryBuilder()
-                                                    .where(
-                                                        CostItemTypeDao.Properties.AmountTypeId.eq(item.get_id()))
-                                                    .list();
+                mGridOutData.clear();
+                mGridOutData = temp;
             }
         }
         
-        this.mAccountListData = MoneyApplication.getDaoInstant().getCostItemAccountDao().loadAll();
-        if (!this.mAmountTypes.isEmpty()) {
-            var2 = this.mAmountTypes.iterator();
-            
-            while (var2.hasNext()) {
-                item = (CostItemAmountType) var2.next();
-                BottomTextBarTab tempTab = new BottomTextBarTab(this, item.getName());
-                this.mBottomBar.addItem(tempTab);
+        mAccountListData = MoneyApplication.getDaoInstant().getCostItemAccountDao().loadAll();
+        if (!mAmountTypes.isEmpty()) {
+            for (CostItemAmountType type : mAmountTypes) {
+                BottomTextBarTab tempTab = new BottomTextBarTab(this , type.getName());
+                mBottomBar.addItem(tempTab);
             }
         }
         
-        this.grid_type.setAdapter(this.mGridAdapter);
-        this.grid_type.setOnItemClickListener(this.mGridItemClickListener);
-        Long intentItemId = this.getIntent().getLongExtra("intent_cost_edit_item_id", -1L);
+        grid_type.setAdapter(mGridAdapter);
+        grid_type.setOnItemClickListener(mGridItemClickener);
+        grid_type.setOnItemSelectedListener(mGridItemSelectedListener);
+        
+        Long intentItemId = getIntent().getLongExtra("intent_cost_edit_item_id" , -1L);
         if (intentItemId != -1L) {
-            this.bar_top.setTitle("修改记账");
-            this.mCostItem = (CostItem) MoneyApplication.getDaoInstant()
-                                                        .getCostItemDao()
-                                                        .queryBuilder()
-                                                        .where(
-                                                            com.peil.smartmoney.greendao.gen.CostItemDao.Properties._id
-                                                                .eq(intentItemId))
-                                                        .unique();
-            this.updateAmountType(this.mAmountTypes.indexOf(this.mCostItem.getCostAmountType()));
-            int gridIndex = this.getAmountTypeList(this.mCostItem.getCostAmountType())
-                                .indexOf(this.mCostItem.getCostType());
-            this.mGridAdapter.setSelectedState(gridIndex);
-            this.mGridAdapter.notifyDataSetChanged();
-            this.updateChooseDate(this.mCostItem.getTempCostDate());
-            this.updateChooseAccount(
-                this.mAccountListData.indexOf(this.mCostItem.getCostAccount()));
-            this.view_amount.setAmount(this.mCostItem.getCostAmount());
+            bar_top.setTitle("修改记账");
+            mCostItem = (CostItem)MoneyApplication.getDaoInstant()
+                                                  .getCostItemDao()
+                                                  .queryBuilder()
+                                                  .where(
+                                                      com.peil.smartmoney.greendao.gen.CostItemDao.Properties._id
+                                                          .eq(intentItemId))
+                                                  .unique();
+            updateAmountType(mAmountTypes.indexOf(mCostItem.getCostAmountType()));
+            int gridIndex =
+                getAmountTypeList(mCostItem.getCostAmountType()).indexOf(mCostItem.getCostType());
+            mGridAdapter.setSelectedPosition(gridIndex);
+            mGridAdapter.notifyDataSetChanged();
+            updateChooseDate(mCostItem.getTempCostDate());
+            updateChooseAccount(mAccountListData.indexOf(mCostItem.getCostAccount()));
+            view_amount.setAmount(mCostItem.getCostAmount());
         } else {
-            this.bar_top.setTitle("添加记账");
-            this.updateAmountType(0);
-            this.mGridAdapter.setSelectedState(0);
-            this.mGridAdapter.notifyDataSetChanged();
-            this.updateAmountGrid();
-            this.updateChooseDate(TimeUtil.millis2Str(System.currentTimeMillis(), "yyyy-MM-dd"));
-            this.updateChooseAccount(0);
+            bar_top.setTitle("添加记账");
+            updateAmountType(0);
+            mGridAdapter.setSelectedPosition(0);
+            mGridAdapter.notifyDataSetChanged();
+            updateAmountGrid();
+            updateChooseDate(TimeUtil.millis2Str(System.currentTimeMillis() , "yyyy-MM-dd"));
+            updateChooseAccount(0);
         }
     }
     
     private void updateAmountGrid() {
-        CostItemType item = (CostItemType) this.mGridAdapter.getSelectedItem(0);
+        CostItemType item = mGridAdapter.getSelectedItem();
         if (item != null) {
-            this.mCostItem.setCostTypeId(item.get_id());
-            this.mCostItem.setCostType(item);
+            mCostItem.setCostTypeId(item.get_id());
+            mCostItem.setCostType(item);
         }
     }
     
     private List<CostItemType> getAmountTypeList(CostItemAmountType type) {
         if (type.getName().equals("收入")) {
-            return this.mGridInData;
+            return mGridInData;
         } else {
-            return type.getName().equals("支出") ? this.mGridOutData : new ArrayList();
+            return type.getName().equals("支出") ? mGridOutData : new ArrayList();
         }
     }
     
     private void updateAmountType(int position) {
-        CostItemAmountType item = (CostItemAmountType) this.mAmountTypes.get(position);
-        this.mCostItem.setCostAmountTypeId(item.get_id());
-        this.mCostItem.setCostAmountType(item);
-        this.mGridAdapter.addAll(this.getAmountTypeList(item));
-        this.updateAmountGrid();
-        this.mGridAdapter.notifyDataSetChanged();
+        CostItemAmountType item = (CostItemAmountType)mAmountTypes.get(position);
+        mCostItem.setCostAmountTypeId(item.get_id());
+        mCostItem.setCostAmountType(item);
+        mGridAdapter.addAll(getAmountTypeList(item));
+        updateAmountGrid();
+        mGridAdapter.notifyDataSetChanged();
     }
     
     private void updateChooseDate(String date) {
-        LogUtils.i(new Object[] { "updateChooseDate ", date });
-        if (!this.btn_choose_date.getText().equals(date)) {
-            this.mCostItem.setTempCostDate(date);
-            this.btn_choose_date.setText(this.mCostItem.getTempCostDate());
+        LogUtils.i(new Object[] { "updateChooseDate " , date });
+        if (!btn_choose_date.getText().equals(date)) {
+            mCostItem.setTempCostDate(date);
+            btn_choose_date.setText(mCostItem.getTempCostDate());
         }
     }
     
     private void updateRemark(String text) {
-        if (!this.btn_remark.getText().equals(text)) {
-            this.mCostItem.setRemark(text);
-            this.btn_remark.setText(this.mCostItem.getRemark());
+        if (!btn_remark.getText().equals(text)) {
+            mCostItem.setRemark(text);
+            btn_remark.setText(mCostItem.getRemark());
         }
     }
     
     private void updateChooseAccount(int position) {
-        CostItemAccount item = (CostItemAccount) this.mAccountListData.get(position);
-        this.mCostItem.setCostAccount(item);
-        this.btn_choose_account.setText(this.mCostItem.getCostAccount().getCostAccountame());
+        CostItemAccount item = (CostItemAccount)mAccountListData.get(position);
+        mCostItem.setCostAccount(item);
+        btn_choose_account.setText(mCostItem.getCostAccount().getCostAccountame());
     }
     
     private void showChooseTimeView() {
-        this.mPickerDate.setCanceledOnTouchOutside(true);
-        this.mPickerDate.setUseWeight(true);
-        this.mPickerDate.setTopPadding(ConvertUtils.toPx(this, 10.0F));
-        this.mPickerDate.setRangeEnd(2111, 1, 11);
-        this.mPickerDate.setRangeStart(2016, 1, 1);
+        mPickerDate.setCanceledOnTouchOutside(true);
+        mPickerDate.setUseWeight(true);
+        mPickerDate.setTopPadding(ConvertUtils.toPx(this , 10.0F));
+        mPickerDate.setRangeEnd(2111 , 1 , 11);
+        mPickerDate.setRangeStart(2016 , 1 , 1);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         int tempYear = calendar.get(Calendar.YEAR);
         int tempMonth = calendar.get(Calendar.MONTH);
         int tempDay = calendar.get(Calendar.DAY_OF_MONTH);
         LogUtils.i(new Object[] {
-            "cost add datepicker ",
+            "cost add datepicker " ,
             " year = " + tempYear + " month = " + tempMonth + "day = " + tempDay
         });
-        this.mPickerDate.setSelectedItem(tempYear, tempMonth, tempDay);
-        this.mPickerDate.setResetWhileWheel(false);
-        this.mPickerDate.setOnDatePickListener(new OnYearMonthDayPickListener() {
-            public void onDatePicked(String year, String month, String day) {
+        mPickerDate.setSelectedItem(tempYear , tempMonth , tempDay);
+        mPickerDate.setResetWhileWheel(false);
+        mPickerDate.setOnDatePickListener(new OnYearMonthDayPickListener() {
+            public void onDatePicked(String year , String month , String day) {
                 updateChooseDate(year + "-" + month + "-" + day);
             }
         });
-        this.mPickerDate.setOnWheelListener(new OnWheelListener() {
-            public void onYearWheeled(int index, String year) {
+        mPickerDate.setOnWheelListener(new OnWheelListener() {
+            public void onYearWheeled(int index , String year) {
             }
             
-            public void onMonthWheeled(int index, String month) {
+            public void onMonthWheeled(int index , String month) {
             }
             
-            public void onDayWheeled(int index, String day) {
+            public void onDayWheeled(int index , String day) {
             }
         });
-        this.mPickerDate.show();
+        mPickerDate.show();
     }
     
     private void showChooseAccountView() {
-        BottomListSheetBuilder builder = new BottomListSheetBuilder(this, true);
-        Iterator var2 = this.mAccountListData.iterator();
+        BottomListSheetBuilder builder = new BottomListSheetBuilder(this , true);
+        Iterator var2 = mAccountListData.iterator();
         
         while (var2.hasNext()) {
-            CostItemAccount item = (CostItemAccount) var2.next();
+            CostItemAccount item = (CostItemAccount)var2.next();
             builder.addItem(item.getCostAccountame());
         }
         
-        builder.setOnSheetItemClickListener(this.mAccountItemClickListener);
+        builder.setOnSheetItemClickListener(mAccountItemClickListener);
         builder.build().show();
     }
     
@@ -341,13 +354,13 @@ public class CostAddActivity extends BaseActivity {
         
         builder.setTitle("备注")
                .setPlaceholder("请输入备注...")
-               .addAction("取消", new QMUIDialogAction.ActionListener() {
-                   @Override public void onClick(QMUIDialog dialog, int index) {
+               .addAction("取消" , new QMUIDialogAction.ActionListener() {
+                   @Override public void onClick(QMUIDialog dialog , int index) {
                        dialog.dismiss();
                    }
                })
-               .addAction("确定", new QMUIDialogAction.ActionListener() {
-                   @Override public void onClick(QMUIDialog dialog, int index) {
+               .addAction("确定" , new QMUIDialogAction.ActionListener() {
+                   @Override public void onClick(QMUIDialog dialog , int index) {
                        CharSequence text = builder.getEditText().getText();
                        updateRemark(text.toString());
                        dialog.dismiss();
@@ -355,6 +368,5 @@ public class CostAddActivity extends BaseActivity {
                })
                .create(R.style.qmui_dialog_wrap)
                .show();
-         
     }
 }

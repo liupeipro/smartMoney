@@ -22,4 +22,4 @@ public class BaseBackFragment extends SupportFragment {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

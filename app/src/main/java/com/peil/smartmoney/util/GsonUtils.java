@@ -38,8 +38,8 @@ public class GsonUtils {
      *
      * @return instance of type
      */
-    public static <T> T fromJson(final Reader reader, final Class<T> type) {
-        return GSON.fromJson(reader, type);
+    public static <T> T fromJson(final Reader reader , final Class<T> type) {
+        return GSON.fromJson(reader , type);
     }
     
     /**
@@ -50,8 +50,8 @@ public class GsonUtils {
      *
      * @return instance of type
      */
-    public static <T> T fromJson(final Reader reader, final Type type) {
-        return GSON.fromJson(reader, type);
+    public static <T> T fromJson(final Reader reader , final Type type) {
+        return GSON.fromJson(reader , type);
     }
     
     /**
@@ -62,8 +62,8 @@ public class GsonUtils {
      *
      * @return instance of type
      */
-    public static <T> T fromJson(final String json, final Class<T> type) {
-        return GSON.fromJson(json, type);
+    public static <T> T fromJson(final String json , final Class<T> type) {
+        return GSON.fromJson(json , type);
     }
     
     /**
@@ -74,8 +74,8 @@ public class GsonUtils {
      *
      * @return instance of type
      */
-    public static <T> T fromJson(final String json, final Type type) {
-        return GSON.fromJson(json, type);
+    public static <T> T fromJson(final String json , final Type type) {
+        return GSON.fromJson(json , type);
     }
     
     /**
@@ -86,7 +86,7 @@ public class GsonUtils {
      * @return object serialized into json.
      */
     public static String toJson(final Object object) {
-        return toJson(object, true);
+        return toJson(object , true);
     }
     
     /**
@@ -97,7 +97,7 @@ public class GsonUtils {
      *
      * @return object serialized into json.
      */
-    public static String toJson(final Object object, final boolean includeNulls) {
+    public static String toJson(final Object object , final boolean includeNulls) {
         return includeNulls ? GSON.toJson(object) : GSON_NO_NULLS.toJson(object);
     }
     
@@ -122,4 +122,4 @@ public class GsonUtils {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

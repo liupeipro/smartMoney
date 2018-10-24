@@ -9,22 +9,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 多种子类型 布局
+ * Created by hoperun01 on 2017/3/11.
  */
-public abstract class AbsMultiTypeAdapter<T> extends BaseAdapter {
+public abstract class AbsSignleSelectedAdapter<T> extends BaseAdapter {
+    protected ArrayList<T> mData = new ArrayList<T>();
+    
+    // 管理选中的状态，选中后的ID会add到里面，移除了就删除掉
+    private Integer mSelectedPosition = -1;
     protected Context mContext;
     protected LayoutInflater mInflater;
-    protected ArrayList<T> mData;
     
-    public AbsMultiTypeAdapter(Context c) {
+    public AbsSignleSelectedAdapter(Context c) {
         mContext = c;
         mInflater = LayoutInflater.from(mContext);
-        mData = new ArrayList<T>();
     }
     
     public void add(T t) {
         if (t != null) {
             mData.add(t);
+        }
+    }
+    
+    public void add(int index , T t) {
+        if (t != null) {
+            mData.add(index , t);
         }
     }
     
@@ -41,10 +49,24 @@ public abstract class AbsMultiTypeAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
     
+    public void setSelectedPosition(Integer index) {
+        if (mSelectedPosition != index) {
+            this.mSelectedPosition = index;
+        }
+    }
+    
+    public Integer getSelectedPosition() {
+        return this.mSelectedPosition;
+    }
+    
+    public void resetSelectedPosition() {
+        this.mSelectedPosition = -1;
+    }
+    
     /**
      * 清除源数据
      */
-    @Deprecated public void clear() {
+    public void clear() {
         mData.clear();
         notifyDataSetChanged();
     }
@@ -70,6 +92,24 @@ public abstract class AbsMultiTypeAdapter<T> extends BaseAdapter {
     
     /* LAYOUT ID */
     protected abstract int getLayoutResId(int position);
+    
+    /**
+     * 该value在 list中是否存在
+     *
+     * @param position value
+     */
+    public boolean hasSelected(int position) {
+        return mSelectedPosition == position;
+    }
+    
+    public T getSelectedItem() {
+        T result = null;
+        if (mSelectedPosition != -1) {
+            result = getItem(mSelectedPosition);
+        }
+        
+        return result;
+    }
     
     @Override public View getView(int position , View convertView , ViewGroup parent) {
         BaseViewHolder holder = null;

@@ -56,6 +56,7 @@
         android:horizontalSpacing="0dp"
         android:numColumns="4"
         android:verticalSpacing="0dp"
+        android:choiceMode="singleChoice"
         />
 
     <View
@@ -79,10 +80,10 @@
           android:layout_height="wrap_content"
           android:layout_alignParentLeft="true"
           android:layout_centerVertical="true"
-          android:paddingLeft="@dimen/padding_10"
-          android:paddingTop="@dimen/padding_6"
-          android:paddingRight="@dimen/padding_10"
           android:paddingBottom="@dimen/padding_6"
+          android:paddingLeft="@dimen/padding_10"
+          android:paddingRight="@dimen/padding_10"
+          android:paddingTop="@dimen/padding_6"
           android:textColor="@color/app_color_blue"
           android:textSize="@dimen/font_size_12"
           />
@@ -94,10 +95,10 @@
           android:layout_centerVertical="true"
           android:layout_marginLeft="@dimen/padding_10"
           android:layout_toRightOf="@id/btn_choose_date"
-          android:paddingLeft="@dimen/padding_10"
-          android:paddingTop="@dimen/padding_6"
-          android:paddingRight="@dimen/padding_10"
           android:paddingBottom="@dimen/padding_6"
+          android:paddingLeft="@dimen/padding_10"
+          android:paddingRight="@dimen/padding_10"
+          android:paddingTop="@dimen/padding_6"
           android:textColor="@color/app_color_blue"
           android:textSize="@dimen/font_size_12"
           />
@@ -118,10 +119,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:ellipsize="end"
-            android:paddingLeft="@dimen/padding_10"
-            android:paddingTop="@dimen/padding_6"
-            android:paddingRight="@dimen/padding_10"
             android:paddingBottom="@dimen/padding_6"
+            android:paddingLeft="@dimen/padding_10"
+            android:paddingRight="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_6"
             android:textColor="@color/app_color_blue"
             android:textSize="@dimen/font_size_12"
             />

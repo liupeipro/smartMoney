@@ -91,20 +91,20 @@ public class InputAmountView extends RelativeLayout {
     TextView tv_amount;
     
     public InputAmountView(Context context) {
-        this(context, null);
+        this(context , null);
     }
     
-    public InputAmountView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+    public InputAmountView(Context context , AttributeSet attrs) {
+        this(context , attrs , 0);
     }
     
-    public InputAmountView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
+    public InputAmountView(Context context , AttributeSet attrs , int defStyleAttr) {
+        super(context , attrs , defStyleAttr);
+        init(context , attrs);
     }
     
-    private void init(Context context, AttributeSet attrs) {
-        LayoutInflater.from(context).inflate(R.layout.view_inputamount_main, this);
+    private void init(Context context , AttributeSet attrs) {
+        LayoutInflater.from(context).inflate(R.layout.view_inputamount_main , this);
         tv_amount = findViewById(R.id.tv_amount);
         btn_0 = findViewById(R.id.btn_0);
         btn_1 = findViewById(R.id.btn_1);
@@ -169,7 +169,7 @@ public class InputAmountView extends RelativeLayout {
             if (tempAmount.length() == 1) {
                 tempAmount = "0";
             } else {
-                tempAmount = tempAmount.substring(0, tempAmount.length() - 1);
+                tempAmount = tempAmount.substring(0 , tempAmount.length() - 1);
             }
             
             updateAmount(tempAmount);
@@ -225,4 +225,4 @@ public class InputAmountView extends RelativeLayout {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

@@ -29,16 +29,16 @@ public class BottomBar extends LinearLayout {
     private OnTabSelectedListener mListener;
     
     public BottomBar(Context context) {
-        this(context, null);
+        this(context , null);
     }
     
-    public BottomBar(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+    public BottomBar(Context context , AttributeSet attrs) {
+        this(context , attrs , 0);
     }
     
-    public BottomBar(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
+    public BottomBar(Context context , AttributeSet attrs , int defStyleAttr) {
+        super(context , attrs , defStyleAttr);
+        init(context , attrs);
     }
     
     public BottomBar addItem(final IBarTab tab) {
@@ -53,7 +53,7 @@ public class BottomBar extends LinearLayout {
                 if (mCurrentPosition == pos) {
                     mListener.onTabReselected(pos);
                 } else {
-                    mListener.onTabSelected(pos, mCurrentPosition);
+                    mListener.onTabSelected(pos , mCurrentPosition);
                     tab.setTabSelected(true);
                     mListener.onTabUnselected(mCurrentPosition);
                     mTabs.get(mCurrentPosition).setTabSelected(false);
@@ -74,10 +74,10 @@ public class BottomBar extends LinearLayout {
     }
     
     public void hide(boolean anim) {
-        toggle(false, anim, false);
+        toggle(false , anim , false);
     }
     
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context , AttributeSet attrs) {
         setOrientation(VERTICAL);
         
         //      ImageView shadowView = new ImageView(context);
@@ -86,14 +86,14 @@ public class BottomBar extends LinearLayout {
         mTabLayout = new LinearLayout(context);
         mTabLayout.setBackgroundColor(Color.TRANSPARENT);
         mTabLayout.setOrientation(LinearLayout.HORIZONTAL);
-        addView(mTabLayout, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                             ViewGroup.LayoutParams.MATCH_PARENT));
-        mTabParams = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        addView(mTabLayout , new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT ,
+                                              ViewGroup.LayoutParams.MATCH_PARENT));
+        mTabParams = new LayoutParams(0 , ViewGroup.LayoutParams.MATCH_PARENT);
         mTabParams.weight = 1;
     }
     
     @Override protected void onRestoreInstanceState(Parcelable state) {
-        SavedState ss = (SavedState) state;
+        SavedState ss = (SavedState)state;
         
         super.onRestoreInstanceState(ss.getSuperState());
         
@@ -108,7 +108,7 @@ public class BottomBar extends LinearLayout {
     @Override protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         
-        return new SavedState(superState, mCurrentPosition);
+        return new SavedState(superState , mCurrentPosition);
     }
     
     public void show() {
@@ -116,10 +116,10 @@ public class BottomBar extends LinearLayout {
     }
     
     public void show(boolean anim) {
-        toggle(true, anim, false);
+        toggle(true , anim , false);
     }
     
-    private void toggle(final boolean visible, final boolean animate, boolean force) {
+    private void toggle(final boolean visible , final boolean animate , boolean force) {
         if ((mVisible != visible) || force) {
             mVisible = visible;
             
@@ -139,7 +139,7 @@ public class BottomBar extends LinearLayout {
                                 currentVto.removeOnPreDrawListener(this);
                             }
                             
-                            toggle(visible, animate, true);
+                            toggle(visible , animate , true);
                             
                             return true;
                         }
@@ -156,7 +156,7 @@ public class BottomBar extends LinearLayout {
                          .setDuration(TRANSLATE_DURATION_MILLIS)
                          .translationY(translationY);
             } else {
-                ViewCompat.setTranslationY(this, translationY);
+                ViewCompat.setTranslationY(this , translationY);
             }
         }
     }
@@ -195,18 +195,18 @@ public class BottomBar extends LinearLayout {
     public interface OnTabSelectedListener {
         void onTabReselected(int position);
         
-        void onTabSelected(int position, int prePosition);
+        void onTabSelected(int position , int prePosition);
         
         void onTabUnselected(int position);
     }
     
     static class SavedState extends BaseSavedState {
         public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
+            @Override public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
             }
             
-            public SavedState[] newArray(int size) {
+            @Override public SavedState[] newArray(int size) {
                 return new SavedState[size];
             }
         };
@@ -217,16 +217,16 @@ public class BottomBar extends LinearLayout {
             position = source.readInt();
         }
         
-        public SavedState(Parcelable superState, int position) {
+        public SavedState(Parcelable superState , int position) {
             super(superState);
             this.position = position;
         }
         
-        @Override public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
+        @Override public void writeToParcel(Parcel out , int flags) {
+            super.writeToParcel(out , flags);
             out.writeInt(position);
         }
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

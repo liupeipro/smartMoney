@@ -8,7 +8,7 @@
   <dimen name="activity_vertical_margin">16dp</dimen>
   <dimen name="fab_margin">24dp</dimen>
   <dimen name="text_margin">16dp</dimen>
-  <dimen name="bottombar_height">48dp</dimen>
+  <dimen name="bottombar_height">64dp</dimen>
   <dimen name="bottombar_width">200dp</dimen>
   <dimen name="bottombar_wechat_height">52dp</dimen>
   <dimen name="view_inputamount_height">250dp</dimen>
@@ -21,6 +21,9 @@
   <dimen name="height_60">60dp</dimen>
   <dimen name="height_78">78dp</dimen>
   <dimen name="height_92">92dp</dimen>
+  <dimen name="height_108">108dp</dimen>
+  <dimen name="height_124">124dp</dimen>
+  <dimen name="height_350">350dp</dimen>
 
   <!-- font -->
   <dimen name="font_size_10">10sp</dimen>

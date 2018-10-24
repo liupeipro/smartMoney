@@ -30,7 +30,7 @@ import org.greenrobot.greendao.annotation.Unique;
         this.name = name;
     }
     
-    @Generated(hash = 1241616552) public CostItemAmountType(Long _id, @NotNull String name) {
+    @Generated(hash = 1241616552) public CostItemAmountType(Long _id , @NotNull String name) {
         this._id = _id;
         this.name = name;
     }

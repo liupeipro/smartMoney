@@ -7,7 +7,6 @@ import com.peil.smartmoney.base.BaseFragment;
 import com.peil.smartmoney.calculator.CalculatorFragment;
 import com.peil.smartmoney.cost.CostFragment;
 import com.peil.smartmoney.finanical.FinanicalFragment;
-import com.peil.smartmoney.notes.NoteFragment;
 import com.peil.smartmoney.view.BottomBar;
 import com.peil.smartmoney.view.BottomBarTab;
 import java.util.ArrayList;
@@ -40,40 +39,35 @@ public class MainActivity extends SupportActivity implements BaseFragment.OnBack
         SupportFragment firstFrag = findFragment(CalculatorFragment.class);
         
         if (firstFrag == null) {
-            
             //          初始化
             mFragments.add(CostFragment.newInstance());
-            mFragments.add(NoteFragment.newInstance());
             mFragments.add(CalculatorFragment.newInstance());
             mFragments.add(FinanicalFragment.newInstance());
             mFragments.add(AboutFragment.newInstance());
-            loadMultipleRootFragment(R.id.fl_container, 0, mFragments.get(0), mFragments.get(1),
-                                     mFragments.get(2), mFragments.get(3), mFragments.get(4));
+            loadMultipleRootFragment(R.id.fl_container , 0 , mFragments.get(0) , mFragments.get(1) ,
+                                     mFragments.get(2) , mFragments.get(3));
         } else {
             
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
             // 这里我们需要拿到mFragments的引用
-            mFragments.set(0, findFragment(CostFragment.class));
-            mFragments.set(1, findFragment(NoteFragment.class));
-            mFragments.set(2, firstFrag);
-            mFragments.set(3, findFragment(FinanicalFragment.class));
-            mFragments.set(4, findFragment(AboutFragment.class));
+            mFragments.set(0 , findFragment(CostFragment.class));
+            mFragments.set(2 , firstFrag);
+            mFragments.set(3 , findFragment(FinanicalFragment.class));
+            mFragments.set(4 , findFragment(AboutFragment.class));
         }
         
-        mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        mBottomBar = (BottomBar)findViewById(R.id.bottomBar);
         mBottomBar.addItem(
-            new BottomBarTab(this, R.mipmap.ic_discover_white_24dp, getString(R.string.tab_cost)))
-                  .addItem(new BottomBarTab(this, R.mipmap.ic_message_white_24dp,
-                                            getString(R.string.tab_note)))
-                  .addItem(new BottomBarTab(this, R.mipmap.ic_message_white_24dp,
+            new BottomBarTab(this , R.mipmap.ic_discover_white_24dp , getString(R.string.tab_cost)))
+                  .addItem(new BottomBarTab(this , R.mipmap.ic_message_white_24dp ,
                                             getString(R.string.tab_calculator)))
-                  .addItem(new BottomBarTab(this, R.mipmap.ic_discover_white_24dp,
+                  .addItem(new BottomBarTab(this , R.mipmap.ic_discover_white_24dp ,
                                             getString(R.string.tab_finanical)))
-                  .addItem(new BottomBarTab(this, R.mipmap.ic_account_circle_white_24dp,
+                  .addItem(new BottomBarTab(this , R.mipmap.ic_account_circle_white_24dp ,
                                             getString(R.string.tab_about)));
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
-            @Override public void onTabSelected(int position, int prePosition) {
-                showHideFragment(mFragments.get(position), mFragments.get(prePosition));
+            @Override public void onTabSelected(int position , int prePosition) {
+                showHideFragment(mFragments.get(position) , mFragments.get(prePosition));
             }
             
             @Override public void onTabUnselected(int position) {
@@ -86,15 +80,13 @@ public class MainActivity extends SupportActivity implements BaseFragment.OnBack
                 // 如果不在该类别Fragment的主页,则回到主页;
                 if (count > 1) {
                     if (currentFragment instanceof CostFragment) {
-                        currentFragment.popToChild(CostFragment.class, false);
-                    } else if (currentFragment instanceof NoteFragment) {
-                        currentFragment.popToChild(NoteFragment.class, false);
+                        currentFragment.popToChild(CostFragment.class , false);
                     } else if (currentFragment instanceof FinanicalFragment) {
-                        currentFragment.popToChild(FinanicalFragment.class, false);
+                        currentFragment.popToChild(FinanicalFragment.class , false);
                     } else if (currentFragment instanceof AboutFragment) {
-                        currentFragment.popToChild(AboutFragment.class, false);
+                        currentFragment.popToChild(AboutFragment.class , false);
                     } else if (currentFragment instanceof CalculatorFragment) {
-                        currentFragment.popToChild(CalculatorFragment.class, false);
+                        currentFragment.popToChild(CalculatorFragment.class , false);
                     }
                     
                     return;
@@ -118,4 +110,4 @@ public class MainActivity extends SupportActivity implements BaseFragment.OnBack
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

@@ -11,6 +11,7 @@ public class CalculatorListItem {
     
     // CostItemAmountType itemType;
     List<CostItem> data;
+    
     String scaleIn;
     
     //  String scaleOut;
@@ -18,7 +19,7 @@ public class CalculatorListItem {
     public CalculatorListItem() {
     }
     
-    public CalculatorListItem(Long typeId, List<CostItem> data) {
+    public CalculatorListItem(Long typeId , List<CostItem> data) {
         this.typeId = typeId;
         this.data = data;
     }
@@ -28,7 +29,7 @@ public class CalculatorListItem {
             
             //          CostItemAmountType amountType = item.getCostAmountType();
             //          if (amountType.getName().equals("收入")) {
-            totalAmount = FloatUtils.add(totalAmount, Double.valueOf(item.getCostAmount()));
+            totalAmount = FloatUtils.add(totalAmount , Double.valueOf(item.getCostAmount()));
             
             //          } else {
             //              totalOutAmount = FloatUtils.add(totalOutAmount, Double.valueOf(item.getCostAmount()));
@@ -100,5 +101,3 @@ public class CalculatorListItem {
     //      this.currentAmountType = currentAmountType;
     //  }
 }
-
-//~ Formatted by Jindent --- http://www.jindent.com

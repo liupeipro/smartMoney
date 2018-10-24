@@ -22,4 +22,4 @@ public class BaseViewHolder {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

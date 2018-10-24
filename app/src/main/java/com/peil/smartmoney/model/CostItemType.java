@@ -28,7 +28,7 @@ import org.greenrobot.greendao.annotation.Unique;
     @Generated(hash = 1707162959) private transient CostItemTypeDao myDao;
     
     @Generated(hash = 67926559)
-    public CostItemType(Long _id, String costTypeIcon, @NotNull String costTypeName,
+    public CostItemType(Long _id , String costTypeIcon , @NotNull String costTypeName ,
                         Long amountTypeId) {
         this._id = _id;
         this.costTypeIcon = costTypeIcon;
@@ -36,7 +36,7 @@ import org.greenrobot.greendao.annotation.Unique;
         this.amountTypeId = amountTypeId;
     }
     
-    public CostItemType(String costTypeIcon, String costTypeName, Long amountTypeId) {
+    public CostItemType(String costTypeIcon , String costTypeName , Long amountTypeId) {
         this.costTypeIcon = costTypeIcon;
         this.costTypeName = costTypeName;
         this.amountTypeId = amountTypeId;

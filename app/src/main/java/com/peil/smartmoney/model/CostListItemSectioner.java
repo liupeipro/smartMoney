@@ -9,16 +9,16 @@ public class CostListItemSectioner {
     public CostListItemSectioner() {
     }
     
-    public CostListItemSectioner(String date, float totalAmount) {
+    public CostListItemSectioner(String date , float totalAmount) {
         this.date = date;
         this.totalAmount = totalAmount;
     }
     
-    public void addTotalAmount(String amount, CostItemAmountType amountType) {
+    public void addTotalAmount(String amount , CostItemAmountType amountType) {
         if (amountType.getName().equals("收入")) {
-            this.totalAmount = FloatUtils.add(this.totalAmount, Double.valueOf(amount));
+            this.totalAmount = FloatUtils.add(this.totalAmount , Double.valueOf(amount));
         } else {
-            this.totalAmount = FloatUtils.sub(this.totalAmount, Double.valueOf(amount));
+            this.totalAmount = FloatUtils.sub(this.totalAmount , Double.valueOf(amount));
         }
     }
     
@@ -35,4 +35,4 @@ public class CostListItemSectioner {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

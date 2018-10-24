@@ -29,9 +29,9 @@ public class CostCheckActivity extends BaseActivity {
                     break;
                 
                 case R.id.topbar_right_change_button:
-                    Intent intent = new Intent(CostCheckActivity.this, CostAddActivity.class);
+                    Intent intent = new Intent(CostCheckActivity.this , CostAddActivity.class);
                     
-                    intent.putExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID, mItem.get_id());
+                    intent.putExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID , mItem.get_id());
                     startActivity(intent);
                     finish();
                     
@@ -57,7 +57,7 @@ public class CostCheckActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cost_check);
         
-        Long intentItemId = getIntent().getLongExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID, -1);
+        Long intentItemId = getIntent().getLongExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID , -1);
         
         if (intentItemId != -1) {
             mItem = MoneyApplication.getDaoInstant()
@@ -74,7 +74,7 @@ public class CostCheckActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        bar_top.addRightTextButton("编辑", R.id.topbar_right_change_button)
+        bar_top.addRightTextButton("编辑" , R.id.topbar_right_change_button)
                .setOnClickListener(mOnClickListener);
         tv_amount = findViewById(R.id.tv_amount);
         btn_del = findViewById(R.id.btn_del);
@@ -84,22 +84,23 @@ public class CostCheckActivity extends BaseActivity {
         
         //      账户
         itemAccount =
-            mGroupListView.createItemView(null, "账户", "", QMUICommonListItemView.HORIZONTAL,
+            mGroupListView.createItemView(null , "账户" , "" , QMUICommonListItemView.HORIZONTAL ,
                                           QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         
         //      创建时间
         itemCreateTime =
-            mGroupListView.createItemView(null, "创建时间", "", QMUICommonListItemView.HORIZONTAL,
+            mGroupListView.createItemView(null , "创建时间" , "" , QMUICommonListItemView.HORIZONTAL ,
                                           QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         
         //      最后修改时间
         itemLastModifyTime =
-            mGroupListView.createItemView(null, "最后修改时间", "", QMUICommonListItemView.HORIZONTAL,
+            mGroupListView.createItemView(null , "最后修改时间" , "" , QMUICommonListItemView.HORIZONTAL ,
                                           QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         
         //      备注
-        itemRemark = mGroupListView.createItemView(null, "备注", "", QMUICommonListItemView.VERTICAL,
-                                                   QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        itemRemark =
+            mGroupListView.createItemView(null , "备注" , "" , QMUICommonListItemView.VERTICAL ,
+                                          QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         update(mItem);
     }
     
@@ -109,13 +110,13 @@ public class CostCheckActivity extends BaseActivity {
         builder.setTitle("确认要删除吗？")
                .setMessage("辛苦记的帐就找不回来啦！")
                .setCancelable(true)
-               .addAction("取消", new QMUIDialogAction.ActionListener() {
-                   @Override public void onClick(QMUIDialog dialog, int index) {
+               .addAction("取消" , new QMUIDialogAction.ActionListener() {
+                   @Override public void onClick(QMUIDialog dialog , int index) {
                        dialog.dismiss();
                    }
                })
-               .addAction("确定", new QMUIDialogAction.ActionListener() {
-                   @Override public void onClick(QMUIDialog dialog, int index) {
+               .addAction("确定" , new QMUIDialogAction.ActionListener() {
+                   @Override public void onClick(QMUIDialog dialog , int index) {
                        doDeleteRecord();
                    }
                })
@@ -145,12 +146,12 @@ public class CostCheckActivity extends BaseActivity {
         QMUIGroupListView.newSection(this)
                          .setTitle("")
                          .setDescription("")
-                         .addItemView(itemAccount, mOnClickListener)
-                         .addItemView(itemCreateTime, mOnClickListener)
-                         .addItemView(itemLastModifyTime, mOnClickListener)
-                         .addItemView(itemRemark, mOnClickListener)
+                         .addItemView(itemAccount , mOnClickListener)
+                         .addItemView(itemCreateTime , mOnClickListener)
+                         .addItemView(itemLastModifyTime , mOnClickListener)
+                         .addItemView(itemRemark , mOnClickListener)
                          .addTo(mGroupListView);
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

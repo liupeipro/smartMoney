@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by hoperun01 on 2017/3/11.
  */
-public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
+public abstract class AbsSelectedAdapter<T> extends BaseAdapter {
     protected ArrayList<T> mData = new ArrayList<T>();
     
     // 管理选中的状态，选中后的ID会add到里面，移除了就删除掉
@@ -19,7 +19,7 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
     protected Context mContext;
     protected LayoutInflater mInflater;
     
-    public AbsSelectedAdaspter(Context c) {
+    public AbsSelectedAdapter(Context c) {
         mContext = c;
         mInflater = LayoutInflater.from(mContext);
     }
@@ -30,9 +30,9 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
         }
     }
     
-    public void add(int index, T t) {
+    public void add(int index , T t) {
         if (t != null) {
-            mData.add(index, t);
+            mData.add(index , t);
         }
     }
     
@@ -94,10 +94,11 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
     }
     
     /* 绑定ViewHolder 对象里的数据 */
-    protected abstract void onBindViewHolder(BaseViewHolder viewHolder, int position);
+    protected abstract void onBindViewHolder(BaseViewHolder viewHolder , int position);
     
     /* 创建 ViewHolder */
-    protected abstract BaseViewHolder onCreateViewHolder(View view, ViewGroup parent, int viewType);
+    protected abstract BaseViewHolder onCreateViewHolder(View view , ViewGroup parent ,
+                                                         int viewType);
     
     /**
      * 移除选中标志
@@ -162,6 +163,17 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
     }
     
     /**
+     * 获取第一个选中的实体Item
+     */
+    public T getSelectedItemFirst() {
+        Integer tempPosition = getSelectedIndex(0);
+        if (tempPosition != -1) {
+            return getSelectedItem(tempPosition);
+        }
+        return null;
+    }
+    
+    /**
      * 设置选中标志
      */
     public void setSelectedState(int position) {
@@ -172,21 +184,21 @@ public abstract class AbsSelectedAdaspter<T> extends BaseAdapter {
         }
     }
     
-    @Override public View getView(int position, View convertView, ViewGroup parent) {
+    @Override public View getView(int position , View convertView , ViewGroup parent) {
         BaseViewHolder holder = null;
         
         if (convertView == null) {
-            convertView = mInflater.inflate(getLayoutResId(position), null);
-            holder = onCreateViewHolder(convertView, parent, getItemViewType(position));
+            convertView = mInflater.inflate(getLayoutResId(position) , null);
+            holder = onCreateViewHolder(convertView , parent , getItemViewType(position));
             convertView.setTag(holder);
         } else {
-            holder = (BaseViewHolder) convertView.getTag();
+            holder = (BaseViewHolder)convertView.getTag();
         }
         
-        onBindViewHolder(holder, position);
+        onBindViewHolder(holder , position);
         
         return convertView;
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

@@ -20,13 +20,17 @@
     <activity
         android:name=".cost.CostAddActivity"
         android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
-    <activity android:name=".cost.CostCheckActivity"></activity>
+    <activity android:name=".cost.CostCheckActivity"/>
     <activity
         android:name=".calculator.CalculatorFilterActivity"
         android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
     <activity android:name=".about.AboutActivity">
     </activity>
     <activity android:name=".about.IntroduceActivity">
+    </activity>
+    <activity android:name=".notes.NoteAddActivity">
+    </activity>
+    <activity android:name=".finanical.FinanceDetailActivity">
     </activity>
   </application>
 

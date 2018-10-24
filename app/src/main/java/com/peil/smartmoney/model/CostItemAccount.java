@@ -19,13 +19,13 @@ import org.greenrobot.greendao.annotation.Unique;
     @Generated(hash = 719143901) public CostItemAccount() {
     }
     
-    public CostItemAccount(String icon, String name) {
+    public CostItemAccount(String icon , String name) {
         this.costAccountIcon = icon;
         this.costAccountame = name;
     }
     
     @Generated(hash = 925208979)
-    public CostItemAccount(Long _id, String costAccountIcon, @NotNull String costAccountame) {
+    public CostItemAccount(Long _id , String costAccountIcon , @NotNull String costAccountame) {
         this._id = _id;
         this.costAccountIcon = costAccountIcon;
         this.costAccountame = costAccountame;

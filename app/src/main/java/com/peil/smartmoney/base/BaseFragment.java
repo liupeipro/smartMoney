@@ -16,7 +16,7 @@ public class BaseFragment extends SupportFragment {
         super.onAttach(context);
         
         if (context instanceof OnBackToFirstListener) {
-            _mBackToFirstListener = (OnBackToFirstListener) context;
+            _mBackToFirstListener = (OnBackToFirstListener)context;
         } else {
             throw new RuntimeException(
                 context.toString() + " must implement OnBackToFirstListener");
@@ -45,12 +45,12 @@ public class BaseFragment extends SupportFragment {
         _mBackToFirstListener = null;
     }
     
-    public void registerLocalReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+    public void registerLocalReceiver(BroadcastReceiver receiver , IntentFilter filter) {
         if (null == mLocalBroadcast) {
             mLocalBroadcast = LocalBroadcastManager.getInstance(_mActivity.getApplicationContext());
         }
         
-        mLocalBroadcast.registerReceiver(receiver, filter);
+        mLocalBroadcast.registerReceiver(receiver , filter);
     }
     
     public void sendLocalBroadcast(Intent intent) {
@@ -74,4 +74,4 @@ public class BaseFragment extends SupportFragment {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

@@ -29,9 +29,9 @@ public class AboutFragment extends BaseFragment {
     private QMUIGroupListView mGroupListView;
     
     @Nullable @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater , @Nullable ViewGroup container ,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_about, container, false);
+        View view = inflater.inflate(R.layout.frag_about , container , false);
         
         initView(view);
         
@@ -45,30 +45,25 @@ public class AboutFragment extends BaseFragment {
         mGroupListView = view.findViewById(R.id.groupListView);
         //      账户
         QMUICommonListItemView itemAccount =
-            mGroupListView.createItemView(null, "功能介绍", "", QMUICommonListItemView.HORIZONTAL,
+            mGroupListView.createItemView(null , "功能介绍" , "" , QMUICommonListItemView.HORIZONTAL ,
                                           QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         
         //      创建时间
         QMUICommonListItemView itemCreateTime =
-            mGroupListView.createItemView(null, "关于APP", "", QMUICommonListItemView.HORIZONTAL,
+            mGroupListView.createItemView(null , "关于APP" , "" , QMUICommonListItemView.HORIZONTAL ,
                                           QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         
         QMUIGroupListView.newSection(_mActivity)
                          .setTitle("")
                          .setDescription("")
-                         .addItemView(itemAccount, new View.OnClickListener() {
+                         .addItemView(itemAccount , new View.OnClickListener() {
                              @Override public void onClick(View v) {
-                                 startActivity(new Intent(_mActivity, IntroduceActivity.class));
+                                 startActivity(new Intent(_mActivity , IntroduceActivity.class));
                              }
                          })
-                         .addTo(mGroupListView);
-        
-        QMUIGroupListView.newSection(_mActivity)
-                         .setTitle("")
-                         .setDescription("")
-                         .addItemView(itemCreateTime, new View.OnClickListener() {
+                         .addItemView(itemCreateTime , new View.OnClickListener() {
                              @Override public void onClick(View v) {
-                                 startActivity(new Intent(_mActivity, AboutActivity.class));
+                                 startActivity(new Intent(_mActivity , AboutActivity.class));
                              }
                          })
                          .addTo(mGroupListView);

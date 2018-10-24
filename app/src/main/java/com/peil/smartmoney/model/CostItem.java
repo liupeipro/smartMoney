@@ -27,7 +27,7 @@ import org.greenrobot.greendao.annotation.ToOne;
  * <p>
  * <p>
  * A、
- * @Entity用于描述实体类名，其中active表示update/delete/refresh 方法是否自动生成, 默认为false.
+ * @Entity用于描述实体类名，其中active表示update/delete/refresh 方法是否自动生成 , 默认为false.
  * createInDb表示是否在数据库中创建表，默认为true，如果为false，将不创建该表.
  * generateConstructors表示是否自动生成构造方法(一个有参构造，一个无参构造).
  * indexes表示制定查询数据返回的默认排序规则.(@Index中的value制定排序的数据表中的列明加上排序规则即(ASC/DESC)，
@@ -103,9 +103,9 @@ import org.greenrobot.greendao.annotation.ToOne;
     @Generated(hash = 335225705) private transient CostItemDao myDao;
     
     @Generated(hash = 2023228916)
-    public CostItem(@NotNull String costAmount, @NotNull Long costDate, @NotNull Long createTime,
-                    @NotNull Long lastModifyTime, String remark, Long _id, Long costTypeId,
-                    Long costAccountId, Long costAmountTypeId) {
+    public CostItem(@NotNull String costAmount , @NotNull Long costDate , @NotNull Long createTime ,
+                    @NotNull Long lastModifyTime , String remark , Long _id , Long costTypeId ,
+                    Long costAccountId , Long costAmountTypeId) {
         this.costAmount = costAmount;
         this.costDate = costDate;
         this.createTime = createTime;
@@ -139,7 +139,7 @@ import org.greenrobot.greendao.annotation.ToOne;
         String result = "";
         
         if (costDate != null) {
-            result = TimeUtil.millis2Str(costDate, "yyyy-MM-dd");
+            result = TimeUtil.millis2Str(costDate , "yyyy-MM-dd");
         }
         
         return result;
@@ -149,14 +149,14 @@ import org.greenrobot.greendao.annotation.ToOne;
      * @param date
      */
     public void setTempCostDate(String date) {
-        costDate = (TimeUtil.str2Millis(date, "yyyy-MM-dd"));
+        costDate = (TimeUtil.str2Millis(date , "yyyy-MM-dd"));
     }
     
     public String getTempCreateTime() {
         String result = "";
         
         if (costDate != null) {
-            result = TimeUtil.millis2Str(createTime, "yyyy-MM-dd hh:mm:ss");
+            result = TimeUtil.millis2Str(createTime , "yyyy-MM-dd hh:mm:ss");
         }
         
         return result;
@@ -166,7 +166,7 @@ import org.greenrobot.greendao.annotation.ToOne;
         String result = "";
         
         if (costDate != null) {
-            result = TimeUtil.millis2Str(lastModifyTime, "yyyy-MM-dd hh:mm:ss");
+            result = TimeUtil.millis2Str(lastModifyTime , "yyyy-MM-dd hh:mm:ss");
         }
         
         return result;

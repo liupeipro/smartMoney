@@ -16,12 +16,10 @@ import com.peil.smartmoney.R;
 import com.peil.smartmoney.adapter.CostListAdapter;
 import com.peil.smartmoney.base.BaseFragment;
 import com.peil.smartmoney.base.MoneyApplication;
-import com.peil.smartmoney.calculator.CalculatorFilterActivity;
 import com.peil.smartmoney.greendao.gen.CostItemDao;
 import com.peil.smartmoney.model.CostItem;
 import com.peil.smartmoney.model.CostListItem;
 import com.peil.smartmoney.model.CostListItemSectioner;
-import com.peil.smartmoney.model.NoteItem;
 import com.peil.smartmoney.util.GsonUtils;
 import com.peil.smartmoney.util.MoneyConstants;
 import com.peil.smartmoney.util.ReceiverUtils;
@@ -35,7 +33,7 @@ import java.util.List;
 public class CostFragment extends BaseFragment {
     
     private BroadcastReceiver mUpdateReceiver = new BroadcastReceiver() {
-        @Override public void onReceive(Context context, Intent intent) {
+        @Override public void onReceive(Context context , Intent intent) {
             if (intent.getAction().equals(ReceiverUtils.RECEIVER_COST_LIST_UPDATE)) {
                 pull_to_refresh.doRefresh();
             }
@@ -48,20 +46,20 @@ public class CostFragment extends BaseFragment {
     private List<CostItem> mListData;
     
     private void gotoCheck(CostItem item) {
-        Intent intent = new Intent(_mActivity, CostCheckActivity.class);
+        Intent intent = new Intent(_mActivity , CostCheckActivity.class);
         
-        intent.putExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID, item.get_id());
+        intent.putExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID , item.get_id());
         startActivity(intent);
     }
     
     private void initView(View view) {
         bar_top = view.findViewById(R.id.bar_top);
         bar_top.setTitle("记账");
-        bar_top.addRightImageButton(R.mipmap.plus, R.id.topbar_right_change_button)
+        bar_top.addRightImageButton(R.mipmap.plus , R.id.topbar_right_change_button)
                .setOnClickListener(new View.OnClickListener() {
                    @Override public void onClick(View v) {
-                       startActivity(new Intent(_mActivity.getApplicationContext(),
-                                                CalculatorFilterActivity.class));
+                       startActivity(
+                           new Intent(_mActivity.getApplicationContext() , CostAddActivity.class));
                    }
                });
         pull_to_refresh = view.findViewById(R.id.pull_to_refresh);
@@ -79,8 +77,8 @@ public class CostFragment extends BaseFragment {
         listview = view.findViewById(R.id.listview);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CostListItem listItem = (CostListItem) parent.getItemAtPosition(position);
+            public void onItemClick(AdapterView<?> parent , View view , int position , long id) {
+                CostListItem listItem = (CostListItem)parent.getItemAtPosition(position);
                 
                 if (listItem != null) {
                     gotoCheck(listItem.getCostItem());
@@ -99,7 +97,7 @@ public class CostFragment extends BaseFragment {
                                                   .queryBuilder()
                                                   .orderDesc(CostItemDao.Properties.CostDate)
                                                   .list();
-    
+        
         //// 获取数据库中所有备忘录列表
         //List<NoteItem> tempData = MoneyApplication.getDaoInstant()
         //                                          .getNoteItemDao()
@@ -109,7 +107,7 @@ public class CostFragment extends BaseFragment {
         
         mListAdapter.addAll(parseCostItem(tempData));
         pull_to_refresh.finishRefresh();
-        listview.scrollTo(0, 0);
+        listview.scrollTo(0 , 0);
     }
     
     public static CostFragment newInstance() {
@@ -125,14 +123,14 @@ public class CostFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mListAdapter = new CostListAdapter(_mActivity);
         mListData = new ArrayList<>();
-        registerLocalReceiver(mUpdateReceiver,
+        registerLocalReceiver(mUpdateReceiver ,
                               new IntentFilter(ReceiverUtils.RECEIVER_COST_LIST_UPDATE));
     }
     
     @Nullable @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater , @Nullable ViewGroup container ,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_cost, container, false);
+        View view = inflater.inflate(R.layout.frag_cost , container , false);
         
         initView(view);
         
@@ -157,7 +155,7 @@ public class CostFragment extends BaseFragment {
             List<CostItem> tempSectionItems = null;
             CostListItemSectioner tempSection = null;
             
-            for (int k = 0; k < count; k++) {
+            for (int k = 0 ; k < count ; k++) {
                 CostItem item = items.get(k);
                 String date = item.getTempCostDate();
                 
@@ -166,13 +164,13 @@ public class CostFragment extends BaseFragment {
                     
                     //
                     if (tempSection != null) {
-                        result.add(new CostListItem(CostListItem.ITEM_COST_SECTION, tempSection));
+                        result.add(new CostListItem(CostListItem.ITEM_COST_SECTION , tempSection));
                         tempSection = null;
                     }
                     
                     if (tempSectionItems != null) {
                         for (CostItem i : tempSectionItems) {
-                            result.add(new CostListItem(CostListItem.ITEM_COST, i));
+                            result.add(new CostListItem(CostListItem.ITEM_COST , i));
                         }
                         
                         tempSectionItems = null;
@@ -182,11 +180,11 @@ public class CostFragment extends BaseFragment {
                     tempSection = new CostListItemSectioner();
                     tempSectionItems = new ArrayList<>();
                     tempSection.setDate(tempLastDate);
-                    tempSection.addTotalAmount(item.getCostAmount(), item.getCostAmountType());
+                    tempSection.addTotalAmount(item.getCostAmount() , item.getCostAmountType());
                     tempSectionItems.add(item);
                 } else {
                     if (tempSection != null) {
-                        tempSection.addTotalAmount(item.getCostAmount(), item.getCostAmountType());
+                        tempSection.addTotalAmount(item.getCostAmount() , item.getCostAmountType());
                     }
                     
                     if (tempSectionItems != null) {
@@ -196,13 +194,13 @@ public class CostFragment extends BaseFragment {
                 
                 if (k == count - 1) {
                     if (tempSection != null) {
-                        result.add(new CostListItem(CostListItem.ITEM_COST_SECTION, tempSection));
+                        result.add(new CostListItem(CostListItem.ITEM_COST_SECTION , tempSection));
                         tempSection = null;
                     }
                     
                     if (tempSectionItems != null) {
                         for (CostItem i : tempSectionItems) {
-                            result.add(new CostListItem(CostListItem.ITEM_COST, i));
+                            result.add(new CostListItem(CostListItem.ITEM_COST , i));
                         }
                         
                         tempSectionItems = null;
@@ -215,9 +213,9 @@ public class CostFragment extends BaseFragment {
                 CostListItemSectioner tempSection = new CostListItemSectioner();
                 
                 tempSection.setDate(item.getTempCostDate());
-                tempSection.addTotalAmount(item.getCostAmount(), item.getCostAmountType());
-                result.add(new CostListItem(CostListItem.ITEM_COST_SECTION, tempSection));
-                result.add(new CostListItem(CostListItem.ITEM_COST, item));
+                tempSection.addTotalAmount(item.getCostAmount() , item.getCostAmountType());
+                result.add(new CostListItem(CostListItem.ITEM_COST_SECTION , tempSection));
+                result.add(new CostListItem(CostListItem.ITEM_COST , item));
             }
         }
         
@@ -227,4 +225,4 @@ public class CostFragment extends BaseFragment {
     }
 }
 
-//~ Formatted by Jindent --- http://www.jindent.com
+
