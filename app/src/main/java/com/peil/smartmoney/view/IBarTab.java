@@ -8,15 +8,15 @@ import android.widget.LinearLayout;
  */
 public interface IBarTab {
     void setTabLayoutParams(LinearLayout.LayoutParams params);
-    
+
     void setTabOnClickListener(View.OnClickListener listener);
-    
+
     int getTabPosition();
-    
+
     void setTabPosition(int position);
-    
+
     void setTabSelected(boolean selected);
-    
+
     View getTabView();
 }
 

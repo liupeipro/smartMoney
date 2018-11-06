@@ -36,7 +36,7 @@
         android:paddingTop="@dimen/padding_10"
         android:paddingRight="@dimen/padding_32"
         android:paddingBottom="@dimen/padding_10"
-        android:textColor="@color/app_color_blue"
+        android:textColor="@color/blue_normal"
         android:textSize="@dimen/font_size_16"
         />
 

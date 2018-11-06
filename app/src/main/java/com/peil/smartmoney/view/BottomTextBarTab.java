@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.peil.smartmoney.R;
+import com.peil.smartmoney.util.ResHelper;
 
 /**
  * Created by YoKeyword on 16/6/3.
@@ -87,7 +89,7 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         super.setSelected(selected);
         
         if (selected) {
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.app_color_blue));
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.blue_normal));
         } else {
             mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.tab_unselect));
         }

@@ -13,7 +13,7 @@ android {
 
   defaultConfig {
     applicationId "com.peil.smartmoney"
-    minSdkVersion 23
+    minSdkVersion 21
     targetSdkVersion 28
     versionCode 1
     versionName "0.1"

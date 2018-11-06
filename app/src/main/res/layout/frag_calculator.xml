@@ -31,7 +31,7 @@
           android:layout_height="wrap_content"
           android:layout_margin="@dimen/padding_10"
           android:gravity="center"
-          android:textColor="@color/app_color_blue"
+          android:textColor="@color/blue_normal"
           android:textSize="@dimen/font_size_14"
           />
 

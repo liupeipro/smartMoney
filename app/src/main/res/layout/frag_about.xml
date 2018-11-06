@@ -44,7 +44,7 @@
             >
 
           <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-              android:layout_width="150dp"
+              android:layout_width="200dp"
               android:layout_height="wrap_content"
               android:clickable="false"
               android:src="@mipmap/ic_launcher_round"

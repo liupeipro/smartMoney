@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#F44336</color>
+  <color name="colorPrimary">#54A3FF</color>
   <color name="colorPrimaryDark">#D32F2F</color>
   <color name="colorAccent">#536DFE</color>
-  <color name="bg_app">#F1F1F1</color>
-
-  <color name="tab_unselect">#c9c9c9</color>
-  <color name="bg_btn">#dadada</color>
 
 
   <!-- 配置qmui提供的theme -->
-  <color name="app_color_blue">#00A8E1</color>
+  <color name="app_color_blue">#54A3FF</color>
   <color name="app_color_blue_disabled">#8000A8E1</color>
   <color name="app_color_blue_pressed">#c000A8E1</color>
   <color name="app_color_blue_2">#31BDF3</color>
@@ -31,8 +27,11 @@
   <color name="tab_panel_divider">@color/bar_divider</color>
 
 
+  <!-- 自定义 color -->
   <color name="transparent">#00000000</color>
-  <color name="view_container_bg">#F5F5F5</color>
+  <color name="blue_normal">#54A3FF</color>
+  <color name="tab_unselect">#AEAEAE</color>
+  <color name="view_container_bg">#EFEFEF</color>
   <color name="text_plus">#00A600</color>
   <color name="text_sub">#FF5151</color>
   <color name="black_333333">#333333</color>

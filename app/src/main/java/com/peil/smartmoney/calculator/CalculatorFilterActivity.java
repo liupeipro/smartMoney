@@ -4,25 +4,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import com.peil.smartmoney.R;
 import com.peil.smartmoney.base.BaseActivity;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 
 public class CalculatorFilterActivity extends BaseActivity {
-    
+
     private QMUITopBarLayout bar_top;
     private QMUICommonListItemView item_choose_date_start, item_choose_date_end;
-    
-    @Override public void onBackPressed() {
+
+    @Override
+    public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_still , R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
     }
-    
-    @Override protected void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator_filter);
-        
+
         bar_top = findViewById(R.id.bar_top);
         bar_top.setTitle("筛选");
         bar_top.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
@@ -30,20 +33,21 @@ public class CalculatorFilterActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        bar_top.addRightTextButton("完成" , R.id.topbar_right_change_button)
-               .setOnClickListener(new View.OnClickListener() {
-                   @Override public void onClick(View v) {
-                       Intent intent = new Intent();
-                       intent.putExtra("filter_date_start" , "");
-                       intent.putExtra("filter_date_end" , "");
-                       setResult(Activity.RESULT_OK , intent);
-                       finish();
-                   }
-               });
-        
+        bar_top.addRightTextButton("完成", R.id.topbar_right_change_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.putExtra("filter_date_start", "");
+                        intent.putExtra("filter_date_end", "");
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+                    }
+                });
+
         item_choose_date_start = findViewById(R.id.item_choose_date_start);
         item_choose_date_end = findViewById(R.id.item_choose_date_end);
-        
+
         item_choose_date_start.setText("起始日期");
         item_choose_date_start.setDetailText("2018-09");
         item_choose_date_end.setDetailText("2018-10");

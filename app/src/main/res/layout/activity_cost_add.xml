@@ -84,7 +84,7 @@
           android:paddingLeft="@dimen/padding_10"
           android:paddingRight="@dimen/padding_10"
           android:paddingTop="@dimen/padding_6"
-          android:textColor="@color/app_color_blue"
+          android:textColor="@color/blue_normal"
           android:textSize="@dimen/font_size_12"
           />
 
@@ -99,7 +99,7 @@
           android:paddingLeft="@dimen/padding_10"
           android:paddingRight="@dimen/padding_10"
           android:paddingTop="@dimen/padding_6"
-          android:textColor="@color/app_color_blue"
+          android:textColor="@color/blue_normal"
           android:textSize="@dimen/font_size_12"
           />
 
@@ -123,7 +123,7 @@
             android:paddingLeft="@dimen/padding_10"
             android:paddingRight="@dimen/padding_10"
             android:paddingTop="@dimen/padding_6"
-            android:textColor="@color/app_color_blue"
+            android:textColor="@color/blue_normal"
             android:textSize="@dimen/font_size_12"
             />
 
