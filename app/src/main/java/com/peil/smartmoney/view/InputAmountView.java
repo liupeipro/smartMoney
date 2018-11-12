@@ -183,7 +183,7 @@ public class InputAmountView extends RelativeLayout {
             float temp = getInputAmount();
 
             if (temp > 0) {
-                mOnAmountClickListener.onAmountDone(getInputAmount());
+                mOnAmountClickListener.onAmountDone(temp);
             } else {
                 mOnAmountClickListener.onAmountZero();
             }

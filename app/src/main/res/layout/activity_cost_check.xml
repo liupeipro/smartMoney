@@ -56,7 +56,7 @@
         <TextView
             android:id="@+id/tv_amount"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_92"
+            android:layout_height="@dimen/height_96"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/padding_10"
             android:gravity="center"

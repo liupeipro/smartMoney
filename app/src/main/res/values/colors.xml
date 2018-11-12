@@ -6,30 +6,23 @@
 
 
   <!-- 配置qmui提供的theme -->
-  <color name="app_color_blue">#54A3FF</color>
-  <color name="app_color_blue_disabled">#8000A8E1</color>
-  <color name="app_color_blue_pressed">#c000A8E1</color>
-  <color name="app_color_blue_2">#31BDF3</color>
-  <color name="app_color_blue_2_disabled">#7F31BDF3</color>
-  <color name="app_color_blue_2_pressed">#7F31BDF3</color>
-  <color name="app_color_theme_1">#EF5362</color> <!-- Grapefruit -->
-  <color name="app_color_theme_2">#FE6D4B</color> <!-- Bittersweet -->
-  <color name="app_color_theme_3">#FFCF47</color> <!-- Sunflower -->
-  <color name="app_color_theme_4">#9FD661</color> <!-- Grass -->
-  <color name="app_color_theme_5">#3FD0AD</color> <!-- Mint -->
-  <color name="app_color_theme_6">#2BBDF3</color> <!-- Aqua -->
-  <color name="app_color_theme_7">#5A9AEF</color> <!-- Blue Jeans -->
-  <color name="app_color_theme_8">#AC8FEF</color> <!-- Lavender -->
-  <color name="app_color_theme_9">#EE85C1</color> <!-- Pink Rose -->
-  <color name="app_color_description">@color/qmui_config_color_gray_5</color>
-  <color name="bar_divider">#D4D6D8</color>
-  <color name="tab_panel_bg">#ffffff</color>
-  <color name="tab_panel_divider">@color/bar_divider</color>
+  <color name="app_color_blue">#3692C5</color>
+  <color name="app_color_blue_disabled">#4387AC</color>
+  <color name="app_color_blue_pressed">#3283B0</color>
+  <!-- Grapefruit -->
+  <!-- Bittersweet -->
+  <!-- Sunflower -->
+  <!-- Grass -->
+  <!-- Mint -->
+  <!-- Aqua -->
+  <!-- Blue Jeans -->
+  <!-- Lavender -->
+  <!-- Pink Rose -->
 
 
   <!-- 自定义 color -->
   <color name="transparent">#00000000</color>
-  <color name="blue_normal">#54A3FF</color>
+  <color name="blue_normal">#3692C5</color>
   <color name="tab_unselect">#AEAEAE</color>
   <color name="view_container_bg">#EFEFEF</color>
   <color name="text_plus">#00A600</color>
@@ -37,33 +30,10 @@
   <color name="black_333333">#333333</color>
   <color name="black_666666">#666666</color>
   <color name="black_999999">#999999</color>
+  <color name="white">#FFFFFF</color>
 
 
   <!-- 配置 chart -->
-  <color name="chart_1">#9D9D9D</color>
-  <color name="chart_2">#FF5151</color>
-  <color name="chart_3">#FF95CA</color>
-  <color name="chart_4">#9F35FF</color>
-  <color name="chart_5">#2828FF</color>
-  <color name="chart_6">#0072E3</color>
-  <color name="chart_7">#00CACA</color>
-  <color name="chart_8">#02DF82</color>
-  <color name="chart_9">#00DB00</color>
-  <color name="chart_10">#DDDDFF</color>
-  <color name="chart_11">#C4E1FF</color>
-  <color name="chart_12">#D9FFFF</color>
-  <color name="chart_13">#D7FFEE</color>
-  <color name="chart_14">#CEFFCE</color>
-  <color name="chart_15">#64A600</color>
-  <color name="chart_16">#737300</color>
-  <color name="chart_17">#977C00</color>
-  <color name="chart_18">#BB5E00</color>
-  <color name="chart_19">#F75000</color>
-  <color name="chart_20">#AD5A5A</color>
-  <color name="chart_21">#A5A552</color>
-  <color name="chart_22">#5CADAD</color>
-  <color name="chart_23">#B3D9D9</color>
-  <color name="chart_24">#C07AB8</color>
 
 
 </resources>

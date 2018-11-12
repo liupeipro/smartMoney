@@ -70,15 +70,15 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
             new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT ,
                                           ViewGroup.LayoutParams.WRAP_CONTENT);
         
-        paramsTv.topMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
+        paramsTv.topMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 4 ,
                                                             getResources().getDisplayMetrics());
-        paramsTv.bottomMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
+        paramsTv.bottomMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 4 ,
                                                                getResources().getDisplayMetrics());
         paramsTv.leftMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
                                                              getResources().getDisplayMetrics());
         paramsTv.rightMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
                                                               getResources().getDisplayMetrics());
-        mTvTitle.setTextSize(16);
+        mTvTitle.setTextSize(14);
         mTvTitle.setTextColor(ContextCompat.getColor(context , R.color.tab_unselect));
         mTvTitle.setLayoutParams(paramsTv);
         lLContainer.addView(mTvTitle);
@@ -121,6 +121,18 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
     
     @Override public View getTabView() {
         return this;
+    }
+
+    public void setTitleSize(float size){
+        if(mTvTitle != null){
+            mTvTitle.setTextSize(size);
+        }
+    }
+
+    public void setTitleColor(int color){
+        if(mTvTitle != null){
+            mTvTitle.setTextColor(color);
+        }
     }
 }
 

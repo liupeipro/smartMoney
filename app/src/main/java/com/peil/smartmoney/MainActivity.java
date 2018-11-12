@@ -64,12 +64,12 @@ public class MainActivity extends SupportActivity implements BaseFragment.OnBack
 
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
         mBottomBar.addItem(
-                new BottomBarTab(this, R.mipmap.ic_tab_cost_normal, getString(R.string.tab_cost)))
-                .addItem(new BottomBarTab(this, R.mipmap.ic_tab_statist_normal,
+                new BottomBarTab(this, R.mipmap.ic_tab_cost_black, getString(R.string.tab_cost)))
+                .addItem(new BottomBarTab(this, R.mipmap.ic_tab_stat_black,
                         getString(R.string.tab_calculator)))
-                .addItem(new BottomBarTab(this, R.mipmap.ic_tab_finance_normal,
+                .addItem(new BottomBarTab(this, R.mipmap.ic_tab_finance_black,
                         getString(R.string.tab_finanical)))
-                .addItem(new BottomBarTab(this, R.mipmap.ic_tab_me_normal,
+                .addItem(new BottomBarTab(this, R.mipmap.ic_tab_me_black,
                         getString(R.string.tab_about)));
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override

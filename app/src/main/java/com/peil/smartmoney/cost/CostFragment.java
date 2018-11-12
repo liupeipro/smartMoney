@@ -59,7 +59,7 @@ public class CostFragment extends BaseFragment {
     private void initView(View view) {
         bar_top = view.findViewById(R.id.bar_top);
         bar_top.setTitle("记账");
-        bar_top.addRightImageButton(R.mipmap.plus, R.id.topbar_right_change_button)
+        bar_top.addRightImageButton(R.mipmap.ic_add_white, R.id.topbar_right_change_button)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

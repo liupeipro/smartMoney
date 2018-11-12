@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.peil.smartmoney.calculator.CalculatorFragment;
+import com.peil.smartmoney.cost.CostFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -34,7 +35,7 @@ public class BaseFragment extends SupportFragment {
         if (getChildFragmentManager().getBackStackEntryCount() > 1) {
             popChild();
         } else {
-            if (this instanceof CalculatorFragment) {    // 如果是 第一个Fragment 则退出app
+            if (this instanceof CostFragment) {    // 如果是 第一个Fragment 则退出app
                 _mActivity.finish();
             } else {                                     // 如果不是,则回到第一个Fragment
                 _mBackToFirstListener.onBackToFirstFragment();

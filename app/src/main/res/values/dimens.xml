@@ -1,50 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- Default screen margins, per the Android Design guidelines. -->
-  <dimen name="nav_header_vertical_spacing">16dp</dimen>
-  <dimen name="nav_header_height">160dp</dimen>
   <!-- Default screen margins, per the Android Design guidelines. -->
-  <dimen name="activity_horizontal_margin">16dp</dimen>
-  <dimen name="activity_vertical_margin">16dp</dimen>
-  <dimen name="fab_margin">24dp</dimen>
-  <dimen name="text_margin">16dp</dimen>
-  <dimen name="bottombar_height">58dp</dimen>
-  <dimen name="bottombar_width">200dp</dimen>
-  <dimen name="bottombar_wechat_height">52dp</dimen>
+  <dimen name="topbar_height">48dp</dimen>
+  <dimen name="bottombar_height">48dp</dimen>
   <dimen name="view_inputamount_height">250dp</dimen>
   <dimen name="view_inputamount_item_height">350dp</dimen>
 
   <!-- padding -->
   <dimen name="height_1">1dp</dimen>
-  <dimen name="height_24">24dp</dimen>
+  <dimen name="height_8">8dp</dimen>
+  <dimen name="height_12">12dp</dimen>
+  <dimen name="height_16">16dp</dimen>
+  <dimen name="height_32">32dp</dimen>
   <dimen name="height_48">48dp</dimen>
-  <dimen name="height_60">60dp</dimen>
-  <dimen name="height_78">78dp</dimen>
-  <dimen name="height_92">92dp</dimen>
-  <dimen name="height_108">108dp</dimen>
+  <dimen name="height_96">96dp</dimen>
   <dimen name="height_124">124dp</dimen>
   <dimen name="height_350">350dp</dimen>
 
   <!-- font -->
+  <dimen name="font_size_8">8sp</dimen>
   <dimen name="font_size_10">10sp</dimen>
   <dimen name="font_size_12">12sp</dimen>
   <dimen name="font_size_14">14sp</dimen>
   <dimen name="font_size_16">16sp</dimen>
-  <dimen name="font_size_18">18sp</dimen>
-  <dimen name="font_size_20">20sp</dimen>
-  <dimen name="font_size_22">22sp</dimen>
   <dimen name="font_size_28">28sp</dimen>
 
 
   <!-- padding -->
+  <dimen name="padding_2">2dp</dimen>
+  <dimen name="padding_4">4dp</dimen>
   <dimen name="padding_6">6dp</dimen>
   <dimen name="padding_8">8dp</dimen>
   <dimen name="padding_10">10dp</dimen>
-  <dimen name="padding_12">12dp</dimen>
-  <dimen name="padding_14">14dp</dimen>
   <dimen name="padding_16">16dp</dimen>
-  <dimen name="padding_18">18dp</dimen>
   <dimen name="padding_20">20dp</dimen>
   <dimen name="padding_32">32dp</dimen>
-  <dimen name="padding_40">40dp</dimen>
 </resources>
