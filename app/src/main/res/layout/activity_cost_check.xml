@@ -6,68 +6,58 @@
     android:layout_height="match_parent"
     android:background="@color/view_container_bg"
     android:orientation="vertical"
-    tools:context=".cost.CostCheckActivity"
-    >
+    tools:context=".cost.CostCheckActivity">
 
-  <com.qmuiteam.qmui.widget.QMUITopBarLayout
-      android:id="@+id/bar_top"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"
-      app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back"
-      />
-
-
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      >
-
-
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/btn_del"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/padding_10"
-        android:layout_marginBottom="@dimen/padding_20"
-        android:paddingLeft="@dimen/padding_32"
-        android:paddingTop="@dimen/padding_10"
-        android:paddingRight="@dimen/padding_32"
-        android:paddingBottom="@dimen/padding_10"
-        android:textColor="@color/blue_normal"
-        android:textSize="@dimen/font_size_16"
-        />
-
-    <ScrollView
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/bar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-
-      <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-          android:id="@+id/groupListView"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_above="@id/btn_del"
-          >
+        android:layout_alignParentTop="true"
+        app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back" />
 
 
-        <TextView
-            android:id="@+id/tv_amount"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/padding_10"
+            android:layout_marginBottom="@dimen/padding_20"
+            android:paddingLeft="@dimen/padding_32"
+            android:paddingTop="@dimen/padding_10"
+            android:paddingRight="@dimen/padding_32"
+            android:paddingBottom="@dimen/padding_10"
+            android:textColor="@color/blue_normal"
+            android:textSize="@dimen/font_size_16" />
+
+        <ScrollView
+            android:layout_above="@id/btn_del"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_96"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/padding_10"
-            android:gravity="center"
-            android:padding="@dimen/padding_10"
-            android:textSize="@dimen/font_size_28"
-            />
+            android:layout_height="match_parent">
 
-      </com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView>
-    </ScrollView>
+            <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+                android:id="@+id/groupListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-  </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_96"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="@dimen/font_size_28" />
+
+            </com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView>
+        </ScrollView>
+
+    </RelativeLayout>
 
 
 </LinearLayout>

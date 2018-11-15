@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.peil.smartmoney.R;
+import com.peil.smartmoney.util.ResHelper;
 
 /**
  * Created by YoKeyword on 16/6/3.
@@ -79,7 +80,7 @@ public class BottomBarTab extends FrameLayout implements IBarTab {
 
         mIcon.setImageResource(icon);
         mIcon.setLayoutParams(params);
-        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.tab_unselect));
+        mIcon.setColorFilter(ResHelper.getColor(context, R.color.tab_unselect));
         lLContainer.addView(mIcon);
         mTvTitle = new TextView(context);
         mTvTitle.setText(title);
@@ -91,7 +92,7 @@ public class BottomBarTab extends FrameLayout implements IBarTab {
         paramsTv.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
                 getResources().getDisplayMetrics());
         mTvTitle.setTextSize(10);
-        mTvTitle.setTextColor(ContextCompat.getColor(context, R.color.tab_unselect));
+        mTvTitle.setTextColor(ResHelper.getColor(context, R.color.tab_unselect));
         mTvTitle.setLayoutParams(paramsTv);
         lLContainer.addView(mTvTitle);
         addView(lLContainer);
@@ -122,11 +123,11 @@ public class BottomBarTab extends FrameLayout implements IBarTab {
         super.setSelected(selected);
 
         if (selected) {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            mIcon.setColorFilter(ResHelper.getColor(mContext, R.color.colorPrimary));
+            mTvTitle.setTextColor(ResHelper.getColor(mContext,R.color.colorPrimary));
         } else {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.tab_unselect));
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.tab_unselect));
+            mIcon.setColorFilter(ResHelper.getColor(mContext, R.color.tab_unselect));
+            mTvTitle.setTextColor(ResHelper.getColor(mContext, R.color.tab_unselect));
         }
     }
 

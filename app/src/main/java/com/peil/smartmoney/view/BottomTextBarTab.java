@@ -79,7 +79,7 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         paramsTv.rightMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , 10 ,
                                                               getResources().getDisplayMetrics());
         mTvTitle.setTextSize(14);
-        mTvTitle.setTextColor(ContextCompat.getColor(context , R.color.tab_unselect));
+        mTvTitle.setTextColor(ResHelper.getColor(context , R.color.tab_unselect));
         mTvTitle.setLayoutParams(paramsTv);
         lLContainer.addView(mTvTitle);
         addView(lLContainer);
@@ -89,9 +89,9 @@ public class BottomTextBarTab extends FrameLayout implements IBarTab {
         super.setSelected(selected);
         
         if (selected) {
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.blue_normal));
+            mTvTitle.setTextColor(ResHelper.getColor(mContext,  R.color.blue_normal));
         } else {
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext , R.color.tab_unselect));
+            mTvTitle.setTextColor(ResHelper.getColor(mContext, R.color.tab_unselect));
         }
     }
     

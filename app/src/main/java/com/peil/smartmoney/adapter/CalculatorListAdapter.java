@@ -63,11 +63,11 @@ public class CalculatorListAdapter extends AbsMultiTypeAdapter<CalculCostType> {
             String totalAmount = item.getTotalAmountStr();
             if (Double.valueOf(totalAmount) > 0f) {
                 totalAmount = "+" + totalAmount + "元";
-                tv_total_amount.setTextColor(ResHelper.getAttrColor(mContext, R.color.text_plus));
+                tv_total_amount.setTextColor(ResHelper.getColor(mContext,R.color.text_plus));
 
             } else if (Double.valueOf(totalAmount) < 0f) {
                 totalAmount = "" + totalAmount + "元";
-                tv_total_amount.setTextColor(ResHelper.getAttrColor(mContext, R.color.text_sub));
+                tv_total_amount.setTextColor(ResHelper.getColor(mContext,R.color.text_sub));
             }
             tv_total_amount.setText(totalAmount);
             tv_num.setText(item.getNumStr() + " 笔");

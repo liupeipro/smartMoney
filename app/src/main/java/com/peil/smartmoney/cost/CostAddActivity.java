@@ -1,7 +1,11 @@
 package com.peil.smartmoney.cost;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -20,18 +24,17 @@ import com.peil.smartmoney.model.CostItem;
 import com.peil.smartmoney.model.CostItemAccount;
 import com.peil.smartmoney.model.CostItemAmountType;
 import com.peil.smartmoney.model.CostItemType;
+import com.peil.smartmoney.util.EditInputFilterAmount;
 import com.peil.smartmoney.util.TimeUtil;
 import com.peil.smartmoney.view.BottomBar;
 import com.peil.smartmoney.view.BottomBar.OnTabSelectedListener;
 import com.peil.smartmoney.view.BottomTextBarTab;
-import com.peil.smartmoney.view.InputAmountView;
-import com.peil.smartmoney.view.InputAmountView.OnAmountClickListener;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet.BottomListSheetBuilder;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,21 +50,24 @@ import cn.qqtheme.framework.util.ConvertUtils;
  * 添加记账页面
  */
 public class CostAddActivity extends BaseActivity {
-    //
+
+    //Views
+    private QMUITopBarLayout bar_top;
+    private DatePicker mPickerDate;
+    private BottomBar mBottomBar;
+    private GridView grid_type;
+    private EditText et_inputamount, et_remark;
+    private QMUIGroupListView mGroupListView;
+    private QMUICommonListItemView item_input_amount, item_choose_date, item_choose_account;
+    //data
     private List<CostItemType> mGridInData = new ArrayList();
     private List<CostItemType> mGridOutData = new ArrayList();
     private List<CostItemAccount> mAccountListData = new ArrayList();
     private List<CostItemAmountType> mAmountTypes = new ArrayList();
-    private CostItem mCostItem = new CostItem();
-    private QMUITopBarLayout bar_top;
-    private InputAmountView view_amount;
-    private DatePicker mPickerDate;
-    private BottomBar mBottomBar;
-    private GridView grid_type;
+    private CostItem mCostItem = null;
     private CostAddTypeAdapter mGridAdapter;
-    private EditText et_remark;
-    QMUICommonListItemView item_choose_date, item_choose_account;
 
+    //linstener
     private OnTabSelectedListener mOnTabSelectedListener = new OnTabSelectedListener() {
         @Override
         public void onTabSelected(int position, int prePosition) {
@@ -75,28 +81,35 @@ public class CostAddActivity extends BaseActivity {
         }
     };
 
+    private OnClickListener mGroupItemClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v instanceof QMUICommonListItemView) {
+                QMUICommonListItemView itemView = (QMUICommonListItemView) v;
+                Integer tagValue = (Integer) itemView.getTag();
+                switch (tagValue) {
+                    case 1:
+                        showChooseTimeView();
+                        break;
+                    case 2:
+                        showChooseAccountView();
+                        break;
+                }
+            }
+        }
+    };
+
     private OnClickListener mOnClickListener = new OnClickListener() {
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.item_choose_account:
-                    showChooseAccountView();
-                    break;
-                case R.id.item_choose_date:
-                    showChooseTimeView();
-                    break;
                 case R.id.topbar_right_change_button:
-                    float temp = view_amount.getInputAmount();
-                    if (temp > 0) {
-                        mOnAmountClickListener.onAmountDone(temp);
-                    } else {
-                        mOnAmountClickListener.onAmountZero();
-                    }
+                    doSubmit();
                     break;
             }
         }
     };
 
-    AdapterView.OnItemClickListener mGridItemClickener = new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemClickListener mGridItemClickener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             LogUtils.d("mGridItemClickener position = " + position);
@@ -128,16 +141,6 @@ public class CostAddActivity extends BaseActivity {
                 }
             };
 
-    private OnAmountClickListener mOnAmountClickListener = new OnAmountClickListener() {
-        public void onAmountZero() {
-            ToastUtils.showShort("请输入金额");
-        }
-
-        public void onAmountDone(float amount) {
-            mCostItem.setCostAmount(String.valueOf(amount));
-            onSubmit(mCostItem);
-        }
-    };
 
     private OnSheetItemClickListener mAccountItemClickListener = new OnSheetItemClickListener() {
         public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
@@ -147,34 +150,7 @@ public class CostAddActivity extends BaseActivity {
     };
 
 
-    private void doSubmit() {
-
-    }
-
     private void onSubmit(CostItem item) {
-        if (item.getCostAmount().isEmpty()) {
-            ToastUtils.showShort("请输入金额");
-        } else if (item.getCostType() == null) {
-            ToastUtils.showShort("请选择类别");
-        } else if (item.getCostAccount() == null) {
-            ToastUtils.showShort("请选择账户");
-        } else if (item.getCostDate() == null) {
-            ToastUtils.showShort("请选择日期");
-        } else {
-            if (mCostItem.getCreateTime() == null) {
-                mCostItem.setCreateTime(System.currentTimeMillis());
-            }
-
-            mCostItem.setLastModifyTime(System.currentTimeMillis());
-            long temp =
-                    MoneyApplication.getDaoInstant().getCostItemDao().insertOrReplace(mCostItem);
-            LogUtils.d(new Object[]{"提交数据库：现在记账数据 " + temp});
-            if (temp != -1L) {
-                ToastUtils.showShort("记账成功");
-                sendBroadcast(new Intent("receiver_costlist_update"));
-                onBackPressed();
-            }
-        }
     }
 
     public void onBackPressed() {
@@ -192,39 +168,50 @@ public class CostAddActivity extends BaseActivity {
         return bottomBar;
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cost_add);
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_cost_add;
+    }
 
+    @Override
+    protected void initView() {
+        mBottomBar = getTitileCenterView();
         mGridAdapter = new CostAddTypeAdapter(this);
         mPickerDate = new DatePicker(this);
         bar_top = (QMUITopBarLayout) findViewById(R.id.bar_top);
-        view_amount = (InputAmountView) findViewById(R.id.view_amount);
         grid_type = (GridView) findViewById(R.id.grid_type);
         et_remark = (EditText) findViewById(R.id.et_remark);
-        item_choose_date = (QMUICommonListItemView) findViewById(R.id.item_choose_date);
-        item_choose_account = (QMUICommonListItemView) findViewById(R.id.item_choose_account);
+        mGroupListView = findViewById(R.id.groupListView);
 
+        initGroupItemView();
+    }
 
+    @Override
+    protected void initData() {
+        mAmountTypes = MoneyApplication.getDaoInstant().getCostItemAmountTypeDao().loadAll();
+        mAccountListData = MoneyApplication.getDaoInstant().getCostItemAccountDao().loadAll();
+        Long intentItemId = getIntent().getLongExtra("intent_cost_edit_item_id", -1L);
+        if (intentItemId != -1L) {
+            mCostItem = (CostItem) MoneyApplication.getDaoInstant()
+                    .getCostItemDao()
+                    .queryBuilder()
+                    .where(
+                            com.peil.smartmoney.greendao.gen.CostItemDao.Properties._id
+                                    .eq(intentItemId))
+                    .unique();
+        }
+    }
+
+    @Override
+    protected void initController() {
+        mBottomBar.setOnTabSelectedListener(mOnTabSelectedListener);
         bar_top.addLeftBackImageButton().setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        mBottomBar = getTitileCenterView();
         bar_top.setCenterView(mBottomBar);
         bar_top.addRightImageButton(R.mipmap.ic_done_white, R.id.topbar_right_change_button).setOnClickListener(mOnClickListener);
-
-        mBottomBar.setOnTabSelectedListener(mOnTabSelectedListener);
-        view_amount.setOnAmountClickListener(mOnAmountClickListener);
-        item_choose_date.setOnClickListener(mOnClickListener);
-        item_choose_date.setOnClickListener(mOnClickListener);
-
-        item_choose_date.setText("日期");
-        item_choose_account.setText("账户");
-
-
-        mAmountTypes = MoneyApplication.getDaoInstant().getCostItemAmountTypeDao().loadAll();
 
         for (CostItemAmountType item : mAmountTypes) {
             List<CostItemType> temp = MoneyApplication.getDaoInstant()
@@ -243,8 +230,6 @@ public class CostAddActivity extends BaseActivity {
             }
         }
 
-        mAccountListData = MoneyApplication.getDaoInstant().getCostItemAccountDao().loadAll();
-
         if (!mAmountTypes.isEmpty()) {
             for (CostItemAmountType type : mAmountTypes) {
                 BottomTextBarTab tempTab = new BottomTextBarTab(this, type.getName());
@@ -252,20 +237,28 @@ public class CostAddActivity extends BaseActivity {
             }
         }
 
+        et_remark.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mCostItem.setRemark(s.toString());
+            }
+        });
+
         grid_type.setAdapter(mGridAdapter);
         grid_type.setOnItemClickListener(mGridItemClickener);
-        grid_type.setOnItemSelectedListener(mGridItemSelectedListener);
 
-        Long intentItemId = getIntent().getLongExtra("intent_cost_edit_item_id", -1L);
-        if (intentItemId != -1L) {
-//            bar_top.setTitle("修改记账");
-            mCostItem = (CostItem) MoneyApplication.getDaoInstant()
-                    .getCostItemDao()
-                    .queryBuilder()
-                    .where(
-                            com.peil.smartmoney.greendao.gen.CostItemDao.Properties._id
-                                    .eq(intentItemId))
-                    .unique();
+        if (mCostItem != null) {
+            mBottomBar.setCurrentItem(mAmountTypes.indexOf(mCostItem.getCostAmountType()));
             updateAmountType(mAmountTypes.indexOf(mCostItem.getCostAmountType()));
             int gridIndex =
                     getAmountTypeList(mCostItem.getCostAmountType()).indexOf(mCostItem.getCostType());
@@ -273,9 +266,14 @@ public class CostAddActivity extends BaseActivity {
             mGridAdapter.notifyDataSetChanged();
             updateChooseDate(mCostItem.getTempCostDate());
             updateChooseAccount(mAccountListData.indexOf(mCostItem.getCostAccount()));
-            view_amount.setAmount(mCostItem.getCostAmount());
+            et_inputamount.setText(mCostItem.getCostAmount());
+            et_inputamount.setSelection(et_inputamount.getText().toString().length());
+
+            et_remark.setText(mCostItem.getRemark());
+//            et_remark.setSelection(et_remark.getText().toString().length());
+
         } else {
-//            bar_top.setTitle("添加记账");
+            mCostItem = new CostItem();
             updateAmountType(0);
             mGridAdapter.setSelectedPosition(0);
             mGridAdapter.notifyDataSetChanged();
@@ -283,6 +281,43 @@ public class CostAddActivity extends BaseActivity {
             updateChooseDate(TimeUtil.millis2Str(System.currentTimeMillis(), "yyyy-MM-dd"));
             updateChooseAccount(0);
         }
+    }
+
+
+    private void initGroupItemView() {
+        //金额
+        item_input_amount =
+                mGroupListView.createItemView(null, "金额", "", QMUICommonListItemView.HORIZONTAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CUSTOM);
+        item_input_amount.addAccessoryCustomView(getInputAmountEditView());
+
+        //日期
+        item_choose_date =
+                mGroupListView.createItemView(null, "日期", "", QMUICommonListItemView.HORIZONTAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
+        item_choose_date.setTag(1);
+
+        //账户
+        item_choose_account =
+                mGroupListView.createItemView(null, "账户", "", QMUICommonListItemView.HORIZONTAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
+        item_choose_account.setTag(2);
+
+
+        QMUIGroupListView.newSection(this)
+                .setTitle("")
+                .setDescription("").addItemView(item_input_amount, null)
+                .addItemView(item_choose_date, mGroupItemClickListener)
+                .addItemView(item_choose_account, mGroupItemClickListener)
+                .addTo(mGroupListView);
+    }
+
+    private View getInputAmountEditView() {
+        View view = LayoutInflater.from(this).inflate(R.layout.custome_view_input_amount_edit, null);
+        et_inputamount = view.findViewById(R.id.et_inputamount);
+        InputFilter[] filters = {new EditInputFilterAmount()};
+        et_inputamount.setFilters(filters);
+        return view;
     }
 
     private void updateAmountGrid() {
@@ -317,7 +352,6 @@ public class CostAddActivity extends BaseActivity {
             item_choose_date.setDetailText(mCostItem.getTempCostDate());
         }
     }
-
 
     private void updateChooseAccount(int position) {
         CostItemAccount item = (CostItemAccount) mAccountListData.get(position);
@@ -371,6 +405,46 @@ public class CostAddActivity extends BaseActivity {
 
         builder.setOnSheetItemClickListener(mAccountItemClickListener);
         builder.build().show();
+    }
+
+    /**
+     * 提交
+     */
+    private void doSubmit() {
+        String inputAmount = et_inputamount.getText().toString().trim();
+        if (TextUtils.isEmpty(inputAmount)) {
+            ToastUtils.showShort("请输入金额");
+            return;
+        }
+
+        float temp = Float.valueOf(inputAmount);
+        if (temp <= 0) {
+            ToastUtils.showShort("金额不能为0");
+            return;
+        }
+
+        mCostItem.setCostAmount(inputAmount);
+
+        if (mCostItem.getCostType() == null) {
+            ToastUtils.showShort("请选择类别");
+        } else if (mCostItem.getCostAccount() == null) {
+            ToastUtils.showShort("请选择账户");
+        } else if (mCostItem.getCostDate() == null) {
+            ToastUtils.showShort("请选择日期");
+        } else {
+            if (mCostItem.getCreateTime() == null) {
+                mCostItem.setCreateTime(System.currentTimeMillis());
+            }
+            mCostItem.setLastModifyTime(System.currentTimeMillis());
+            long tempResult =
+                    MoneyApplication.getDaoInstant().getCostItemDao().insertOrReplace(mCostItem);
+            LogUtils.d(new Object[]{"提交数据库：现在记账数据 " + temp});
+            if (tempResult != -1L) {
+                ToastUtils.showShort("记账成功");
+                sendBroadcast(new Intent("receiver_costlist_update"));
+                onBackPressed();
+            }
+        }
     }
 
 }

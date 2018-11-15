@@ -36,17 +36,20 @@ public class AboutFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.frag_about, container, false);
 
         initView(view);
-
         return view;
     }
 
     private void initView(View view) {
         bar_top = view.findViewById(R.id.bar_top);
         bar_top.setTitle("我的");
-        bar_top.setVisibility(View.GONE);
 
         mGroupListView = view.findViewById(R.id.groupListView);
-        //      账户
+
+
+        //      头像
+        QMUICommonListItemView itemAvater =
+                mGroupListView.createItemView(getResources().getDrawable(R.mipmap.ic_user_white), "刘小明", "用户号:lxm0000001", QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_NONE); //      账户
         QMUICommonListItemView itemAccount =
                 mGroupListView.createItemView(null, "功能介绍", "", QMUICommonListItemView.HORIZONTAL,
                         QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
@@ -55,6 +58,13 @@ public class AboutFragment extends BaseFragment {
         QMUICommonListItemView itemCreateTime =
                 mGroupListView.createItemView(null, "关于APP", "", QMUICommonListItemView.HORIZONTAL,
                         QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
+
+
+        QMUIGroupListView.newSection(_mActivity)
+                .setTitle("")
+                .setDescription("")
+                .addItemView(itemAvater, null)
+                .addTo(mGroupListView);
 
         QMUIGroupListView.newSection(_mActivity)
                 .setTitle("")

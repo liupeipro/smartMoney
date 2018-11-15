@@ -3,20 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-  <FrameLayout
-      android:id="@+id/fl_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginBottom="@dimen/bottombar_height"
-      />
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottombar_height" />
 
-  <com.peil.smartmoney.view.BottomBar
-      android:id="@+id/bottomBar"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottombar_height"
-      android:layout_gravity="bottom"
-      />
+    <com.peil.smartmoney.view.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottombar_height"
+        android:layout_gravity="bottom" />
 </FrameLayout>

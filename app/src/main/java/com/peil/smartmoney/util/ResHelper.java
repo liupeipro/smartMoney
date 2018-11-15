@@ -6,7 +6,8 @@ import com.qmuiteam.qmui.util.QMUIResHelper;
 
 public class ResHelper {
 
-    public static int getAttrColor(Context context, int colorID) {
-        return QMUIResHelper.getAttrColor(context, colorID);
+    public static int getColor(Context context,int resId){
+        return context.getResources().getColor(resId);
     }
+
 }

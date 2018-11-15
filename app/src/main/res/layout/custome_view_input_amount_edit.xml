@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥"
+        android:textSize="@dimen/font_size_16" />
+
+    <EditText
+        android:id="@+id/et_inputamount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:hint="0.00"
+        android:inputType="numberDecimal"
+        android:textColor="@color/blue_normal"
+        android:textColorHint="@color/qmui_config_color_gray_9"
+        android:textSize="@dimen/font_size_14"
+        android:textStyle="bold" />
+</LinearLayout>

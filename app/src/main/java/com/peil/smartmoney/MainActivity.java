@@ -42,7 +42,7 @@ public class MainActivity extends SupportActivity implements BaseFragment.OnBack
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SupportFragment firstFrag = findFragment(CalculatorFragment.class);
+        SupportFragment firstFrag = findFragment(CostFragment.class);
 
         if (firstFrag == null) {
             //          初始化
@@ -56,10 +56,11 @@ public class MainActivity extends SupportActivity implements BaseFragment.OnBack
 
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
             // 这里我们需要拿到mFragments的引用
-            mFragments.set(0, findFragment(CostFragment.class));
-            mFragments.set(1, firstFrag);
-            mFragments.set(2, findFragment(FinanicalFragment.class));
-            mFragments.set(3, findFragment(AboutFragment.class));
+            mFragments.clear();
+            mFragments.add(0, firstFrag);
+            mFragments.add(1, findFragment(CalculatorFragment.class));
+            mFragments.add(2, findFragment(FinanicalFragment.class));
+            mFragments.add(3, findFragment(AboutFragment.class));
         }
 
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);

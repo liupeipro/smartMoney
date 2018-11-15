@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.peil.smartmoney.R;
 import com.peil.smartmoney.model.CostItemType;
+import com.peil.smartmoney.util.ResHelper;
 
 /**
  * 添加记账-类型
@@ -44,7 +45,7 @@ public class CostAddTypeAdapter extends AbsSignleSelectedAdapter<CostItemType> {
         public void update(CostItemType itemType, boolean hasSelected) {
             tv_name.setText(itemType.getCostTypeName());
             mItemView.setBackgroundResource(hasSelected ? R.drawable.bg_addtype_selected : R.drawable.bg_addtype_normal);
-            tv_name.setTextColor(mContext.getResources().getColor(hasSelected ? R.color.white : R.color.black_666666));
+            tv_name.setTextColor(ResHelper.getColor(mContext,hasSelected ? R.color.white : R.color.black_666666));
         }
     }
 }

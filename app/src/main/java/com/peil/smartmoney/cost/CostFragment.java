@@ -51,7 +51,6 @@ public class CostFragment extends BaseFragment {
 
     private void gotoCheck(CostItem item) {
         Intent intent = new Intent(_mActivity, CostCheckActivity.class);
-
         intent.putExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID, item.get_id());
         startActivity(intent);
     }

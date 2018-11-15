@@ -89,11 +89,11 @@ public class CostListAdapter extends AbsMultiTypeAdapter<CostListItem>
             String totalAmount = item.getTotalAmountStr();
 
             if (Double.valueOf(totalAmount) > 0f) {
-                totalAmount = "+" + totalAmount + "元";
-                tv_total_amount.setTextColor(ResHelper.getAttrColor(mContext, R.color.text_plus));
+                totalAmount = "总计：+" + totalAmount + "元";
+                tv_total_amount.setTextColor(ResHelper.getColor(mContext,R.color.text_plus));
             } else if (Double.valueOf(totalAmount) < 0f) {
-                totalAmount = "" + totalAmount + "元";
-                tv_total_amount.setTextColor(ResHelper.getAttrColor(mContext, R.color.text_sub));
+                totalAmount = "总计：" + totalAmount + "元";
+                tv_total_amount.setTextColor(ResHelper.getColor(mContext,R.color.text_sub));
             }
 
             tv_total_amount.setText(totalAmount);
@@ -119,10 +119,10 @@ public class CostListAdapter extends AbsMultiTypeAdapter<CostListItem>
 
             if (item.getCostAmountType().getName().equals("收入")) {
                 amount = "+" + item.getCostAmount() + "元";
-                tv_amount.setTextColor(ResHelper.getAttrColor(mContext, R.color.black_666666));
+                tv_amount.setTextColor(ResHelper.getColor(mContext,R.color.black_666666));
             } else {
                 amount = "-" + item.getCostAmount() + "元";
-                tv_amount.setTextColor(ResHelper.getAttrColor(mContext, R.color.black_666666));
+                tv_amount.setTextColor(ResHelper.getColor(mContext,R.color.black_666666));
             }
 
             tv_amount.setText(amount);

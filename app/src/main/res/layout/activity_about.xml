@@ -1,19 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/view_container_bg"
-    android:orientation="vertical"
-    >
+    android:background="@color/view_container_bg">
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/bar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back" />
+
+    <RelativeLayout
+        android:id="@+id/view_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/padding_10">
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textColor="@color/black_999999"
+            android:textSize="@dimen/font_size_12" />
+    </RelativeLayout>
+
+    <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+        android:id="@+id/groupListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/view_bottom"
+        android:layout_below="@id/bar_top">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingTop="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_10">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:layout_width="@dimen/height_80"
+                    android:layout_height="@dimen/height_80"
+                    android:clickable="false"
+                    android:src="@mipmap/ic_launcher_round"
+                    app:qmui_border_color="@color/white"
+                    app:qmui_border_width="1px"
+                    app:qmui_is_circle="true"
+                    app:qmui_selected_border_color="@color/white"
+                    app:qmui_selected_border_width="1px"
+                    app:qmui_selected_mask_color="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/padding_10"
+                    android:text="@string/app_describe"
+                    android:textColor="@color/black_666666"
+                    android:textSize="@dimen/font_size_12" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView>
 
 
-  <com.qmuiteam.qmui.widget.QMUITopBarLayout
-      android:id="@+id/bar_top"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back"
-      />
-
-
-</LinearLayout>
+</RelativeLayout>

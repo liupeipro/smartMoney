@@ -2,7 +2,6 @@ package com.peil.smartmoney.calculator;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 
 import com.peil.smartmoney.R;
@@ -21,12 +20,28 @@ public class CalculatorFilterActivity extends BaseActivity {
         overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculator_filter);
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_calculator_filter;
+    }
+
+    @Override
+    protected void initView() {
         bar_top = findViewById(R.id.bar_top);
+        item_choose_date_start = findViewById(R.id.item_choose_date_start);
+        item_choose_date_end = findViewById(R.id.item_choose_date_end);
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initController() {
+
         bar_top.setTitle("筛选");
         bar_top.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -44,9 +59,6 @@ public class CalculatorFilterActivity extends BaseActivity {
                         finish();
                     }
                 });
-
-        item_choose_date_start = findViewById(R.id.item_choose_date_start);
-        item_choose_date_end = findViewById(R.id.item_choose_date_end);
 
         item_choose_date_start.setText("起始日期");
         item_choose_date_start.setDetailText("2018-09");

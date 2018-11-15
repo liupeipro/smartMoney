@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <!-- Default screen margins, per the Android Design guidelines. -->
-  <!-- Default screen margins, per the Android Design guidelines. -->
-  <dimen name="topbar_height">48dp</dimen>
-  <dimen name="bottombar_height">48dp</dimen>
-  <dimen name="view_inputamount_height">250dp</dimen>
-  <dimen name="view_inputamount_item_height">350dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="topbar_height">48dp</dimen>
+    <dimen name="bottombar_height">48dp</dimen>
+    <dimen name="view_inputamount_height">250dp</dimen>
+    <dimen name="view_inputamount_item_height">350dp</dimen>
 
-  <!-- padding -->
-  <dimen name="height_1">1dp</dimen>
-  <dimen name="height_8">8dp</dimen>
-  <dimen name="height_12">12dp</dimen>
-  <dimen name="height_16">16dp</dimen>
-  <dimen name="height_32">32dp</dimen>
-  <dimen name="height_48">48dp</dimen>
-  <dimen name="height_96">96dp</dimen>
-  <dimen name="height_124">124dp</dimen>
-  <dimen name="height_350">350dp</dimen>
+    <!-- padding -->
+    <dimen name="height_1">1dp</dimen>
+    <dimen name="height_8">8dp</dimen>
+    <dimen name="height_12">12dp</dimen>
+    <dimen name="height_16">16dp</dimen>
+    <dimen name="height_32">32dp</dimen>
+    <dimen name="height_48">48dp</dimen>
+    <dimen name="height_72">72dp</dimen>
+    <dimen name="height_80">80dp</dimen>
+    <dimen name="height_96">96dp</dimen>
+    <dimen name="height_128">128dp</dimen>
+    <dimen name="height_192">192dp</dimen>
+    <dimen name="height_252">252dp</dimen>
+    <dimen name="height_350">350dp</dimen>
 
-  <!-- font -->
-  <dimen name="font_size_8">8sp</dimen>
-  <dimen name="font_size_10">10sp</dimen>
-  <dimen name="font_size_12">12sp</dimen>
-  <dimen name="font_size_14">14sp</dimen>
-  <dimen name="font_size_16">16sp</dimen>
-  <dimen name="font_size_28">28sp</dimen>
+    <!-- font -->
+    <dimen name="font_size_8">8sp</dimen>
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_28">28sp</dimen>
 
 
-  <!-- padding -->
-  <dimen name="padding_2">2dp</dimen>
-  <dimen name="padding_4">4dp</dimen>
-  <dimen name="padding_6">6dp</dimen>
-  <dimen name="padding_8">8dp</dimen>
-  <dimen name="padding_10">10dp</dimen>
-  <dimen name="padding_16">16dp</dimen>
-  <dimen name="padding_20">20dp</dimen>
-  <dimen name="padding_32">32dp</dimen>
+    <!-- padding -->
+    <dimen name="padding_2">2dp</dimen>
+    <dimen name="padding_4">4dp</dimen>
+    <dimen name="padding_6">6dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_22">22dp</dimen>
+    <dimen name="padding_30">30dp</dimen>
+    <dimen name="padding_32">32dp</dimen>
+    <dimen name="padding_48">48dp</dimen>
+    <dimen name="padding_64">64dp</dimen>
+    <dimen name="padding_70">70dp</dimen>
 </resources>

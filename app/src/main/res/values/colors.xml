@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#54A3FF</color>
-  <color name="colorPrimaryDark">#D32F2F</color>
-  <color name="colorAccent">#536DFE</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#448AFF</color>
 
 
-  <!-- 配置qmui提供的theme -->
-  <color name="app_color_blue">#3692C5</color>
-  <color name="app_color_blue_disabled">#4387AC</color>
-  <color name="app_color_blue_pressed">#3283B0</color>
-  <!-- Grapefruit -->
-  <!-- Bittersweet -->
-  <!-- Sunflower -->
-  <!-- Grass -->
-  <!-- Mint -->
-  <!-- Aqua -->
-  <!-- Blue Jeans -->
-  <!-- Lavender -->
-  <!-- Pink Rose -->
+    <!-- 配置qmui提供的theme -->
+    <color name="app_color_blue">#3692C5</color>
+    <color name="app_color_blue_disabled">#4387AC</color>
+    <color name="app_color_blue_pressed">#3283B0</color>
+
+    <!-- Grapefruit -->
+    <!-- Bittersweet -->
+    <!-- Sunflower -->
+    <!-- Grass -->
+    <!-- Mint -->
+    <!-- Aqua -->
+    <!-- Blue Jeans -->
+    <!-- Lavender -->
+    <!-- Pink Rose -->
 
 
-  <!-- 自定义 color -->
-  <color name="transparent">#00000000</color>
-  <color name="blue_normal">#3692C5</color>
-  <color name="tab_unselect">#AEAEAE</color>
-  <color name="view_container_bg">#EFEFEF</color>
-  <color name="text_plus">#00A600</color>
-  <color name="text_sub">#FF5151</color>
-  <color name="black_333333">#333333</color>
-  <color name="black_666666">#666666</color>
-  <color name="black_999999">#999999</color>
-  <color name="white">#FFFFFF</color>
+    <!-- 自定义 color -->
+    <color name="halftransparent">#7f000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="blue_normal">#3692C5</color>
+    <color name="tab_unselect">#AEAEAE</color>
+    <color name="view_container_bg">#EFEFEF</color>
+    <color name="text_plus">#00A600</color>
+    <color name="text_sub">#FF5151</color>
+    <color name="black_333333">#333333</color>
+    <color name="black_666666">#666666</color>
+    <color name="black_999999">#999999</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- 自定义 color gray -->
+    <color name="gray_1">#F5F5F5</color>
+    <color name="gray_2">#EEEEEE</color>
+    <color name="gray_3">#E0E0E0</color>
+    <color name="gray_4">#BDBDBD</color>
+    <color name="gray_5">#9E9E9E</color>
+    <color name="gray_6">#757575</color>
 
 
-  <!-- 配置 chart -->
+    <!-- 配置 chart -->
 
 
 </resources>

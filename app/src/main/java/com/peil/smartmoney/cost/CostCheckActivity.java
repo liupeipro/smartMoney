@@ -1,22 +1,21 @@
 package com.peil.smartmoney.cost;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.orhanobut.dialogplus.DialogPlus;
 import com.peil.smartmoney.R;
 import com.peil.smartmoney.base.BaseActivity;
 import com.peil.smartmoney.base.MoneyApplication;
 import com.peil.smartmoney.greendao.gen.CostItemDao;
 import com.peil.smartmoney.model.CostItem;
 import com.peil.smartmoney.util.MoneyConstants;
+import com.peil.smartmoney.util.PDialogHelper;
 import com.peil.smartmoney.util.ReceiverUtils;
 import com.peil.smartmoney.util.ResHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -57,34 +56,15 @@ public class CostCheckActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cost_check);
+    protected int getContentView() {
+        return R.layout.activity_cost_check;
+    }
 
-        Long intentItemId = getIntent().getLongExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID, -1);
-
-        if (intentItemId != -1) {
-            mItem = MoneyApplication.getDaoInstant()
-                    .getCostItemDao()
-                    .queryBuilder()
-                    .where(CostItemDao.Properties._id.eq(intentItemId))
-                    .unique();
-        }
-
+    @Override
+    protected void initView() {
         bar_top = findViewById(R.id.bar_top);
-        bar_top.setTitle("查看记账");
-        bar_top.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        bar_top.addRightTextButton("编辑", R.id.topbar_right_change_button)
-                .setOnClickListener(mOnClickListener);
         tv_amount = findViewById(R.id.tv_amount);
         btn_del = findViewById(R.id.btn_del);
-        btn_del.setText("删除");
-        btn_del.setOnClickListener(mOnClickListener);
         mGroupListView = findViewById(R.id.groupListView);
 
         //      账户
@@ -104,31 +84,92 @@ public class CostCheckActivity extends BaseActivity {
 
         //      备注
         itemRemark =
-                mGroupListView.createItemView(null, "备注", "", QMUICommonListItemView.VERTICAL,
+                mGroupListView.createItemView(null, "备注", "", QMUICommonListItemView.HORIZONTAL,
                         QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        initDialogDelteView();
+    }
+
+    @Override
+    protected void initData() {
+        Long intentItemId = getIntent().getLongExtra(MoneyConstants.INTENT_COST_EDIT_ITEM_ID, -1);
+
+        if (intentItemId != -1) {
+            mItem = MoneyApplication.getDaoInstant()
+                    .getCostItemDao()
+                    .queryBuilder()
+                    .where(CostItemDao.Properties._id.eq(intentItemId))
+                    .unique();
+        }
+    }
+
+    @Override
+    protected void initController() {
+        bar_top.setTitle("查看记账");
+        bar_top.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        bar_top.addRightImageButton(R.mipmap.ic_edit_white, R.id.topbar_right_change_button)
+                .setOnClickListener(mOnClickListener);
+        btn_del.setText("删除");
+        btn_del.setOnClickListener(mOnClickListener);
         update(mItem);
     }
 
-    private void showDelDialog() {
-        final QMUIDialog.MessageDialogBuilder builder = new QMUIDialog.MessageDialogBuilder(this);
+    private DialogPlus mDialogDelete;
+    private com.orhanobut.dialogplus.OnClickListener mDeleteClickListener = new com.orhanobut.dialogplus.OnClickListener() {
+        @Override
+        public void onClick(DialogPlus dialog, View view) {
+            switch (view.getId()) {
+                case R.id.btn_left:
+                    ToastUtils.showShort("取消");
+                    mDialogDelete.dismiss();
+                    break;
+                case R.id.btn_right:
+                    ToastUtils.showShort("确认");
+                    doDeleteRecord();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
-        builder.setTitle("确认要删除吗？")
-                .setMessage("辛苦记的帐就找不回来啦！")
-                .setCancelable(true)
-                .addAction("取消", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        dialog.dismiss();
-                    }
-                })
-                .addAction("确定", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        doDeleteRecord();
-                    }
-                })
-                .create(R.style.qmui_dialog_wrap)
-                .show();
+    private PDialogHelper mPDialogHelper = null;
+
+    /**
+     * 初始化删除对话框
+     */
+    private void initDialogDelteView() {
+        mPDialogHelper = PDialogHelper.newDialog(this)
+                .setBuilder(new PDialogHelper.Builder()
+                        .setBtnLeftText("取消")
+                        .setBtnRightText("确认")
+                        .setTitle("确认要删除吗？")
+                        .setContent("辛苦记的帐就找不回来啦！"))
+                .setDialogOnClickListener(
+                        new PDialogHelper.DialogOnClickListener() {
+                            @Override
+                            public void onBtnLeftClicked() {
+                                ToastUtils.showShort("取消");
+                                mPDialogHelper.dismiss();
+                            }
+
+                            @Override
+                            public void onBtnRightClicked() {
+                                mPDialogHelper.dismiss();
+
+                                ToastUtils.showShort("确认");
+                                doDeleteRecord();
+                            }
+                        });
+    }
+
+
+    private void showDelDialog() {
+        mPDialogHelper.show();
     }
 
     private void update(CostItem item) {
@@ -136,11 +177,11 @@ public class CostCheckActivity extends BaseActivity {
             String amount = "";
 
             if (item.getCostAmountType().getName().equals("收入")) {
-                amount = "￥ +" + item.getCostAmount() + " 元";
-                tv_amount.setTextColor(ResHelper.getAttrColor(this, R.color.text_plus));
+                amount = "￥+" + item.getCostAmount() + " 元";
+                tv_amount.setTextColor(ResHelper.getColor(this, R.color.text_plus));
             } else {
-                amount = "￥ -" + item.getCostAmount() + " 元";
-                tv_amount.setTextColor(ResHelper.getAttrColor(this, R.color.text_sub));
+                amount = "￥-" + item.getCostAmount() + " 元";
+                tv_amount.setTextColor(ResHelper.getColor(this, R.color.text_sub));
             }
 
             tv_amount.setText(amount);

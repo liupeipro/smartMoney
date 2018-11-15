@@ -10,88 +10,90 @@
         android:id="@+id/bar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back" />
 
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_marginRight="@dimen/padding_10"
+        android:layout_marginBottom="@dimen/padding_10"
+        android:orientation="vertical">
 
         <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
             android:id="@+id/groupListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/btn_del"
-            >
+            android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10">
 
             <TextView
-                android:id="@+id/tv_amount"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_96"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/padding_10"
-                android:gravity="center"
-                android:padding="@dimen/padding_10"
-                android:textSize="@dimen/font_size_28"
-                />
+                android:gravity="center|left"
+                android:padding="@dimen/padding_6"
+                android:text="备注"
+                android:textSize="@dimen/font_size_14" />
 
-        </com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView>
-    </ScrollView>
+            <EditText
+                android:id="@+id/et_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_10"
+                android:background="@color/transparent"
+                android:hint="请输入备注"
+                android:inputType="text"
+                android:maxLines="5"
+                android:padding="@dimen/padding_6"
+                android:textColor="@color/black_666666"
+                android:textColorHint="@color/qmui_config_color_gray_9"
+                android:textSize="@dimen/font_size_12" />
+
+        </LinearLayout>
 
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_48"
-        android:gravity="center_vertical"
-        android:padding="@dimen/padding_8">
-
-
-        <EditText
-            android:id="@+id/et_remark"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/padding_10"
-            android:layout_marginRight="@dimen/padding_10"
-            android:background="@color/transparent"
-            android:hint="备注..."
-            android:inputType="text"
-            android:textColor="@color/blue_normal"
-            android:textColorHint="@color/blue_normal"
-            android:textSize="@dimen/font_size_12" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white"
+            android:layout_marginTop="@dimen/padding_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center|left"
+                android:layout_marginLeft="@dimen/padding_10"
+                android:layout_marginTop="@dimen/padding_10"
+                android:text="类别"
+                android:textSize="@dimen/font_size_14" />
+
+            <GridView
+                android:id="@+id/grid_type"
+                android:layout_marginTop="@dimen/padding_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:choiceMode="singleChoice"
+                android:horizontalSpacing="0dp"
+                android:numColumns="5"
+                android:verticalSpacing="0dp" />
+        </LinearLayout>
 
 
-    </RelativeLayout>
+        <!--<com.peil.smartmoney.view.InputAmountView-->
+        <!--android:id="@+id/view_amount"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="@dimen/view_inputamount_height"-->
+        <!--android:layout_alignParentBottom="true" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center|left"
-        android:padding="@dimen/padding_10"
-        android:text="类别"
-        android:textSize="@dimen/font_size_14" />
-
-    <GridView
-        android:id="@+id/grid_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:choiceMode="singleChoice"
-        android:horizontalSpacing="0dp"
-        android:numColumns="5"
-        android:verticalSpacing="0dp" />
-
-
-    <com.peil.smartmoney.view.InputAmountView
-        android:id="@+id/view_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/view_inputamount_height"
-        android:layout_alignParentBottom="true" />
-
+    </LinearLayout>
 </LinearLayout>

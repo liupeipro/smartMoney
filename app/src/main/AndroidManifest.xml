@@ -24,9 +24,9 @@
         <activity
             android:name=".calculator.CalculatorFilterActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".about.AboutActivity"></activity>
-        <activity android:name=".about.IntroduceActivity"></activity>
-        <activity android:name=".finanical.FinanceDetailActivity"></activity>
+        <activity android:name=".about.AboutActivity" />
+        <activity android:name=".about.IntroduceActivity" />
+        <activity android:name=".finanical.FinanceDetailActivity" />
     </application>
 
 </manifest>

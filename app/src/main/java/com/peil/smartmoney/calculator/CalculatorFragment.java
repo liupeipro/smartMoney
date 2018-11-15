@@ -4,19 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -24,7 +19,6 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.peil.smartmoney.R;
 import com.peil.smartmoney.adapter.CalculatorListAdapter;
 import com.peil.smartmoney.base.BaseFragment;
@@ -123,73 +117,6 @@ public class CalculatorFragment extends BaseFragment {
     private ListView listview;
     private CalculatorListAdapter mListAdapter;
 
-    private SpannableString generateCenterSpannableText() {
-        SpannableString s = new SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda");
-
-        s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
-        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
-        s.setSpan(new RelativeSizeSpan(.8f), 14, s.length() - 15, 0);
-        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14,
-                s.length(), 0);
-
-        return s;
-    }
-
-    private void initView(View view) {
-        bar_top = view.findViewById(R.id.bar_top);
-        bar_top.setTitle("统计");
-        bar_top.addRightTextButton("筛选", R.id.topbar_right_change_button)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(_mActivity.getApplicationContext(),
-                                CalculatorFilterActivity.class));
-                    }
-                });
-        tv_time = view.findViewById(R.id.tv_time);
-        listview = view.findViewById(R.id.listview);
-        listview.setAdapter(mListAdapter);
-        mBottomBar = (BottomBar) view.findViewById(R.id.bottomBar);
-        pull_to_refresh = view.findViewById(R.id.pull_to_refresh);
-        pull_to_refresh.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
-            @Override
-            public void onMoveTarget(int offset) {
-            }
-
-            @Override
-            public void onMoveRefreshView(int offset) {
-            }
-
-            @Override
-            public void onRefresh() {
-                updateDataAll();
-            }
-        });
-
-        // data 初始化
-        mAmountTypes = MoneyApplication.getDaoInstant().getCostItemAmountTypeDao().loadAll();
-
-        if (!mAmountTypes.isEmpty()) {
-            for (CostItemAmountType item : mAmountTypes) {
-                BottomTextBarTab tempTab = new BottomTextBarTab(_mActivity, item.getName());
-
-                mBottomBar.addItem(tempTab);
-            }
-        }
-
-        mBottomBar.setOnTabSelectedListener(mOnTabSelectedListener);
-
-        firstInitData();
-    }
-
-    private void firstInitData() {
-        //指定初始数据
-        mStartTime = TimeUtil.getMonthAgoForNow();
-        mEndTime = TimeUtils.getNowMills();
-        updateAmountTypeData(0);
-    }
 
     public static CalculatorFragment newInstance() {
         Bundle args = new Bundle();
@@ -222,6 +149,69 @@ public class CalculatorFragment extends BaseFragment {
 
         initView(view);
         return view;
+    }
+
+    private void initView(View view) {
+        mBottomBar = getTitileCenterView();
+        bar_top = view.findViewById(R.id.bar_top);
+        bar_top.setCenterView(mBottomBar);
+        bar_top.addRightImageButton(R.mipmap.ic_filter_list_white, R.id.topbar_right_change_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(_mActivity.getApplicationContext(),
+                                CalculatorFilterActivity.class));
+                    }
+                });
+        tv_time = view.findViewById(R.id.tv_time);
+        listview = view.findViewById(R.id.listview);
+        listview.setAdapter(mListAdapter);
+        pull_to_refresh = view.findViewById(R.id.pull_to_refresh);
+        pull_to_refresh.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+            }
+
+            @Override
+            public void onRefresh() {
+                updateDataAll();
+            }
+        });
+
+        // data 初始化
+        mAmountTypes = MoneyApplication.getDaoInstant().getCostItemAmountTypeDao().loadAll();
+
+        if (!mAmountTypes.isEmpty()) {
+            for (CostItemAmountType item : mAmountTypes) {
+                BottomTextBarTab tempTab = new BottomTextBarTab(_mActivity, item.getName());
+                mBottomBar.addItem(tempTab);
+            }
+        }
+
+        mBottomBar.setOnTabSelectedListener(mOnTabSelectedListener);
+
+        firstInitData();
+    }
+
+    private BottomBar getTitileCenterView() {
+        int height = getResources().getDimensionPixelSize(R.dimen.height_32);
+        BottomBar bottomBar = new BottomBar(_mActivity);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, height);
+        bottomBar.setLayoutParams(params);
+        bottomBar.setBackgroundResource(R.drawable.bg_add_cost_type);
+        bottomBar.setOnTabSelectedListener(mOnTabSelectedListener);
+        return bottomBar;
+    }
+
+    private void firstInitData() {
+        //指定初始数据
+        mStartTime = TimeUtil.getMonthAgoForNow();
+        mEndTime = TimeUtils.getNowMills();
+        updateAmountTypeData(0);
     }
 
     private List<CalculCostType> parseData(List<CostItem> datas) {
