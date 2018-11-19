@@ -24,7 +24,8 @@
 
     <style name="Button.base" parent="Base.TextAppearance.AppCompat.Widget.Button.Inverse">
         <item name="android:background">@drawable/selector_button_bg</item>
-        <item name="android:textColor">@color/qmui_config_color_black</item>
+        <item name="android:textColor">@color/black_333333</item>
+        <item name="android:textSize">@dimen/font_size_14</item>
 
     </style>
 

@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class TimeUtil {
+
     public static String millis2Str(long millis, String format) {
         return TimeUtils.millis2String(millis, new SimpleDateFormat(format, Locale.getDefault()));
     }
@@ -31,7 +32,7 @@ public class TimeUtil {
 
         calendar.setTimeInMillis(System.currentTimeMillis());
         result.put("year", calendar.get(Calendar.YEAR));
-        result.put("month", calendar.get(Calendar.MONTH));
+        result.put("month", calendar.get(Calendar.MONTH)+1);
         result.put("day", calendar.get(Calendar.DAY_OF_MONTH));
 
         return result;
@@ -45,6 +46,7 @@ public class TimeUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.MONTH, -1);
+
         return calendar.getTimeInMillis();
     }
 }

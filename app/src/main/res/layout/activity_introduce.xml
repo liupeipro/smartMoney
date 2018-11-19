@@ -13,5 +13,23 @@
         android:layout_height="wrap_content"
         app:qmui_topbar_left_back_drawable_id="@drawable/qmui_icon_topbar_back" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_10"
+        android:background="@color/qmui_config_color_white"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_10">
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_10"
+            android:ellipsize="end"
+            android:textColor="@color/black_999999"
+            android:textSize="@dimen/font_size_12" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

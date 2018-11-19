@@ -150,9 +150,6 @@ public class CostAddActivity extends BaseActivity {
     };
 
 
-    private void onSubmit(CostItem item) {
-    }
-
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
@@ -368,7 +365,7 @@ public class CostAddActivity extends BaseActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         int tempYear = calendar.get(Calendar.YEAR);
-        int tempMonth = calendar.get(Calendar.MONTH);
+        int tempMonth = calendar.get(Calendar.MONTH)+1;
         int tempDay = calendar.get(Calendar.DAY_OF_MONTH);
         LogUtils.i(new Object[]{
                 "cost add datepicker ",

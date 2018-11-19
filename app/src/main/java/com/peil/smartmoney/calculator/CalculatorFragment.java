@@ -1,5 +1,6 @@
 package com.peil.smartmoney.calculator;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +26,14 @@ import com.peil.smartmoney.adapter.CalculatorListAdapter;
 import com.peil.smartmoney.base.BaseFragment;
 import com.peil.smartmoney.base.MoneyApplication;
 import com.peil.smartmoney.greendao.gen.CostItemDao;
+import com.peil.smartmoney.model.CalcuatorFilterItem;
 import com.peil.smartmoney.model.CalculCostType;
 import com.peil.smartmoney.model.CalculatorListItem;
 import com.peil.smartmoney.model.CostItem;
 import com.peil.smartmoney.model.CostItemAmountType;
 import com.peil.smartmoney.util.FloatUtils;
 import com.peil.smartmoney.util.GsonUtils;
+import com.peil.smartmoney.util.MoneyConstants;
 import com.peil.smartmoney.util.ReceiverUtils;
 import com.peil.smartmoney.util.TimeUtil;
 import com.peil.smartmoney.view.BottomBar;
@@ -53,7 +57,7 @@ public class CalculatorFragment extends BaseFragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(ReceiverUtils.RECEIVER_COST_LIST_UPDATE)) {
-                updateDataAll();
+                pull_to_refresh.doRefresh();
             }
         }
     };
@@ -159,8 +163,13 @@ public class CalculatorFragment extends BaseFragment {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(_mActivity.getApplicationContext(),
-                                CalculatorFilterActivity.class));
+                        Intent intent = new Intent(_mActivity.getApplicationContext(),
+                                CalculatorFilterActivity.class);
+                        CalcuatorFilterItem item = new CalcuatorFilterItem();
+                        item.setFirstDate(mStartTime);
+                        item.setEndDate(mEndTime);
+                        intent.putExtra(MoneyConstants.INTENT_CALCULATOR_FILTER_ITEM, item);
+                        startActivityForResult(intent, MoneyConstants.INTENT_REQUEST_CALCULATOR_FILTER);
                     }
                 });
         tv_time = view.findViewById(R.id.tv_time);
@@ -282,5 +291,25 @@ public class CalculatorFragment extends BaseFragment {
                 .orderDesc(CostItemDao.Properties.CostDate)
                 .list();
         return result;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MoneyConstants.INTENT_REQUEST_CALCULATOR_FILTER) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                if (bundle != null) {
+                    CalcuatorFilterItem item = (CalcuatorFilterItem) bundle.getSerializable(MoneyConstants.INTENT_CALCULATOR_FILTER_ITEM);
+                    if (item != null) {
+                        if (!TextUtils.isEmpty(item.getFirstDate()) && !TextUtils.isEmpty(item.getEndDate())) {
+                            mStartTime = Long.valueOf(item.getFirstDate());
+                            mEndTime = Long.valueOf(item.getEndDate());
+                            pull_to_refresh.doRefresh();
+
+                        }
+                    }
+                }
+            }
+        }
     }
 }

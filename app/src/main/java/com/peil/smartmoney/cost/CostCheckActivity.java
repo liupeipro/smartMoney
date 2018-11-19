@@ -143,14 +143,13 @@ public class CostCheckActivity extends BaseActivity {
      * 初始化删除对话框
      */
     private void initDialogDelteView() {
-        mPDialogHelper = PDialogHelper.newDialog(this)
-                .setBuilder(new PDialogHelper.Builder()
-                        .setBtnLeftText("取消")
-                        .setBtnRightText("确认")
-                        .setTitle("确认要删除吗？")
-                        .setContent("辛苦记的帐就找不回来啦！"))
+        mPDialogHelper = PDialogHelper.newDialog(new PDialogHelper.Builder(this)
+                .setBtnLeftText("取消")
+                .setBtnRightText("确认")
+                .setTitle("确认要删除吗？")
+                .setContent("辛苦记的帐就找不回来啦！")
                 .setDialogOnClickListener(
-                        new PDialogHelper.DialogOnClickListener() {
+                        new PDialogHelper.Builder.DialogOnClickListener() {
                             @Override
                             public void onBtnLeftClicked() {
                                 ToastUtils.showShort("取消");
@@ -164,7 +163,7 @@ public class CostCheckActivity extends BaseActivity {
                                 ToastUtils.showShort("确认");
                                 doDeleteRecord();
                             }
-                        });
+                        }));
     }
 
 

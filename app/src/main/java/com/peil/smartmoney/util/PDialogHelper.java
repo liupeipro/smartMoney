@@ -3,6 +3,7 @@ package com.peil.smartmoney.util;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.DialogPlusBuilder;
-import com.orhanobut.dialogplus.ViewHolder;
+import com.orhanobut.dialogplus.Holder;
+import com.orhanobut.dialogplus.OnClickListener;
 import com.peil.smartmoney.R;
 
 /**
@@ -20,14 +22,13 @@ import com.peil.smartmoney.R;
  */
 public class PDialogHelper {
     private static final float SCALE_WIDTH = 0.8f;
-    private static final float SCALE_HEIGHT = 0.3f;
+    private static final float SCALE_HEIGHT = 0.25f;
 
-    private Context mContext;
     private int mContentWidth = 0, mContentHeight = 0;
     private DialogPlus mDialogPlus = null;
     private DialogPlusBuilder mDialogPlusBuilder = null;
     private Builder mBuilder = null;
-    private DialogOnClickListener mDialogOnClickListener = null;
+    private NormalViewHolder mContentViewHolder;
 
     private View mContentView = null;
     private View mHeaderView = null;
@@ -35,22 +36,24 @@ public class PDialogHelper {
     private TextView tv_title, tv_content;
     private Button btn_left, btn_right;
 
-    public interface DialogOnClickListener {
-        void onBtnLeftClicked();
-
-        void onBtnRightClicked();
-    }
-
     public static class Builder {
 
+        public interface DialogOnClickListener {
+            void onBtnLeftClicked();
+
+            void onBtnRightClicked();
+        }
+
+        private Context mContext;
         private String title = "";
         private String content = "";
         private String btnLeftText = "";
         private String btnRightText = "";
         private int mGravity = -1;
+        private DialogOnClickListener mDialogOnClickListener = null;
 
-        public Builder() {
-
+        public Builder(Context context) {
+            mContext = context;
         }
 
         public Builder(String title, String content) {
@@ -71,6 +74,10 @@ public class PDialogHelper {
             this.btnLeftText = btnLeftText;
             this.btnRightText = btnRightText;
             this.mGravity = gravity;
+        }
+
+        public Context getContext() {
+            return mContext;
         }
 
         public String getTitle() {
@@ -118,69 +125,178 @@ public class PDialogHelper {
             return this;
         }
 
+        public DialogOnClickListener getDialogOnClickListener() {
+            return mDialogOnClickListener;
+        }
+
+        public Builder setDialogOnClickListener(DialogOnClickListener listener) {
+            this.mDialogOnClickListener = listener;
+            return this;
+        }
     }
 
-    private static class NormalViewHolder extends ViewHolder {
+    private static class NormalViewHolder implements Holder {
+
+        private static final int INVALID = -1;
+
+        private int backgroundResource;
+
+        private ViewGroup headerContainer;
+        private View headerView;
+
+        private ViewGroup footerContainer;
+        private View footerView;
+
+        private View.OnKeyListener keyListener;
+
+        private View contentView;
+        private int viewResourceId = INVALID;
 
         public NormalViewHolder(int viewResourceId) {
-            super(viewResourceId);
+            this.viewResourceId = viewResourceId;
         }
 
         public NormalViewHolder(View contentView) {
-            super(contentView);
+            this.contentView = contentView;
         }
-    }
 
-    private View.OnClickListener mFooterOnClickListener = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_left:
-                    if (mDialogOnClickListener != null) {
-                        mDialogOnClickListener.onBtnLeftClicked();
-                    }
-                    break;
-                case R.id.btn_right:
-                    if (mDialogOnClickListener != null) {
-                        mDialogOnClickListener.onBtnRightClicked();
-                    }
-                    break;
-                default:
-                    break;
+        public void addHeader(View view) {
+            if (view == null) {
+                return;
             }
+            headerContainer.addView(view);
+            headerView = view;
         }
-    };
 
-    public PDialogHelper(Context context) {
-        this(context, null);
+        @Override
+        public void addFooter(View view) {
+            if (view == null) {
+                return;
+            }
+            footerContainer.addView(view);
+            footerView = view;
+        }
+
+        @Override
+        public void setBackgroundResource(int colorResource) {
+            this.backgroundResource = colorResource;
+        }
+
+        @Override
+        public View getView(LayoutInflater inflater, ViewGroup parent) {
+            View view = inflater.inflate(R.layout.dialog_container_normal, parent, false);
+            View outMostView = view.findViewById(com.orhanobut.dialogplus.R.id.dialogplus_outmost_container);
+            outMostView.setBackgroundResource(backgroundResource);
+            ViewGroup contentContainer = (ViewGroup) view.findViewById(com.orhanobut.dialogplus.R.id.dialogplus_view_container);
+            contentContainer.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (keyListener == null) {
+                        throw new NullPointerException("keyListener should not be null");
+                    }
+                    return keyListener.onKey(v, keyCode, event);
+                }
+            });
+            addContent(inflater, parent, contentContainer);
+            headerContainer = (ViewGroup) view.findViewById(com.orhanobut.dialogplus.R.id.dialogplus_header_container);
+            footerContainer = (ViewGroup) view.findViewById(com.orhanobut.dialogplus.R.id.dialogplus_footer_container);
+            return view;
+        }
+
+        private void addContent(LayoutInflater inflater, ViewGroup parent, ViewGroup container) {
+            if (viewResourceId != INVALID) {
+                contentView = inflater.inflate(viewResourceId, parent, false);
+            } else {
+                ViewGroup parentView = (ViewGroup) contentView.getParent();
+                if (parentView != null) {
+                    parentView.removeView(contentView);
+                }
+            }
+
+            container.addView(contentView);
+        }
+
+        @Override
+        public void setOnKeyListener(View.OnKeyListener keyListener) {
+            this.keyListener = keyListener;
+        }
+
+        @Override
+        public View getInflatedView() {
+            return contentView;
+        }
+
+        @Override
+        public View getHeader() {
+            return headerView;
+        }
+
+        @Override
+        public View getFooter() {
+            return footerView;
+        }
     }
 
-    public static PDialogHelper newDialog(Context context) {
-        return new PDialogHelper(context);
+
+    public static PDialogHelper newDialog(Builder builder) {
+        return new PDialogHelper(builder);
     }
 
-    public PDialogHelper(Context context, Builder builder) {
-        mContext = context;
+    public PDialogHelper(Builder builder) {
         mBuilder = builder;
         initView();
         initData();
+        initController();
     }
 
 
     private void initView() {
-        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dialog_content_normal, null);
-        mHeaderView = LayoutInflater.from(mContext).inflate(R.layout.dialog_header_normal, null);
-        mFooterView = LayoutInflater.from(mContext).inflate(R.layout.dialog_footer_normal, null);
-
-        mDialogPlusBuilder = DialogPlus.newDialog(mContext);
+        mContentView = LayoutInflater.from(mBuilder.getContext()).inflate(R.layout.dialog_content_normal, null);
+        mHeaderView = LayoutInflater.from(mBuilder.getContext()).inflate(R.layout.dialog_header_normal, null);
+        mFooterView = LayoutInflater.from(mBuilder.getContext()).inflate(R.layout.dialog_footer_normal, null);
 
         tv_title = mHeaderView.findViewById(R.id.tv_title);
         tv_content = mContentView.findViewById(R.id.tv_content);
         btn_left = mFooterView.findViewById(R.id.btn_left);
         btn_right = mFooterView.findViewById(R.id.btn_right);
 
-        btn_left.setOnClickListener(mFooterOnClickListener);
-        btn_right.setOnClickListener(mFooterOnClickListener);
+        btn_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        btn_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        mContentViewHolder = new NormalViewHolder(mContentView);
+
+        mDialogPlusBuilder = DialogPlus.newDialog(mBuilder.getContext())
+                .setContentBackgroundResource(R.drawable.bg_white_round)
+                .setExpanded(true)
+                .setHeader(mHeaderView)
+                .setContentHolder(mContentViewHolder)
+                .setFooter(mFooterView).setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(DialogPlus dialog, View view) {
+                        switch (view.getId()) {
+                            case R.id.btn_left:
+                                if (mBuilder.getDialogOnClickListener() != null) {
+                                    mBuilder.getDialogOnClickListener().onBtnLeftClicked();
+                                }
+                                break;
+                            case R.id.btn_right:
+                                if (mBuilder.getDialogOnClickListener() != null) {
+                                    mBuilder.getDialogOnClickListener().onBtnRightClicked();
+                                }
+                                break;
+                            default:
+                        }
+                    }
+                });
+
     }
 
     private void initData() {
@@ -189,6 +305,9 @@ public class PDialogHelper {
     }
 
     private void initController() {
+        mDialogPlusBuilder.setContentWidth(mContentWidth)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+
         if (mBuilder != null) {
             if (!TextUtils.isEmpty(mBuilder.getTitle())) {
                 tv_title.setText(mBuilder.getTitle());
@@ -198,7 +317,8 @@ public class PDialogHelper {
                 mHeaderView.setVisibility(View.GONE);
             }
 
-            if (TextUtils.isEmpty(mBuilder.getBtnLeftText()) && TextUtils.isEmpty(mBuilder.getBtnRightText())) {
+            if (TextUtils.isEmpty(mBuilder.getBtnLeftText())
+                    && TextUtils.isEmpty(mBuilder.getBtnRightText())) {
                 mFooterView.setVisibility(View.GONE);
             } else {
                 btn_left.setText(mBuilder.getBtnLeftText());
@@ -220,20 +340,10 @@ public class PDialogHelper {
             mDialogPlusBuilder.setGravity(Gravity.CENTER);
         }
 
-        mDialogPlusBuilder.setHeader(mHeaderView);
-        mDialogPlusBuilder.setFooter(mFooterView);
-
-        mDialogPlusBuilder.setContentHolder(new NormalViewHolder(mContentView));
-        mDialogPlusBuilder.setContentBackgroundResource(R.drawable.bg_white_round);
-        mDialogPlusBuilder.setContentWidth(mContentWidth);
-        mDialogPlusBuilder.setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        mDialogPlusBuilder.setExpanded(true);
-
         mDialogPlus = mDialogPlusBuilder.create();
     }
 
     public void show() {
-        initController();
         if (mDialogPlus != null) {
             mDialogPlus.show();
         }
@@ -245,13 +355,4 @@ public class PDialogHelper {
         }
     }
 
-    public PDialogHelper setBuilder(Builder builder) {
-        this.mBuilder = builder;
-        return this;
-    }
-
-    public PDialogHelper setDialogOnClickListener(DialogOnClickListener dialogOnClickListener) {
-        this.mDialogOnClickListener = dialogOnClickListener;
-        return this;
-    }
 }
